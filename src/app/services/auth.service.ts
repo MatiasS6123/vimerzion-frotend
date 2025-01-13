@@ -20,8 +20,9 @@ export class AuthService {
    */
   login(user: userLogin): Observable<any> {
     
-    return this.http.post(`${this.API_URL}/login`, user, { withCredentials: true }).pipe(
+    return this.http.post(`${this.API_URL}/login`, user).pipe(
       tap((response) => {
+        console.log(response)
       }),
       catchError((error) => {
         return throwError(() => error); // Propaga el error para que el componente lo maneje
