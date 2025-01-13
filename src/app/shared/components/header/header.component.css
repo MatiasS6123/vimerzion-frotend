@@ -1,0 +1,9 @@
+.active-link {
+    @apply relative text-[#f9f9f9] font-bold;
+  }
+  
+  .active-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-[3px] bg-[#00eefd] rounded-sm;
+  }
+  

@@ -1,0 +1,48 @@
+<!-- catalogo-juego.component.html -->
+<div *ngIf="loading" class="text-center text-white">
+    <p>Cargando juegos...</p>
+  </div>
+  
+  <section *ngIf="!loading && juegos.length > 0" class="w-full p-4">
+    <ul class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      <li *ngFor="let juego of juegos" class="flex flex-col items-center max-w-[150px] mx-auto w-full">
+        <!-- Card con solo la imagen -->
+        <div class="game-card w-full bg-gradient-to-b from-violet-700 to-violet-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+          <figure class="relative w-full aspect-square overflow-hidden border-2 border-white rounded-2xl">
+            <img
+              [src]="juego.plataforma.imagenUrl"
+              [alt]="juego.nombre"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </figure>
+        </div>
+        
+        <!-- Título separado debajo del card -->
+        <h3 class="text-lg font-bold mt-3 text-cyan-400">
+          {{ juego.nombre }}
+        </h3>
+      </li>
+    </ul>
+  
+    <nav class="flex justify-between items-center mt-8">
+      <button
+        (click)="prevPage()"
+        [disabled]="page <= 1"
+        class="bg-cyan-400 text-violet-900 px-6 py-2 rounded-lg font-bold hover:bg-cyan-300 disabled:opacity-50 disabled:hover:bg-cyan-400 transition-all"
+      >
+        Anterior
+      </button>
+      <span class="text-white">Página {{ page }} de {{ pages }}</span>
+      <button
+        (click)="nextPage()"
+        [disabled]="page >= pages"
+        class="bg-cyan-400 text-violet-900 px-6 py-2 rounded-lg font-bold hover:bg-cyan-300 disabled:opacity-50 disabled:hover:bg-cyan-400 transition-all"
+      >
+        Siguiente
+      </button>
+    </nav>
+  </section>
+  
+  <div *ngIf="!loading && juegos.length === 0" class="text-center text-white">
+    <p>No hay juegos disponibles.</p>
+  </div>

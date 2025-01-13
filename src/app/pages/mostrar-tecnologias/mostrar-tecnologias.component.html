@@ -1,0 +1,36 @@
+<section class="py-12 w-full">
+    <!-- Título principal -->
+    <h2 class="text-4xl uppercase font-bold text-center text-white mb-8">
+      {{ tecnologia.nombre }}
+    </h2>
+  
+    <!-- Contenedor principal -->
+    <div class="max-w-6xl mx-auto relative">
+      <!-- Imagen -->
+      <div class="shadow-md p-3 text-center max-w-[640px] mx-auto">
+        <div class="flex flex-col gap-4">
+          <div class="relative w-full h-[400px] rounded-lg overflow-hidden">
+            <img
+              [src]="tecnologia.imagen.url"
+              [alt]="tecnologia.nombre"
+              class="object-cover w-full h-full"
+            />
+          </div>
+        </div>
+      </div>
+  
+    
+    </div>
+  
+    <!-- Contenido adicional -->
+    <div class="mt-5 text-center text-white">
+        <h3 class="uppercase text-3xl font-bold text-[#f1f1f1]">
+            {{ tecnologia.nombre }}
+          </h3>
+
+          <p class="text-lg mt-6 text-[#f1f1f1]">
+            {{ tecnologia.descripcion }}
+          </p>
+    </div>
+  </section>
+  

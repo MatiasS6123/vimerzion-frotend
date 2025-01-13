@@ -1,0 +1,62 @@
+<section class="container mx-auto px-4 py-8">
+    <!-- Título Principal -->
+    <header class="text-left mx-4 sm:mx-24 my-8">
+        <h1 class="text-[25px] text-white font-bold">Contáctanos</h1>
+    </header>
+
+    <!-- Grid de 2 Columnas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Columna 1: Formulario -->
+        <div class="justify-self-end w-full max-w-lg">
+            <form [formGroup]="contactForm" (ngSubmit)="submit()" class="bg-gray-100 p-6 rounded-lg shadow-md w-full">
+                <!-- Nombre -->
+                <div class="mb-4">
+                    <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" formControlName="nombre" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" formControlName="email" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>                
+                <!-- Teléfono -->
+                <div class="mb-4">
+                    <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono" formControlName="telefono" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <!-- Mensaje -->
+                <div class="mb-4">
+                    <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
+                    <textarea formControlName="message" id="message" name="message" rows="4" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                </div>
+                <!-- Botón Enviar -->
+                <button type="submit" class="w-full bg-[#00eefd] py-2 px-4 rounded-md shadow-md ">Enviar</button>
+            </form>
+        </div>
+
+        <!-- Columna 2: Redes Sociales -->
+        <div class="flex flex-col items-center md:items-start gap-6">
+            <!-- Título Redes Sociales -->
+            <h2 class="text-[20px] text-white font-semibold">Nuestras Redes</h2>
+            <!-- Íconos -->
+            <div class="flex justify-center md:justify-start flex-wrap gap-4 sm:gap-6">
+                <!-- Facebook -->
+                <a href="#" class="group w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center overflow-hidden">
+                    <img src="assets/logo-facebook.svg" alt="Facebook" class="group-hover:scale-110 transition-transform duration-200">
+                </a>
+                <!-- Instagram -->
+                <a href="#" class="group w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center overflow-hidden">
+                    <img src="assets/logo-instagram.svg" alt="Instagram" class="group-hover:scale-110 transition-transform duration-200">
+                </a>
+                <!-- TikTok -->
+                <a href="#" class="group w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center overflow-hidden">
+                    <img src="assets/logo-tiktok.svg" alt="TikTok" class="group-hover:scale-110 transition-transform duration-200">
+                </a>
+                <!-- WhatsApp -->
+                <a href="#" class="group w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center overflow-hidden">
+                    <img src="assets/logo-whatssap.svg" alt="WhatsApp" class="group-hover:scale-110 transition-transform duration-200">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

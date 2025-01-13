@@ -1,0 +1,41 @@
+<section class="container mx-auto px-4 py-10">
+
+  <h1 class="text-center font-bold text-[28px] text-[#f1f1f1]">Iniciar Sesión</h1>
+    
+    <div class="flex justify-center items-center min-h-[400px] mb-2">
+      <form [formGroup]="loginForm" (ngSubmit)="submit()" class="max-w-md mx-auto shadow-md">
+        <!-- Campo Usuario -->
+        <div class="mb-4">
+          <input
+            type="text"
+            formControlName="email"
+            id="email"
+            required
+            class="mt-1 block w-full p-4 border  shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            placeholder="Ingresa tu usuario"
+          />
+        </div>
+  
+        <!-- Campo Contraseña -->
+        <div class="mb-4">
+          <input
+            type="password"
+            formControlName="password"
+            id="password"
+            required
+            class="mt-1 block w-full p-4 border  shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            placeholder="Ingresa tu contraseña"
+            aria-describedby="password-help"
+          />
+        </div>
+  
+        <div class="flex justify-center">
+          <!-- Botón Enviar -->
+          <button type="submit" class="w-2/4 bg-[#1E2D5B] text-white py-3 px-4 rounded-full shadow-md hover:bg-blue-700">
+            Ingresar
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+  

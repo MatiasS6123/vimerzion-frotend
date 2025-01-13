@@ -1,0 +1,39 @@
+<section class="py-12">
+    <div class="container mx-auto">
+      <h2 class="text-4xl font-bold text-center text-[#f1f1f1] mb-8">Paquetes Disponibles</h2>
+  
+      <!-- Grid para las tarjetas -->
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Repetir esta tarjeta para cada paquete -->
+        <div *ngFor="let paquete of paquetes" class="bg-white shadow-lg rounded-lg overflow-hidden">
+          <!-- Imagen del paquete -->
+          <img
+            [src]="paquete.foto"
+            [alt]="paquete.nombre"
+            class="w-full h-48 object-cover"
+          />
+  
+          <!-- Contenido de la tarjeta -->
+          <div class="p-4">
+            <!-- Nombre del paquete -->
+            <h3 class="text-lg font-bold text-gray-800 mb-2">{{ paquete.nombre }}</h3>
+ 
+            <p class="text-sm text-gray-600 mb-4">{{paquete.precio}}</p>
+            <!-- Descripción del paquete -->
+            <p class="text-sm text-gray-600 mb-4">
+              {{ paquete.descripcion }}...
+            </p>
+  
+            <!-- Botón de acción -->
+            <button
+              class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
+              (click)="addToCart(paquete)"
+            >
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

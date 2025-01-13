@@ -1,0 +1,95 @@
+<section class="max-w-lg mx-auto p-6 bg-gray-100 rounded-lg shadow-md mt-8">
+    <header class="text-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">Registro de Cliente</h1>
+      <p class="text-sm text-gray-600">Por favor, completa todos los campos para registrarte.</p>
+    </header>
+  
+    <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="mb-4">
+        <label for="username" class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Tu nombre de usuario"
+        />
+        <p *ngIf="clienteForm.get('username')?.touched && clienteForm.get('username')?.invalid" class="text-sm text-red-500">
+          Nombre de usuario es obligatorio y debe tener al menos 3 caracteres.
+        </p>
+      </div>
+  
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="tuemail@ejemplo.com"
+        />
+        <p *ngIf="clienteForm.get('email')?.touched && clienteForm.get('email')?.invalid" class="text-sm text-red-500">
+          Debes ingresar un correo válido.
+        </p>
+      </div>
+  
+      <!-- Password -->
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="••••••••"
+        />
+        <p *ngIf="clienteForm.get('password')?.touched && clienteForm.get('password')?.invalid" class="text-sm text-red-500">
+          La contraseña es obligatoria y debe tener al menos 8 caracteres.
+        </p>
+      </div>
+  
+      <!-- Teléfono -->
+      <div class="mb-4">
+        <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+        <input
+          id="telefono"
+          type="text"
+          formControlName="telefono"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="+56 123 456 789"
+        />
+        <p *ngIf="clienteForm.get('telefono')?.touched && clienteForm.get('telefono')?.invalid" class="text-sm text-red-500">
+          El teléfono es obligatorio y debe tener al menos 8 caracteres.
+        </p>
+      </div>
+  
+      <!-- Dirección -->
+      <div class="mb-4">
+        <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+        <textarea
+          id="direccion"
+          formControlName="direccion"
+          rows="3"
+          class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Tu dirección completa"
+        ></textarea>
+        <p *ngIf="clienteForm.get('direccion')?.touched && clienteForm.get('direccion')?.invalid" class="text-sm text-red-500">
+          La dirección es obligatoria y debe tener al menos 10 caracteres.
+        </p>
+      </div>
+  
+      <!-- Botón de Enviar -->
+      <div class="text-center">
+        <button
+          type="submit"
+          [disabled]="clienteForm.invalid"
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
+        >
+          Registrar Cliente
+        </button>
+      </div>
+    </form>
+  </section>
+  

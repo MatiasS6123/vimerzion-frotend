@@ -1,0 +1,93 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-4xl font-extrabold text-center text-white mb-8">
+    {{ isEditMode ? 'Actualizar Servicio' : 'Agregar Servicio' }}
+  </h1>
+
+  <form [formGroup]="servicioForm" (ngSubmit)="onSubmit()" class="bg-white rounded-lg shadow-lg p-8">
+    <div class="mb-6">
+      <label for="titulo" class="block text-lg font-medium text-gray-700">Nombre</label>
+      <input
+        id="titulo"
+        type="text"
+        formControlName="titulo"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div class="mb-6">
+      <label for="descripcion" class="block text-lg font-medium text-gray-700">Descripción</label>
+      <textarea
+        id="descripcion"
+        rows="3"
+        formControlName="descripcion"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      ></textarea>
+    </div>
+
+    <div class="mb-6">
+      <label for="imagen" class="block text-lg font-medium text-gray-700">Subir Imágenes</label>
+      <input
+        id="imagen"
+        multiple
+        type="file"
+        (change)="onFileChange($event)"
+        class="mt-2 block w-full"
+      />
+
+      <!-- Mostrar las imágenes existentes y nuevas -->
+      <div *ngIf="fotos.controls.length > 0" class="mt-4">
+        <ul [formArrayName]="'fotos'">
+          <li *ngFor="let foto of fotos.controls; let i = index" [formGroupName]="i" class="flex flex-col space-y-2">
+            <!-- Mostrar imagen existente o preview de nueva imagen -->
+            <div class="w-20 h-20 flex-shrink-0 overflow-hidden rounded-md border">
+              <img
+                [src]="foto.value.url || (foto.value.file ? '/assets/preview-placeholder.png' : '')"
+                alt="Imagen"
+                class="object-cover w-full h-full"
+              />
+            </div>
+
+            <!-- Input para título -->
+            <input
+              type="text"
+              formControlName="titulo"
+              placeholder="Título"
+              class="w-full border rounded-md px-2 py-1"
+            />
+
+            <!-- Input para descripción -->
+            <textarea
+              formControlName="descripcion_foto"
+              placeholder="Descripción extensa"
+              class="w-full border rounded-md px-2 py-1"
+              rows="3"
+            ></textarea>
+
+            <!-- Mostrar nombre del archivo si es nuevo -->
+            <span *ngIf="foto.value.file" class="text-sm text-gray-500">
+              {{ foto.value.file.name }}
+            </span>
+
+            <!-- Botón para eliminar -->
+            <button
+              type="button"
+              (click)="removeImage(i)"
+              class="text-red-500 hover:text-red-700 text-sm"
+            >
+              Eliminar
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <button
+        type="submit"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white font-semibold py-3 px-6 rounded-lg"
+      >
+        {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>

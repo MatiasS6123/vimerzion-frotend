@@ -1,0 +1,48 @@
+/* Mantiene tu configuración actual */
+.image-container {
+    position: relative;
+  }
+  
+  .responsive-image {
+    margin: auto;
+    width: 95%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  /* Media queries específicas para móviles */
+  @media screen and (max-width: 400px) {
+    .responsive-image {
+      width: 85%;
+      margin-bottom: -6vh;
+    }
+  }
+  
+  @media screen and (min-width: 401px) and (max-width: 480px) {
+    .responsive-image {
+      width: 90%;
+      margin-bottom: -1vh;
+    }
+  }
+  
+  /* Mantén tus breakpoints existentes que funcionan bien */
+  @media (min-width: 640px) {
+    .responsive-image {
+      width: 80%;
+      margin-bottom: -14vh;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .responsive-image {
+      width: 65%;
+      margin-bottom: -15.4vh;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .responsive-image {
+      width: 50%;
+      margin-bottom: -14.7vh;
+    }
+  }

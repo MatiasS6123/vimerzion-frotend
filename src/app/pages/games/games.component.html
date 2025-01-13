@@ -1,0 +1,101 @@
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-extrabold text-center text-white mb-8">
+        {{ isEditMode ? 'Actualizar Juego' : 'Agregar Juego' }}
+    </h1>
+
+    <form [formGroup]="juegoForm" (ngSubmit)="onSubmit()" class="bg-white rounded-lg shadow-lg p-8">
+        <div class="mb-6">
+            <label for="nombre" class="block text-lg font-medium text-gray-700">Nombre</label>
+            <input
+                id="nombre"
+                type="text"
+                formControlName="nombre"
+                placeholder="Nombre del juego"
+                class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            />
+        </div>
+
+        <div class="mb-6">
+            <label for="descripcion" class="block text-lg font-medium text-gray-700">Descripción</label>
+            <textarea
+                id="descripcion"
+                rows="3"
+                formControlName="descripcion"
+                placeholder="Escribe una breve descripción del juego"
+                class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            ></textarea>
+        </div>
+
+        <div class="mb-6">
+            <label for="categoria" class="block text-lg font-medium text-gray-700">Categoría</label>
+            <input
+                id="categoria"
+                type="text"
+                formControlName="categoria"
+                placeholder="Ejemplo: Aventura, Acción"
+                class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            />
+        </div>
+
+        <div class="mb-6 flex items-center">
+            <label for="activo" class="block text-lg font-medium text-gray-700 mr-4">Activo</label>
+            <input
+                id="activo"
+                type="checkbox"
+                formControlName="activo"
+                class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            />
+        </div>
+
+        <div class="mb-6">
+            <label for="plataforma" class="block text-lg font-medium text-gray-700">Plataformas</label>
+            <select
+                id="plataforma"
+                (change)="onPlataformaSeleccionada($event)"
+                class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            >
+                <option value="">Seleccione una plataforma</option>
+                <option *ngFor="let plataforma of opcionesPlataformas" [value]="plataforma">
+                    {{ plataforma }}
+                </option>
+            </select>
+        </div>
+
+        <div *ngFor="let plataforma of plataformasSeleccionadas" class="mb-6 border-t pt-4">
+            <div class="flex items-center justify-between mb-3">
+                <label class="text-lg font-medium text-gray-700">
+                    Imagen para {{ plataforma.nombre }}
+                </label>
+                <button
+                    type="button"
+                    (click)="removePlataforma(plataforma.nombre)"
+                    class="text-sm text-red-600 hover:text-red-800 bg-red-50 px-3 py-1 rounded-md"
+                >
+                    Eliminar
+                </button>
+            </div>
+
+            <input
+                type="file"
+                accept="image/*"
+                (change)="onFileChange($event, plataforma.nombre)"
+                class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+            />
+
+            <!-- Mostrar nombre del archivo seleccionado -->
+            <div *ngIf="plataforma.imagen" class="mt-2 text-sm text-gray-500">
+                Archivo seleccionado: <span class="font-medium">{{ plataforma.imagen.name }}</span>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <button
+                type="submit"
+                [disabled]="!juegoForm.valid || plataformasSeleccionadas.length === 0"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring focus:ring-indigo-300"
+            >
+                {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+            </button>
+        </div>
+    </form>
+</div>
