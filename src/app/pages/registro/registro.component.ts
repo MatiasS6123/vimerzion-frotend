@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Cliente } from '../../models/cliente';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registro',
@@ -14,7 +15,9 @@ import { CommonModule } from '@angular/common';
 export class RegistroComponent {
   clienteForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private userService:UserService) {
+  constructor(private fb: FormBuilder,private userService:UserService, 
+    private toastr:ToastrService
+  ) {
     this.clienteForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -26,7 +29,7 @@ export class RegistroComponent {
 
   onSubmit() {
     if (this.clienteForm.valid) {
-      console.log('Datos del Cliente:', this.clienteForm.value);
+      
       const cliente: Cliente = {
         username: this.clienteForm.value.username,
         email: this.clienteForm.value.email,
@@ -36,10 +39,26 @@ export class RegistroComponent {
       };
       
       this.userService.registrarUsuario(cliente).subscribe({
-        next: (response) => console.log('Cliente registrado con éxito:', response),
-        error: (err) => console.error('Error al registrar cliente:', err),
+        next: (response) => {
+          this.presentToast('Registro Exitoso', 'Éxito', 'success');
+        },
+        error: (err) => {
+          this.presentToast('Ocurrió un error al registrar el usuario.', 'Error', 'error');
+        },
       });
+    } else {
+      this.presentToast('Formulario inválido. Por favor, completa todos los campos.', 'Advertencia', 'warning');
     }
+  }    
+
+  
+
+  presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
+    this.toastr[tipo](mensaje, titulo, {
+      timeOut: 5000,               // Duración del mensaje
+      positionClass: 'toast-top-center', // Posición: arriba en el centro
+      
+    });
   }
 
 }

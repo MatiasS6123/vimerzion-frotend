@@ -1,39 +1,76 @@
-<section class="py-12">
-    <div class="container mx-auto">
-      <h2 class="text-4xl font-bold text-center text-[#f1f1f1] mb-8">Paquetes Disponibles</h2>
-  
-      <!-- Grid para las tarjetas -->
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <!-- Repetir esta tarjeta para cada paquete -->
-        <div *ngFor="let paquete of paquetes" class="bg-white shadow-lg rounded-lg overflow-hidden">
-          <!-- Imagen del paquete -->
-          <img
-            [src]="paquete.foto"
-            [alt]="paquete.nombre"
-            class="w-full h-48 object-cover"
-          />
-  
-          <!-- Contenido de la tarjeta -->
-          <div class="p-4">
-            <!-- Nombre del paquete -->
-            <h3 class="text-lg font-bold text-gray-800 mb-2">{{ paquete.nombre }}</h3>
- 
-            <p class="text-sm text-gray-600 mb-4">{{paquete.precio}}</p>
-            <!-- Descripción del paquete -->
-            <p class="text-sm text-gray-600 mb-4">
-              {{ paquete.descripcion }}...
-            </p>
-  
-            <!-- Botón de acción -->
-            <button
-              class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
-              (click)="addToCart(paquete)"
-            >
-              Añadir al carrito
-            </button>
+<section class="py-12 w-full">
+  <!-- Título principal -->
+  <h2 class="text-4xl uppercase font-bold text-center text-[#f1f1f1] mb-8">
+    <span class="bg-[#00eefd] uppercase text-[#000000] px-6 py-2 transform -skew-x-12 inline-block">
+      Paquetes Disponibles
+    </span>
+  </h2>
+
+  <!-- Contenedor principal del carrusel -->
+  <div class="max-w-6xl mx-auto relative">
+    <ng-container *ngIf="paquetes.length > 0; else noPaquetes">
+      <!-- Tarjeta activa del carrusel -->
+      <div class="bg-white rounded-lg shadow-md p-6 max-w-[640px] mx-auto">
+        <div class="relative w-full h-[400px] rounded-lg overflow-hidden">
+          <div
+            *ngFor="let paquete of paquetes; let i = index"
+            [class.opacity-100]="currentIndex === i"
+            [class.opacity-0]="currentIndex !== i"
+            class="absolute inset-0 transition-opacity duration-500 ease-in-out"
+          >
+            <img
+              [src]="paquete.foto"
+              [alt]="paquete.nombre"
+              class="object-cover w-full h-full cursor-pointer"
+            />
           </div>
         </div>
+
+        <!-- Contenido dinámico del paquete -->
+        <div class="p-4 text-center">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">
+            {{ paquetes[currentIndex].nombre }}
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">{{ formatearPesos(paquetes[currentIndex].precio) }}</p>
+          <p class="text-sm text-gray-600 mb-4">
+            {{ paquetes[currentIndex].descripcion }}
+          </p>
+          <button
+            class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
+            (click)="addToCart(paquetes[currentIndex])"
+          >
+            Añadir al carrito
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
-  
+
+      <!-- Botones de navegación -->
+      <ng-container *ngIf="paquetes.length > 1">
+        <button
+          (click)="prevSlide()"
+          class="absolute left-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors hover:text-[#00c5d1]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button 
+          (click)="nextSlide()"
+          class="absolute right-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors hover:text-[#00c5d1]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </ng-container>
+    </ng-container>
+
+    <!-- Mensaje si no hay paquetes -->
+    <ng-template #noPaquetes>
+      <div class="text-center text-gray-400">
+        <p class="text-lg">No hay paquetes disponibles.</p>
+      </div>
+    </ng-template>
+  </div>
+</section>

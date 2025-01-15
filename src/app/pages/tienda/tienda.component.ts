@@ -18,7 +18,7 @@ export class TiendaComponent {
   page = 1;
   pages = 1;
   limit = 5;
-
+  currentIndex = 0;
   constructor(private paqueteService: PaquetesService, private carritoService: CarritoService ) {}
 
   ngOnInit(): void {
@@ -40,6 +40,14 @@ export class TiendaComponent {
     });
   }
 
+
+  formatearPesos(monto: number): string {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      minimumFractionDigits: 0,
+    }).format(monto);
+  }
   nextPage(): void {
     if (this.page < this.pages) {
       this.page++;
@@ -60,7 +68,14 @@ export class TiendaComponent {
     this.carritoService.openCarrito(); // Abre el carrito automáticamente
   }
   
-  
+  prevSlide() {
+    this.currentIndex = (this.currentIndex - 1 + this.paquetes.length) % this.paquetes.length;
+  }
+
+  nextSlide() {
+    this.currentIndex = (this.currentIndex + 1) % this.paquetes.length;
+  }
+
 
   prevPage(): void {
     if (this.page > 1) {

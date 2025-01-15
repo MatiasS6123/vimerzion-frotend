@@ -6,6 +6,7 @@ import { RoleResponse } from '../../models/user';
 import { OrderDetail } from '../../models/order';
 import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ordenes',
@@ -23,7 +24,8 @@ export class OrdenesComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,6 @@ export class OrdenesComponent implements OnInit {
     }).subscribe(({ id, role }) => {
       this.id = id.id; // Ajustar según la estructura de la respuesta
       this.role = role.role; // Ajustar según la estructura de la respuesta
-      console.log('Rol:', this.role, 'ID:', this.id);
   
       if (this.role === 'ADMINISTRADOR') {
         this.loadOrders(0, 10);
@@ -59,22 +60,31 @@ export class OrdenesComponent implements OnInit {
     );
   }
 
-  loadOrdersById(){
-    const userId=this.id;
+  loadOrdersById() {
+    const userId = this.id;
     this.orderService.getAllOrdersById(userId, 0, 10).subscribe(
       (response) => {
-        console.log(response.data); // Para verificar qué está recibiendo
-        this.orders = response.data?.ordenes || [];
-        this.pagination = response.data?.pagination || { totalItems: 0, currentPage: 1, pageSize: 10 };
+        console.log('Respuesta completa del backend:', response); // Verifica toda la respuesta
+        console.log('Data:', response.data);
+  
+        // Verifica que "response.data" contenga "ordenes" y "pagination"
+        if (response && response.data) {
+          this.orders = response.data.ordenes || [];
+          this.pagination = response.data.pagination || { totalItems: 0, currentPage: 1, pageSize: 10 };
+        } else {
+          console.warn('La respuesta no contiene datos válidos.');
+          this.orders = [];
+        }
+  
+        console.log('Órdenes asignadas:', this.orders);
       },
       (error) => {
         this.errorMessage = error.message || 'Error al cargar órdenes';
         console.error('Error al cargar órdenes:', error);
       }
     );
-    
-    
   }
+  
 
   getId() {
     this.authService.getId().subscribe((response) => {
@@ -88,7 +98,6 @@ export class OrdenesComponent implements OnInit {
     this.authService.getRole().subscribe(
       (response) => {
         this.role = response.role; // Asignar correctamente el rol
-        console.log(this.role);
         
         // Cargar órdenes según el rol
         if (this.role === 'ADMINISTRADOR') {
@@ -104,9 +113,8 @@ export class OrdenesComponent implements OnInit {
   }
   
 
-  viewOrder(orderId: number): void {
-    console.log(`Ver detalles de la orden con ID: ${orderId}`);
-    // Puedes redirigir al detalle de la orden, por ejemplo:
-    // this.router.navigate(['/order-details', orderId]);
+  viewOrder(id: number): void {
+    this.router.navigate(['/detalle-orden'], {queryParams:{id:id}})
+    
   }
 }

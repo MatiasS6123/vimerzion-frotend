@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnDestroy, OnInit } from '@angular/core';
 import { ServiciosService } from '../../services/servicios.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { Servicio } from '../../models/servicios';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,8 @@ import { Subscription } from 'rxjs';
 export class MostrarServiciosComponent{
   constructor(
     private servicioService: ServiciosService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router:Router
   ) {}
 
   servicio: Servicio = {
@@ -28,29 +29,25 @@ export class MostrarServiciosComponent{
 
   currentIndex = 0;
   titleVisible = true;
-  defaultName = 'Arriendo';
+  defaultName = 'Empresas';
 
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(params => {
       const titulo = params['titulo'] || this.defaultName;
-      console.log('Loading service for título:', titulo);
       this.loadServiceByName(titulo);
     });
   }
 
   loadServiceByName(titulo: string) {
     if (titulo) {
-      console.log('Loading service:', titulo);
       this.servicioService.getServiciosByName(titulo).subscribe({
         next: (data: Servicio) => {
-          console.log('Service data received:', data);
           this.servicio = {
             ...data,
             activo: data.activo ?? false // Manejo de undefined
           };
           this.currentIndex = 0;
-          console.log('Initial photos loaded:', data.fotos?.length);
         },
         error: (err) => console.error('Error loading service:', err)
       });
@@ -62,7 +59,6 @@ export class MostrarServiciosComponent{
     setTimeout(() => {
       this.currentIndex = (this.currentIndex + 1) % this.servicio.fotos.length;
       this.titleVisible = true;
-      console.log('Next slide:', this.currentIndex);
     }, 300);
   }
 
@@ -71,9 +67,22 @@ export class MostrarServiciosComponent{
     setTimeout(() => {
       this.currentIndex = (this.currentIndex - 1 + this.servicio.fotos.length) % this.servicio.fotos.length;
       this.titleVisible = true;
-      console.log('Previous slide:', this.currentIndex);
     }, 300);
   }
+
+  goToDetalle(): void {
+    if (this.servicio.fotos.length > 0 && this.currentIndex < this.servicio.fotos.length) {
+      const titulo = this.servicio.fotos[this.currentIndex]?.titulo || this.servicio.titulo; // Usa el título del servicio si no hay título en la foto
+      const imagen = this.servicio.fotos[this.currentIndex]?.url; // Valida que la URL esté disponible
+      this.router.navigate(['/detalle-servicio'], {
+        queryParams: { titulo, imagen }
+      });
+    } else {
+      console.warn('No hay fotos disponibles para redirigir al detalle.');
+    }
+  }
+  
+  
 
   goToSlide(index: number) {
     if (index !== this.currentIndex) {
@@ -85,4 +94,6 @@ export class MostrarServiciosComponent{
       }, 300);
     }
   }
+
+  
 }

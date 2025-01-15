@@ -1,5 +1,5 @@
 export interface Tecnologia {
-    id?: string;
+    _id?: string;
     nombre: string;
     descripcion: string;
     imagen: { url: string }; // Solo la URL de la imagen se almacena

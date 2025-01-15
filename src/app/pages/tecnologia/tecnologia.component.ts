@@ -29,39 +29,43 @@ export class TecnologiaComponent {
         });
   }
   ngOnInit(): void {
-    // Obtener el ID de la URL y cargar el juego si existe
-    this.route.params.pipe(
-      switchMap((params) => {
-        if (params['id']) {
-          this.isEditMode = true;
-          this.tecnologiaId = params['id'];
-          return this.tecnologiaService.findById(params['id']); // Llamar al servicio para obtener la tecnología
-        }
-        return of(null);
-      })
-    ).subscribe({
-      next: (response) => {
-        if (response) {
-          const tecnologia = response; // Acceder al objeto `data` si viene dentro de `data`
-          console.log('Tecnología recibida:', tecnologia);
+    // Obtener el ID de la URL y cargar la tecnología si existe
+    this.route.queryParams.subscribe((params) => {
+      this.tecnologiaId = params['_id'];
   
-          // Asignar valores al formulario
-          this.tecnologiaForm.patchValue({
-            nombre: tecnologia.nombre,
-            descripcion: tecnologia.descripcion,
-          });
+      if (this.tecnologiaId) {
+        this.isEditMode = true;
   
-          // Si hay una imagen, configurar la vista previa
-          if (tecnologia.imagen) {
-            this.previewUrl = tecnologia.imagen.url; // Mostrar la URL de la imagen actual
-          }
-        }
-      },
-      error: (error) => {
-        console.error('Error al cargar la tecnología:', error);
-      },
+        // Llamar al servicio para obtener los detalles de la tecnología
+        this.tecnologiaService.findById(this.tecnologiaId).subscribe({
+          next: (tecnologia) => {
+  
+            if (tecnologia) {
+              // Llenar el formulario con los datos de la tecnología
+              this.tecnologiaForm.patchValue({
+                nombre: tecnologia.nombre,
+                descripcion: tecnologia.descripcion,
+              });
+  
+              // Si hay una imagen, configurarla en la vista previa
+              if (tecnologia.imagen && tecnologia.imagen.url) {
+                this.previewUrl = tecnologia.imagen.url; // Mostrar la URL de la imagen actual
+              } else {
+                console.warn('No se encontró imagen asociada a la tecnología.');
+                this.previewUrl = null; // Asegurarse de que la vista previa esté limpia
+              }
+            }
+          },
+          error: (error) => {
+            
+          },
+        });
+      } else {
+      
+      }
     });
   }
+  
   
 
   onFileChange(event: Event): void {
@@ -71,7 +75,7 @@ export class TecnologiaComponent {
       const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
   
       if (!allowedTypes.includes(file.type)) {
-        this.toastr.error('Tipo de archivo no permitido', 'Error');
+        this.presentToast('Tipo de archivo no permitido', 'Error',"error");
         this.foto = null;
         this.previewUrl = null; // Limpiar la vista previa si no es válido
         return;
@@ -103,12 +107,10 @@ export class TecnologiaComponent {
           this.foto as File // Aseguramos que no es null
         ).subscribe({
           next: (response) => {
-            console.log('Tecnología actualizada:', response);
-            // Manejar éxito
+            this.presentToast("tecnologia actualizada","Exito","success")
           },
           error: (error) => {
-            console.error('Error al actualizar:', error);
-            // Manejar error
+            this.presentToast("Error al actualizar","Error","error")
           }
         });
       } else {
@@ -117,19 +119,15 @@ export class TecnologiaComponent {
           return;
         }
   
-        console.log(formData);
-        console.log(this.foto);
         this.tecnologiaService.createTecnologia(
           formData,
           this.foto as File // Aseguramos que no es null
         ).subscribe({
           next: (response) => {
-            console.log('Tecnología creada:', response);
-            // Manejar éxito
+           this.presentToast("Tecnologia creada","Exito","success")
           },
           error: (error) => {
-            console.error('Error:', error);
-            // Manejar error
+            this.presentToast("Error al crear","Error","error")
           }
         });
       }
@@ -137,6 +135,12 @@ export class TecnologiaComponent {
   }
   
 
-
+  presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
+    this.toastr[tipo](mensaje, titulo, {
+      timeOut: 5000,               // Duración del mensaje
+      positionClass: 'toast-top-center', // Posición: arriba en el centro
+      
+    });
+  }
   
 }

@@ -19,7 +19,7 @@ export class HeaderComponent {
   isUserMenuOpen = false;
   @Input() rolUsuario: string | null = null;
   @Output() roleCleared = new EventEmitter<void>();
-
+  activeSubmenu: string | null = null;
   constructor(
     private router: Router,
     private carritoService: CarritoService,
@@ -39,6 +39,10 @@ export class HeaderComponent {
     });
   }
 
+  toggleSubmenu(menu: string): void {
+    this.activeSubmenu = this.activeSubmenu === menu ? null : menu;
+  }
+  
   get isAuthenticated(): boolean {
     return !!this.rolUsuario && this.rolUsuario !== '';
   }

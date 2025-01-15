@@ -11,7 +11,7 @@ export class PaquetesService {
 
   private http=inject(HttpClient)
   private API_URL=`${environment.apiUrl}/package`
-
+  
 
   getAllPaquetesPaginados(page: number, limit: number): Observable<{ paquetes: Paquete[]; total: number; page: number; pages: number }> {
     return this.http
@@ -24,6 +24,20 @@ export class PaquetesService {
           return throwError(() => new Error('No se pudieron obtener los paquetes.'));
         })
       );
+  }
+
+
+  getAllPaquetes(page: number, limit: number): Observable<{ packages: PaqueteCrud[]; total: number; page: number; pages: number }>{
+    return this.http
+      .get<{ packages: PaqueteCrud[]; total: number; page: number; pages: number }>(
+        `${this.API_URL}/?page=${page}&limit=${limit}`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error al obtener los paquetes paginados:', error);
+          return throwError(() => new Error('No se pudieron obtener los paquetes.'));
+        })
+      ); 
   }
 
   createPaquete(paqute:PaqueteCrud, foto:File):Observable<PaqueteCrud>{

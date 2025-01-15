@@ -1,0 +1,94 @@
+<section class="container mx-auto px-6 py-10">
+    <!-- Encabezado -->
+    <header class="mb-8 flex justify-between items-center">
+      <h1 class="text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+        Lista de Usuarios
+      </h1>
+      <button 
+        [routerLink]="'/gestion-usuarios'" 
+        class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200"
+      >
+        + Agregar Usuario
+      </button>
+      <!-- Filtro de Roles -->
+      <div>
+        <label for="roleFilter" class="font-medium text-gray-600">Filtrar por Rol:</label>
+        <select
+          id="roleFilter"
+          [(ngModel)]="selectedRole"
+          (change)="onFilterChange()"
+          class="border rounded-lg px-4 py-2 bg-gray-100 shadow-md focus:outline-none"
+        >
+          <option value="">Todos</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+    </header>
+  
+    <!-- Tabla -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-600 uppercase text-sm tracking-wider">
+            <th class="py-3 px-6 border-b">ID</th>
+            <th class="py-3 px-6 border-b">Nombre</th>
+            <th class="py-3 px-6 border-b">Email</th>
+            <th class="py-3 px-6 border-b">Rol</th>
+            <th class="py-3 px-6 border-b">Estado</th>
+            <th class="py-3 px-6 border-b text-center">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users" class="hover:bg-gray-50 transition">
+            <td class="py-4 px-6 border-b text-gray-800 font-medium">{{ user.id }}</td>
+            <td class="py-4 px-6 border-b text-gray-600">{{ user.username }}</td>
+            <td class="py-4 px-6 border-b text-gray-600">{{ user.email }}</td>
+            <td class="py-4 px-6 border-b text-gray-600">{{ user.rol }}</td>
+            <td class="py-4 px-6 border-b text-center">
+              <span
+                class="px-3 py-1 text-xs font-semibold rounded-full"
+                [ngClass]="{
+                  'bg-green-100 text-green-700': user.activo,
+                  'bg-red-100 text-red-700': !user.activo
+                }"
+              >
+                {{ user.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="py-4 px-6 border-b text-center">
+                <button
+                  (click)="viewUser(user.id)"
+                  class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition"
+                >
+                  Editar
+                </button>
+              </td>
+          </tr>
+          <tr *ngIf="users.length === 0">
+            <td class="py-4 px-6 border-b text-center text-gray-500" colspan="5">No hay usuarios disponibles.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Paginación -->
+    <div class="flex justify-center mt-8">
+      <button
+        [disabled]="currentPage === 1"
+        (click)="onPageChange(currentPage - 1)"
+        class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
+      >
+        Anterior
+      </button>
+      <span class="mx-4 text-gray-600">Página {{ currentPage }} de {{ totalPages }}</span>
+      <button
+        [disabled]="currentPage === totalPages"
+        (click)="onPageChange(currentPage + 1)"
+        class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
+      >
+        Siguiente
+      </button>
+    </div>
+  </section>
+  

@@ -3,6 +3,8 @@ import { CatalogJuego, FetchCatalogo } from '../../models/catalogo';
 import { CatalogoService } from '../../services/catalogo.service';
 import { finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-catalogo-juego',
@@ -18,30 +20,90 @@ export class CatalogoJuegoComponent {
   pages: number = 1;
   limit: number = 10;
   loading: boolean = false;
-
-  constructor(private gameService: CatalogoService) {}
+  selectedJuego: any | null = null; // Juego seleccionado para el modal
+  constructor(private gameService: CatalogoService, private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this.fetchJuegos();
   }
 
+  handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      img.src = '/assets/default-game.jpg';
+    }
+  }
+
   fetchJuegos(): void {
-    this.loading = true;
-    this.gameService
-      .getAllPaginated(this.page, this.limit)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (response) => {
-          this.juegos = response.games;
-          console.log(this.juegos)
-          this.total = response.total;
-          this.page = response.page;
-          this.pages = response.pages;
-        },
-        error: (error) => {
-          console.error('Error al cargar los juegos:', error);
-        }
-      });
+    this.route.queryParams.subscribe((params) => {
+      const platform = params['platform'] ? this.mapPlatform(params['platform']) : null;
+  
+      this.loading = true;
+      this.gameService
+        .getCatalogData(this.page, this.limit, platform)
+        .pipe(finalize(() => (this.loading = false)))
+        .subscribe({
+          next: (response) => {
+            console.log(response.games)
+            this.juegos = response.games;
+            console.log('Juegos cargados:', this.juegos);
+            this.total = response.total;
+            this.page = response.page;
+            this.pages = response.pages;
+          },
+          error: (error) => {
+            console.error('Error al cargar el catálogo de juegos:', error);
+            this.juegos = [];
+          },
+        });
+    });
+  }
+
+  
+  
+  openModal(juego: any): void {
+    if (!juego.plataforma || typeof juego.plataforma !== 'object') {
+      console.error('Plataforma no definida o no es un objeto:', juego);
+      return;
+    }
+  
+    const sanitizedVideoUrl = this.sanitizeVideoUrl(juego.plataforma.videoUrl);
+  
+    this.selectedJuego = {
+      ...juego,
+      plataforma: {
+        ...juego.plataforma,
+        videoUrl: sanitizedVideoUrl, // SafeResourceUrl
+      },
+    };
+  }
+  
+
+  
+  sanitizeVideoUrl(videoUrl: string): SafeResourceUrl {
+    if (videoUrl?.includes('youtube.com/watch')) {
+      const embedUrl = videoUrl.replace('watch?v=', 'embed/');
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    }
+    return this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
+  }
+  
+  
+  
+  mapPlatform(platform: string): string {
+    const platformMap: { [key: string]: string } = {
+      playstation_5: 'PlayStation 5',
+      playstation_vr: 'PlayStation vr',
+      nintendo_switch: 'Nintendo Switch',
+      oculus: 'Oculus',
+    };
+    return platformMap[platform] || platform; // Devolver el valor original si no está en el mapa
+  }
+
+  closeModal(): void {
+    this.selectedJuego = null;
   }
 
   nextPage(): void {
@@ -56,5 +118,9 @@ export class CatalogoJuegoComponent {
       this.page--;
       this.fetchJuegos();
     }
+  }
+
+  trackById(index: number, item: FetchCatalogo): string {
+    return item._id;
   }
 }

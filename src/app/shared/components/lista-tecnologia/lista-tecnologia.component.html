@@ -1,1 +1,75 @@
-<p>lista-tecnologia works!</p>
+<section class="container mx-auto px-6 py-10">
+    <!-- Encabezado -->
+    <header class="mb-8 flex justify-between items-center">
+      <h1 class="text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+        Tecnologías Disponibles
+      </h1>
+      <button
+        [routerLink]="'/gestion-tecnologias'"
+        class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200"
+      >
+        + Agregar Tecnología
+      </button>
+    </header>
+  
+    <!-- Tabla -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <h2 class="text-2xl font-bold text-gray-700 px-6 py-4 border-b">Listado de Tecnologías</h2>
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-600 uppercase text-sm tracking-wider">
+            <th class="py-3 px-6 border-b">Nombre</th>
+            <th class="py-3 px-6 border-b">Descripción</th>
+            <th class="py-3 px-6 border-b">Imagen</th>
+            <th class="py-3 px-6 border-b">Estado</th>
+            <th class="py-3 px-6 border-b text-center">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tecnologia of tecnologias" class="hover:bg-gray-50 transition">
+            <td class="py-4 px-6 border-b text-gray-800 font-medium">{{ tecnologia.nombre }}</td>
+            <td class="py-4 px-6 border-b text-gray-600">
+              {{ tecnologia.descripcion || 'Sin descripción' }}
+            </td>
+            <td class="py-4 px-6 border-b text-center">
+              <img
+                [src]="tecnologia.imagen.url"
+                alt="{{ tecnologia.nombre }}"
+                class="w-20 h-20 object-cover rounded-md shadow-md"
+              />
+            </td>
+            <td class="py-4 px-6 border-b text-center">
+              <span
+                class="px-3 py-1 text-xs font-semibold rounded-full"
+                [ngClass]="{
+                  'bg-green-100 text-green-700': tecnologia.activo,
+                  'bg-red-100 text-red-700': !tecnologia.activo
+                }"
+              >
+                {{ tecnologia.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="py-4 px-6 border-b text-center">
+                <button
+                *ngIf="tecnologia._id"
+                class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition"
+                (click)="handleAction(tecnologia._id)"
+              >
+                Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Paginación -->
+    <div class="flex justify-center mt-8">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </div>
+  </section>
+  

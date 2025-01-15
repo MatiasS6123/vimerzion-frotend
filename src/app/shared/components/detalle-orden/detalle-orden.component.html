@@ -1,0 +1,82 @@
+<section class="container mx-auto px-6 py-10 space-y-10">
+    <!-- Título -->
+    <header>
+      <h1 class="text-5xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-center">
+        Detalle de la Orden
+      </h1>
+    </header>
+  
+    <!-- Información del Usuario -->
+    <div class="bg-gradient-to-r from-purple-100 via-indigo-100 to-pink-100 rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold text-gray-800 border-b border-gray-300 pb-2 mb-4">
+        Información del Usuario
+      </h2>
+      <div class="grid grid-cols-2 gap-4">
+        <p class="text-lg"><strong>Username:</strong> {{ orden.usuario.username }}</p>
+        <p class="text-lg"><strong>Email:</strong> {{ orden.usuario.email }}</p>
+      </div>
+    </div>
+  
+    <!-- Detalle de la Orden -->
+    <div class="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold text-gray-800 border-b border-gray-300 pb-2 mb-4">
+        Información de la Orden
+      </h2>
+      <div class="grid grid-cols-2 gap-4">
+        <p class="text-lg"><strong>ID:</strong> {{ orden.id }}</p>
+        <p class="text-lg"><strong>Fecha:</strong> {{ orden.fecha | date: 'short' }}</p>
+        <div class="col-span-2">
+          <strong>Estado:</strong>
+          <select
+            class="border border-gray-300 rounded-lg px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            [(ngModel)]="estadoSeleccionado"
+          >
+            <option value="CREADO" [selected]="orden.estado === 'CREADO'">Creado</option>
+            <option value="EN_PROCESO" [selected]="orden.estado === 'EN_PROCESO'">En Proceso</option>
+            <option value="ENTREGADO" [selected]="orden.estado === 'ENTREGADO'">Entregado</option>
+            <option value="EN_CAMINO" [selected]="orden.estado === 'EN_CAMINO'">En Camino</option>
+            <option value="CANCELADO" [selected]="orden.estado === 'CANCELADO'">Cancelado</option>
+          </select>
+          <button
+            class="ml-4 bg-indigo-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-indigo-600 transition"
+            (click)="actualizarEstado()"
+          >
+            Actualizar Estado
+          </button>
+        </div>
+        <p class="text-lg"><strong>Subtotal:</strong> ${{ orden.subtotal }}</p>
+        <p class="text-lg"><strong>Total:</strong> ${{ orden.total }}</p>
+        <p class="text-lg"><strong>Descuento Total:</strong> ${{ orden.descuentoTotal }}</p>
+        <p class="text-lg"><strong>Método de Pago:</strong> {{ orden.metodoPago }}</p>
+        <p class="text-lg"><strong>Dirección de Envío:</strong> {{ orden.direccionEnvio }}</p>
+        <p class="text-lg"><strong>Teléfono de Contacto:</strong> {{ orden.telefonoContacto }}</p>
+        <p class="text-lg col-span-2"><strong>Notas:</strong> {{ orden.notas }}</p>
+      </div>
+    </div>
+  
+    <!-- Paquetes -->
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold text-gray-800 border-b border-gray-300 pb-2 mb-4">
+        Paquetes
+      </h2>
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700 text-lg font-medium">
+            <th class="py-4 px-6 border-b">Nombre</th>
+            <th class="py-4 px-6 border-b text-center">Cantidad</th>
+            <th class="py-4 px-6 border-b text-center">Precio Unitario</th>
+            <th class="py-4 px-6 border-b text-center">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let paquete of orden.paquetes" class="hover:bg-gray-50 transition">
+            <td class="py-4 px-6 border-b">{{ paquete.paquete.nombre }}</td>
+            <td class="py-4 px-6 border-b text-center">{{ paquete.cantidad }}</td>
+            <td class="py-4 px-6 border-b text-center">${{ paquete.precioUnitario }}</td>
+            <td class="py-4 px-6 border-b text-center">${{ paquete.total }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  

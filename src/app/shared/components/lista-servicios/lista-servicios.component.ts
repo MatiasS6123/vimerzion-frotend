@@ -36,12 +36,11 @@ export class ListaServiciosComponent {
   loadServices(page: number, limit: number) {
     this.servicioService.getAllServicios(page, limit).subscribe({
       next: (response) => {
-        console.log(response)
         this.servicios = response.servicios;
         this.totalServices = response.total;
         this.totalPages = Math.ceil(this.totalServices / this.itemsPerPage);
       },
-      error: (err) => console.error('Error al cargar los servicios:', err),
+      error: (err) => console.error('Error al cargar los servicios:'),
     });
   }
 

@@ -33,7 +33,6 @@ export class PaquetesComponent implements OnInit {
 
       if (this.id) {
         this.isEditMode = true;
-        console.log(this.isEditMode)
         this.loadPackageData(this.id); // Cargar datos del agente
       } else {
         this.isEditMode = false;
@@ -104,7 +103,7 @@ export class PaquetesComponent implements OnInit {
         });
       } else {
         if (this.selectedFile) {
-          this.createAgent(paquete, this.selectedFile);
+          this.createPaquete(paquete, this.selectedFile);
         } else {
           this.presentToast('No se ha seleccionado ningún archivo','Error','error');
           return;
@@ -139,7 +138,7 @@ export class PaquetesComponent implements OnInit {
       }
     }
   
-    private createAgent(paquete: PaqueteCrud, foto:File): void {
+    private createPaquete(paquete: PaqueteCrud, foto:File): void {
       this.paqueteService.createPaquete(paquete, foto).subscribe({
         next: (response) => {
           this.presentToast('Agente Creado', 'Notificacion', 'success');

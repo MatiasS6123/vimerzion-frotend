@@ -22,6 +22,9 @@
     <p class="text-lg font-bold mt-4 font-[NexaBold] text-[#1f1062]">
       Total: {{ formatearPesos(total) }}
     </p>
+    <p class="text-lg font-bold mt-4 font-[NexaBold] text-[#1f1062]">
+      Total con Envío: {{ formatearPesos(totalConEnvio) }}
+    </p>
   </div>
 
   <!-- Información de Envío -->
@@ -30,23 +33,32 @@
       Información de Envío
     </h2>
 
+    <p>Recuerda que:</p>
+
+    <!-- Teléfono -->
     <label class="block mb-2 font-[RobotoFlex] text-[#1f1062]">Teléfono:</label>
     <input
       type="text"
       [(ngModel)]="telefono"
+      [ngClass]="{ 'border-red-500': submitted && !telefono }"
       class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
     />
+    <p *ngIf="!telefono" class="text-red-500 text-sm mt-1">El teléfono es obligatorio.</p>
 
+    <!-- Dirección -->
     <label
       class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]"
       >Dirección:</label
     >
     <textarea
       [(ngModel)]="direccion"
+      [ngClass]="{ 'border-red-500': submitted && !direccion }"
       rows="3"
       class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
     ></textarea>
+    <p *ngIf="!direccion" class="text-red-500 text-sm mt-1">La dirección es obligatoria.</p>
 
+    <!-- Notas -->
     <label
       class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]"
       >Notas:</label
@@ -54,8 +66,29 @@
     <textarea
       [(ngModel)]="notas"
       rows="3"
+      [ngClass]="{ 'border-red-500': submitted && !notas}"
       class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
     ></textarea>
+
+    <!-- Opciones de Envío -->
+    <label
+      class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]"
+      >Opciones de Envío:</label
+    >
+    <select
+      [(ngModel)]="opcionEnvio"
+      [ngClass]="{ 'border-red-500': !opcionEnvio }"
+      (change)="actualizarTotal()"
+      class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
+    >
+      <option [value]="null">Seleccione una opción</option>
+      <option *ngFor="let envio of opcionesEnvio" [value]="envio.costo">
+        {{ envio.nombre }} - {{ formatearPesos(envio.costo) }}
+      </option>
+    </select>
+    <p *ngIf="submitted && !opcionEnvio" class="text-red-500 text-sm mt-1">
+      Seleccione una opción de envío.
+    </p>
   </div>
 
   <!-- Botón de Confirmar -->

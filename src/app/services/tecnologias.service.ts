@@ -23,7 +23,7 @@ export class TecnologiasService {
 
     getAllTecnologias(page: number, limit: number): Observable<{ tecnologias: Tecnologia[]; total: number; page: number; pages: number }> {
       return this.http.get<{ tecnologias: Tecnologia[]; total: number; page: number; pages: number }>(
-        `${this.API_URL}/tecnologias?page=${page}&limit=${limit}`
+        `${this.API_URL}/?page=${page}&limit=${limit}`
       ).pipe(
         catchError((error) => {
           console.error('Error al obtener las tecnologías:', error);

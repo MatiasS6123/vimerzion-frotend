@@ -1,0 +1,20 @@
+<section class="py-12 w-full text-white bg-[#1f1062]">
+    <!-- Título -->
+    <h1 class="text-4xl uppercase font-bold text-center mb-6">
+      {{ titulo }}
+    </h1>
+  
+    <!-- Contenedor principal -->
+    <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-8">
+      <!-- Imagen -->
+      <div class="w-full lg:w-1/2">
+        <img [src]="imagenUrl" alt="{{ titulo }}" class="rounded-lg shadow-lg" />
+      </div>
+  
+      <!-- Descripción -->
+      <div class="w-full lg:w-1/2 bg-[#26216c] p-6 rounded-lg shadow-lg">
+        <div [innerHTML]="descripcion" class="text-lg leading-relaxed"></div>
+      </div>
+    </div>
+  </section>
+  

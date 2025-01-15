@@ -56,15 +56,6 @@ export class AppComponent {
     this.isAuthenticated = false; // Actualiza el estado de autenticación
   }
   
-  private handleUnauthenticated(): void {
-    this.isLoading = false;
-    const publicRoutes = ['/inicio', '/servicios', '/catalogo', '/tecnologias', '/login'];
-    
-    if (!publicRoutes.includes(this.currentUrl)) {
-      sessionStorage.setItem('redirectUrl', this.currentUrl);
-      this.router.navigate(['/login']);
-    }
-  }
   
   // Obtiene el rol del usuario
   getRole(): void {
@@ -74,7 +65,6 @@ export class AppComponent {
         this.isLoading = false; // Detiene el spinner después de cargar
       },
       (error) => {
-        console.error('Error obteniendo el rol del usuario:', error);
         this.router.navigate(['/login']);
         this.isAuthenticated = false; // Asegura que el usuario no quede como autenticado
         this.isLoading = false; // Detiene el spinner
@@ -87,6 +77,7 @@ export class AppComponent {
     this.authService.getRemainingTime().subscribe(
       (response) => {
         const remainingTime = response.remainingTime;
+        console.log(remainingTime)
         
         if (remainingTime > 0) {
           setTimeout(() => {
@@ -97,7 +88,6 @@ export class AppComponent {
         }
       },
       (error) => {
-        console.error('Error verificando el tiempo restante del token:', error);
         this.handleTokenExpiration(); // Maneja como si el token estuviera expirado
       }
     );

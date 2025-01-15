@@ -87,7 +87,6 @@ export class ServicioComponent {
             })
           );
         });
-        console.log(this.servicioForm.value)
       },
       error: () => {
         this.presentToast('Error al cargar los datos del servicio.', 'Error', 'error');
@@ -146,7 +145,6 @@ export class ServicioComponent {
       fotos: [...fotosExistentes, ...fotosNuevas]
     };
   
-    console.log('Servicio enviado:', servicio);
     // Obtener solo los archivos nuevos
     const archivos: File[] = this.fotos.controls
       .filter(control => control.value.file)

@@ -14,8 +14,9 @@ import { CommonModule } from '@angular/common';
 export class RegistroAdministradoresComponent {
 
   userForm!: FormGroup;
-  isEditMode = false; // Define si estamos creando o actualizando un usuario
-  userId!: number; // ID del usuario a actualizar
+  isEditMode = false;
+  userId!: number | null;
+  showPasswordInput = false; // Controla si se muestra el campo para actualizar contraseña
 
   constructor(
     private fb: FormBuilder,
@@ -27,12 +28,19 @@ export class RegistroAdministradoresComponent {
   ngOnInit(): void {
     this.initializeForm();
 
-    // Verifica si hay un ID en la URL para habilitar modo edición
-    this.route.params.subscribe((params) => {
+    this.route.queryParams.subscribe((params) => {
       if (params['id']) {
         this.isEditMode = true;
-        this.userId = params['id'];
-        this.loadUserData(this.userId); // Cargar datos del usuario
+        this.userId = Number(params['id']);
+        if (!isNaN(this.userId)) {
+          this.loadUserData(this.userId);
+        } else {
+          console.error('ID inválido recibido en los parámetros de consulta.');
+          this.router.navigate(['/gestion-usuarios']);
+        }
+      } else {
+        this.isEditMode = false;
+        this.userId = null;
       }
     });
   }
@@ -41,8 +49,10 @@ export class RegistroAdministradoresComponent {
     this.userForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', this.isEditMode ? [] : [Validators.required, Validators.minLength(8)]], // Requiere password solo en creación
-      nombreRol: ['ADMINISTRADOR', Validators.required], // Fijado a ADMINISTRADOR
+      nombreRol: ['CLIENTE', Validators.required], // Valor predeterminado como CLIENTE
+      telefono: [''], // Campos adicionales para CLIENTE
+      direccion: [''],
+      newPassword: [''], // Campo para la nueva contraseña
     });
   }
 
@@ -52,16 +62,24 @@ export class RegistroAdministradoresComponent {
         this.userForm.patchValue({
           username: user.username,
           email: user.email,
-          nombreRol: 'ADMINISTRADOR', // El rol está fijo
+          nombreRol: user.rol, // Cargar el rol del usuario
+          telefono: user.telefono || '',
+          direccion: user.direccion || '',
         });
-        // No cargamos el password para seguridad
       },
       error: (error) => {
         console.error('Error al cargar los datos del usuario:', error);
         alert('No se pudo cargar la información del usuario.');
-        this.router.navigate(['/gestion-usuarios']); // Redirige si falla la carga
+        this.router.navigate(['/gestion-usuarios']);
       },
     });
+  }
+
+  togglePasswordInput(): void {
+    this.showPasswordInput = !this.showPasswordInput;
+    if (!this.showPasswordInput) {
+      this.userForm.get('newPassword')?.reset(); // Limpiar el campo si se desactiva
+    }
   }
 
   onSubmit(): void {
@@ -72,7 +90,7 @@ export class RegistroAdministradoresComponent {
 
     const userData = this.userForm.value;
 
-    if (this.isEditMode) {
+    if (this.isEditMode && this.userId) {
       this.userService.actualizarUsuario(this.userId, userData).subscribe({
         next: () => {
           alert('Usuario actualizado con éxito.');

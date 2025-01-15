@@ -15,32 +15,87 @@
         </a>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
-      <li>
-        <a routerLink="/servicios" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === 'servicios'}">
+
+      <!-- Servicios -->
+      <li class="relative">
+        <button
+          (click)="toggleSubmenu('servicios')"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
           Servicios
-        </a>
+        </button>
+        <ul
+          *ngIf="activeSubmenu === 'servicios'"
+          class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
+          <li class="list-disc ml-4">
+            <a routerLink="/servicios" [queryParams]="{ titulo: 'Empresas' }" class="hover:text-[#00eefd] transition py-1 block">Empresas</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/servicios" [queryParams]="{ titulo: 'Personas' }" class="hover:text-[#00eefd] transition py-1 block">Personas</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/servicios" [queryParams]="{ titulo: 'Arriendo' }" class="hover:text-[#00eefd] transition py-1 block">Arriendos</a>
+          </li>
+        </ul>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
-      <li>
-        <a routerLink="/catalogo" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === 'catalogo'}">
+
+      <!-- Catálogo -->
+      <li class="relative">
+        <button
+          (click)="toggleSubmenu('catalogo')"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
           Catálogo
-        </a>
+        </button>
+        <ul
+          *ngIf="activeSubmenu === 'catalogo'"
+          class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_5' }" class="hover:text-[#00eefd] transition py-1 block">Play Station 5</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_vr' }" class="hover:text-[#00eefd] transition py-1 block">Play Station VR</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'nintendo_switch' }" class="hover:text-[#00eefd] transition py-1 block">Nintendo Switch</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'oculus' }" class="hover:text-[#00eefd] transition py-1 block">Oculus</a>
+          </li>
+        </ul>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
-      <li>
-        <a routerLink="/tecnologias" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === 'tecnologias'}">
+
+      <!-- Tecnologías -->
+      <li class="relative">
+        <button
+          (click)="toggleSubmenu('tecnologias')"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
           Tecnologías
-        </a>
+        </button>
+        <ul
+          *ngIf="activeSubmenu === 'tecnologias'"
+          class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Oculus' }" class="hover:text-[#00eefd] transition py-1 block">Oculus</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Katvr'}" class="hover:text-[#00eefd] transition py-1 block">Kat VR</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Psvr'}" class="hover:text-[#00eefd] transition py-1 block">PS VR</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Bhaptics'}" class="hover:text-[#00eefd] transition py-1 block">Bhaptics x40</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a [routerLink]="['/tecnologias']" [queryParams]="{ nombre: 'Simuladores' }" class="hover:text-[#00eefd] transition py-1 block">Simuladores</a>
+          </li>
+        </ul>
       </li>
-      <!-- Mostrar Login solo si no está autenticado -->
       <ng-container *ngIf="!isAuthenticated">
         <li class="hidden sm:block mx-2 md:mx-4">|</li>
         <li>
-          <a routerLink="/login" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-            [ngClass]="{'active-link': currentSection === 'login'}">
+          <a routerLink="/login" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
             Login
           </a>
         </li>
@@ -57,8 +112,8 @@
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="#" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === 'usuarios'}">
+        <a routerLink="/lista-usuarios" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'lista-usuarios'}">
           Usuarios
         </a>
       </li>
@@ -71,8 +126,8 @@
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="/#" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === 'gestion-tecnologias'}">
+        <a routerLink="/lista-tecnologias" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'lista-tecnologias'}">
           Tecnologías
         </a>
       </li>
@@ -80,13 +135,13 @@
       <li>
         <a routerLink="/lista-juegos" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-juegos'}">
-          catalogo
+          Catálogo
         </a>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="/#" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === '#'}">
+        <a routerLink="/lista-paquetes" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'lista-paquetes'}">
           Paquetes
         </a>
       </li>

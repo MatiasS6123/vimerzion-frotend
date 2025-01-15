@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment.prod';
 })
 export class ServiciosService {
   private API_URL = `${environment.apiUrl}/service`; // URL base de la API
+  
   private http = inject(HttpClient); // Inyección del HttpClient
 
   /**

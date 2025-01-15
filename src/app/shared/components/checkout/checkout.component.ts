@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
@@ -22,12 +23,23 @@ export class CheckoutComponent {
   direccion = '';
   usuarioId=0
   notas=''
+  opcionesEnvio = [
+    { nombre: 'Zona Norte', costo: 7000 },
+    { nombre: 'Zona Centro', costo: 10000 },
+    { nombre: 'Zona Sur', costo: 15000 },
+    { nombre: 'Extremos de santiago', costo: 20000 },
+  ];
+  submitted = false;
+  
+  opcionEnvio = 0; // Valor por defecto
+  totalConEnvio = 0;
 
   constructor(
     private carritoService: CarritoService,
     private orderService: OrderService,
     private router: Router,
-    private authService:AuthService 
+    private authService:AuthService,
+    private toastr:ToastrService 
   ) {}
 
   ngOnInit(): void {
@@ -35,10 +47,20 @@ export class CheckoutComponent {
       this.carrito = items;
       this.calcularTotal();
       this.getUserId()
+      this.actualizarTotal();
       
     });
   }
 
+  actualizarTotal(): void {
+    const envio = Number(this.opcionEnvio) || 0; // Forzar conversión a número
+    console.log('Subtotal:', this.total);
+    console.log('Costo de Envío:', envio);
+    this.totalConEnvio = this.total + envio;
+    console.log('Total con Envío:', this.totalConEnvio);
+  }
+  
+  
   getUserId(){
     this.authService.getId().subscribe(
       (response)=>{
@@ -48,8 +70,16 @@ export class CheckoutComponent {
     )
   }
 
+  presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
+    this.toastr[tipo](mensaje, titulo, {
+      timeOut: 5000,               // Duración del mensaje
+      positionClass: 'toast-top-center', // Posición: arriba en el centro
+      
+    });
+  }
   calcularTotal(): void {
-    this.total = this.carrito.reduce((acc, item) => acc + (item.subtotal || 0), 0);
+    this.total = this.carrito.reduce((acc, item) => acc + (item.subtotal || 0), 0); 
+    this.actualizarTotal(); // Actualizar el total con envío
   }
 
   formatearPesos(monto: number): string {
@@ -61,8 +91,16 @@ export class CheckoutComponent {
   }
   
   confirmarCompra(): void {
+    this.submitted = true; // Marcar que se ha intentado enviar el formulario
+  
+    // Validar campos requeridos
+    if (!this.telefono || !this.direccion || !this.opcionEnvio) {
+      this.presentToast('Por favor, complete todos los campos obligatorios.', 'Error', 'error');
+      return; // Detener la ejecución si faltan campos
+    }
+  
     const orderData = {
-      usuarioId:this.usuarioId,
+      usuarioId: this.usuarioId,
       paquetes: this.carrito.map((item) => ({
         paqueteId: item.id,
         cantidad: item.cantidad,
@@ -70,30 +108,30 @@ export class CheckoutComponent {
       direccionEnvio: this.direccion,
       telefonoContacto: this.telefono,
       metodoPago: 'WEBPAY', // Método de pago
-      notas:this.notas,
+      notas: this.notas,
+      costoEnvio: this.opcionEnvio,
     };
   
     // Mostrar pantalla de carga mientras se procesa
-    
+  
     // Llamada al servicio para crear la orden con Webpay
     this.orderService.createOrderWithWebpay(orderData).subscribe({
       next: (response: any) => {
-        console.log('url',response.transactionUrl)
         // Verificar si existe la URL de la transacción
         if (response.transactionUrl) {
           // Redirigir al usuario a Webpay
           window.location.href = response.transactionUrl;
         } else {
-          console.error('No se recibió la URL de Webpay.');
           this.router.navigate(['/checkout']); // Volver al checkout en caso de error
         }
       },
       error: (error) => {
-        console.error('Error al procesar la orden:', error);
+        this.presentToast('Error al procesar la compra', 'Error', 'error');
         this.router.navigate(['/checkout']); // Volver al checkout en caso de error
       },
     });
   }
+  
   
 
 }

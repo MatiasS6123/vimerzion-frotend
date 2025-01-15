@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './lista-juegos.component.css'
 })
 export class ListaJuegosComponent {
-  games: FetchCatalogo[] = [];
+  games: CatalogJuego[] = [];
   totalGames: number = 0;
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -36,14 +36,14 @@ export class ListaJuegosComponent {
           id: game.id,
           nombre: game.nombre,
           descripcion: game.descripcion || 'Sin descripción',
-          plataforma: game.plataforma, // Mantén plataforma como un objeto
+          plataformas: game.plataformas, // Mantén plataforma como un objeto
           categoria: game.categoria || 'Sin categoría',
           activo: true, // Valor predeterminado
         }));
         this.totalGames = response.total;
         this.totalPages = Math.ceil(this.totalGames / this.itemsPerPage);
       },
-      error: (err) => console.error('Error al cargar los juegos:', err),
+      error: (err) => console.error('Error al cargar los juegos:'),
     });
   }
   
