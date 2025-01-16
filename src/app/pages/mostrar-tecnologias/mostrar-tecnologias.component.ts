@@ -27,7 +27,7 @@ export class MostrarTecnologiasComponent {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      const nombre = params['nombre'] || this.defaultName;
+      const nombre = params['nombre'] ? this.mapPlatform(params['nombre']) :"";;
       this.loadTechnologyByName(nombre);
     });
   }
@@ -50,9 +50,8 @@ export class MostrarTecnologiasComponent {
   mapPlatform(nombre: string): string {
     const nombreTecnologia: { [key: string]: string } = {
       oculus_quest_2: 'Oculus Quest 2',
-      kat_vr: 'Kat vVr',
-      ps_vr: 'Ps vr',
-      oculus: 'Oculus',
+      tecnologia_haptica: 'Tecnología Haptica',
+      hologramas_3d: 'Hologramas 3D',
     };
     return nombreTecnologia[nombre] || nombre; // Devolver el valor original si no está en el mapa
   }
