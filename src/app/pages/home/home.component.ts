@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { SeleccionService } from '../../services/seleccion.service';
 
 @Component({
   selector: 'app-home',
@@ -9,5 +10,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  constructor(private router: Router, private selectionService: SeleccionService) {}
+
+  handleSelection(selection: string): void {
+    this.selectionService.setSelection(selection);
+
+    if (selection === 'Empresas') {
+      this.router.navigate(['/contacto']);
+    }
+  }
 
 }

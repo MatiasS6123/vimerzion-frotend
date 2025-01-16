@@ -7,7 +7,7 @@
   <!-- Menú con enlaces activos -->
   <ul class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8">
     <!-- Menú por defecto (no autenticado o cliente) -->
-    <ng-container *ngIf="showDefaultMenu">
+    <ng-container *ngIf="showDefaultMenu && isPersonSelected">
       <li>
         <a routerLink="/inicio" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'inicio'}">
@@ -18,26 +18,23 @@
 
       <!-- Servicios -->
       <li class="relative">
-        <button
-          (click)="toggleSubmenu('servicios')"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
+        <a routerLink="/servicios" [queryParams]="{ titulo: 'Personas' }" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'servicios'}">
           Servicios
-        </button>
-        <ul
-          *ngIf="activeSubmenu === 'servicios'"
-          class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
-          <li class="list-disc ml-4">
-            <a routerLink="/servicios" [queryParams]="{ titulo: 'Empresas' }" class="hover:text-[#00eefd] transition py-1 block">Empresas</a>
-          </li>
-          <li class="list-disc ml-4">
-            <a routerLink="/servicios" [queryParams]="{ titulo: 'Personas' }" class="hover:text-[#00eefd] transition py-1 block">Personas</a>
-          </li>
-          <li class="list-disc ml-4">
-            <a routerLink="/servicios" [queryParams]="{ titulo: 'Arriendo' }" class="hover:text-[#00eefd] transition py-1 block">Arriendos</a>
-          </li>
-        </ul>
+        </a>
       </li>
+        
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
+
+      <li class="relative">
+        <a routerLink="/tienda" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'tienda'}">
+          Tienda
+        </a>
+      </li>
+        
+      <li class="hidden sm:block mx-2 md:mx-4">|</li>
+
 
       <!-- Catálogo -->
       <li class="relative">
@@ -151,7 +148,7 @@
   <!-- Botones de la derecha (carrito y perfil) -->
   <div class="absolute top-4 right-4 flex items-center gap-4">
     <!-- Carrito (visible para todos excepto admin) -->
-    <ng-container *ngIf="!isAdmin">
+    <ng-container *ngIf="!isAdmin && isPersonSelected">
       <button (click)="toggleCarrito()" class="relative">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M9 17h6m-3-7v10" />
@@ -194,5 +191,5 @@
 </nav>
 
 <!-- Carrito deslizante -->
-<app-carrito *ngIf="isCarritoOpen && !isAdmin"
+<app-carrito *ngIf="isCarritoOpen && !isAdmin && isPersonSelected"
 (finalizarCompraEvent)="navegarACheckout()"></app-carrito>

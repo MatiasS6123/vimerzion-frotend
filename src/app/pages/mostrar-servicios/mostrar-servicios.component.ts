@@ -72,10 +72,6 @@ export class MostrarServiciosComponent{
 
   goToDetalle(): void {
     if (this.servicio.fotos.length > 0 && this.currentIndex < this.servicio.fotos.length) {
-      if(this.titulo!="Arriendo"){
-
-        return;
-      }
       const titulo = this.servicio.fotos[this.currentIndex]?.titulo || this.servicio.titulo; // Usa el título del servicio si no hay título en la foto
       const imagen = this.servicio.fotos[this.currentIndex]?.url; // Valida que la URL esté disponible
       this.router.navigate(['/detalle-servicio'], {

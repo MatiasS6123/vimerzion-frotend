@@ -23,7 +23,7 @@ export class MostrarTecnologiasComponent {
     activo: false,
   };
 
-  defaultName = 'Oculus';
+  defaultName = 'Oculus 2';
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -46,5 +46,15 @@ export class MostrarTecnologiasComponent {
     }
   }
 
+
+  mapPlatform(nombre: string): string {
+    const nombreTecnologia: { [key: string]: string } = {
+      oculus_quest_2: 'Oculus Quest 2',
+      kat_vr: 'Kat vVr',
+      ps_vr: 'Ps vr',
+      oculus: 'Oculus',
+    };
+    return nombreTecnologia[nombre] || nombre; // Devolver el valor original si no está en el mapa
+  }
 
 }

@@ -1,4 +1,4 @@
-<section class="py-12 px-6 bg-gradient-to-br  text-white">
+<section class="py-12 px-6  text-white">
   <!-- Contenedor Principal -->
   <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
     <!-- Contenedor de texto -->
@@ -7,20 +7,18 @@
         <span>{{ titulo.split(' ')[0] }}</span>
         <span class="text-[#00eefd]">{{ titulo.split(' ').slice(1).join(' ') }}</span>
       </h1>
-      <p class="text-lg leading-relaxed">
-        Sumérgete en el fascinante mundo de los <span class="text-[#00eefd]">hologramas 3D</span> y sorprende a tu audiencia con una experiencia visual única. Incluye:
-      </p>
-      <ul class="list-disc list-inside space-y-2">
-        <li class="text-lg"><span class="text-[#00eefd] font-bold">Ventilador holográfico</span> (60 cm de diámetro): Este dispositivo utiliza hélices equipadas con MICRO LED que giran a gran velocidad para proyectar diseños 2D y 3D en el aire.</li>
-        <li class="text-lg"><span class="text-[#00eefd] font-bold">Diseños 3D predeterminados</span> (5): Tendrás acceso a cinco diseños predefinidos que dejarán boquiabierta a tu audiencia.</li>
-        <li class="text-lg"><span class="text-[#00eefd] font-bold">Animaciones 3D</span> con imágenes o fotografías: Añade un toque dinámico y personalizado a tus presentaciones holográficas.</li>
-        <li class="text-lg"><span class="text-[#00eefd] font-bold">Pedestal resistente</span> (2 metros): El soporte garantiza que tu holograma se mantenga estable y visible durante tus exposiciones.</li>
-      </ul>
+
+      <!-- Descripción dinámica -->
+      <div class="text-lg leading-relaxed space-y-4" [innerHTML]="descripcion"></div>
     </div>
 
     <!-- Imagen -->
     <div class="flex justify-center">
-      <img [src]="imagenUrl" alt="{{ titulo }}" class="rounded-lg shadow-lg max-w-full">
+      <img
+        [src]="imagenUrl"
+        alt="{{ titulo }}"
+        class="rounded-lg shadow-lg max-w-full h-auto transform hover:scale-105 transition-transform duration-300"
+      />
     </div>
   </div>
 </section>

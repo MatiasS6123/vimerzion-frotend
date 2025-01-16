@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CarritoService } from '../../../services/carrito.service';
 import { CarritoComponent } from '../carrito/carrito.component';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { SeleccionService } from '../../../services/seleccion.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   currentSection: string = '';
   isCarritoOpen = false;
   carritoCount = 0;
@@ -21,12 +22,14 @@ export class HeaderComponent {
   @Input() rolUsuario: string | null = null;
   @Output() roleCleared = new EventEmitter<void>();
   activeSubmenu: string | null = null;
+  isPersonSelected: boolean = false;
   constructor(
     private router: Router,
     private carritoService: CarritoService,
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private selectionService:SeleccionService
   ) {
     this.router.events.subscribe(() => {
       this.currentSection = this.router.url.replace('/', '') || 'inicio';
@@ -39,6 +42,23 @@ export class HeaderComponent {
     this.carritoService.getIsOpen$().subscribe((isOpen) => {
       this.isCarritoOpen = isOpen;
     });
+    this.selectionService.getSelection().subscribe((selection) => {
+      this.isPersonSelected = selection === 'Personas';
+      
+    });
+    
+  }
+
+  ngOnInit(): void {
+    const storedSelection = localStorage.getItem('userSelection');
+  if (storedSelection) {
+    this.isPersonSelected = storedSelection === 'Personas';
+  }
+
+  // Escuchar cambios de selección
+  this.selectionService.getSelection().subscribe((selection) => {
+    this.isPersonSelected = selection === 'Personas';
+  });
   }
 
   presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {

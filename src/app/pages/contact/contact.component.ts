@@ -26,7 +26,14 @@ export class ContactComponent {
     { nombre: 'Zona Sur', valor:'Zona Sur'},
     { nombre: 'Extremos de santiago',valor:'Extremos de santiago' },
   ];
+  currentIndex = 0;
+  images = [
+    'assets/servicio-empresa.jpg',
+    'assets/servicio-empresa2.jpg',
+    'assets/servicio-empresa3.jpg',
+  ];
 
+  
   constructor(private fb: FormBuilder, private toastr:ToastrService,private contactoService:ContactService) {
     this.contactForm = this.fb.group({
       nombre_solicitante: ['', Validators.required],
@@ -45,6 +52,20 @@ export class ContactComponent {
       
     });
   }
+
+  get transform() {
+    return `translateX(-${this.currentIndex * 100}%)`;
+  }
+
+  nextImage() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  }
+
+  prevImage() {
+    this.currentIndex =
+      (this.currentIndex - 1 + this.images.length) % this.images.length;
+  }
+
 
   submit() {
     if (this.contactForm.invalid) {
