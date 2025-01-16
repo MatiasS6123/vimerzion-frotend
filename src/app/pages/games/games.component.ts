@@ -67,7 +67,7 @@ export class GamesComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error cargando juego:', error);
+        console.error('Error cargando juego:');
         this.presentToast("Error al cargar el juego", "Error", "error");
         this.router.navigate(['/catalogo']); // Redirigir en caso de error
       },
@@ -209,7 +209,7 @@ export class GamesComponent implements OnInit {
             this.router.navigate(['/catalogo']);
           },
           error: (error) => {
-            console.error('Error en actualización:', error);
+            console.error('Error en actualización:');
             this.presentToast(
               "Error al actualizar el juego. Por favor intente nuevamente",
               "Error",
@@ -228,7 +228,7 @@ export class GamesComponent implements OnInit {
             this.router.navigate(['/catalogo']);
           },
           error: (error) => {
-            console.error('Error en creación:', error);
+            console.error('Error en creación:');
             this.presentToast(
               "Error al crear el juego. Por favor intente nuevamente",
               "Error",

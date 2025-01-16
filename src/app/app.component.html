@@ -25,6 +25,9 @@
   [title]="'Sesión Expirada'"
   [message]="'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.'"
   [confirmText]="'Aceptar'"
+  [cancelText]="null"
   [isVisible]="isTokenExpired"
+  [disableClickOutside]="true"
+  [disableEscapeKey]="true"
   (onConfirm)="handleLogout()">
 </app-modal>

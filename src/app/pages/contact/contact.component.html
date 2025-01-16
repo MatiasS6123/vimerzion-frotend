@@ -75,7 +75,7 @@
               [ngClass]="{ 'border-red-500': contactForm.get('zona_envio')?.invalid && contactForm.get('zona_envio')?.touched }"
               class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
             >
-              <option *ngFor="let zona of zonasDisponibles" [value]="zona">
+              <option *ngFor="let zona of zonasDisponibles" [value]="zona.valor">
                 {{ zona.nombre }}
               </option>
             </select>

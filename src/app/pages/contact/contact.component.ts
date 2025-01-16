@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { ContactService } from '../../services/contact.service';
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -25,18 +27,69 @@ export class ContactComponent {
     { nombre: 'Extremos de santiago',valor:'Extremos de santiago' },
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private toastr:ToastrService,private contactoService:ContactService) {
     this.contactForm = this.fb.group({
       nombre_solicitante: ['', Validators.required],
-      empresa: ['', [Validators.required, Validators.email]],
+      empresa: ['', [Validators.required]],
       cargo: ['', Validators.required],
-      servicios:['',Validators.required],
-      zona_envio:[this.zonasDisponibles[0],Validators.required],
+      servicios:[[],Validators.required],
+      zona_envio:[this.zonasDisponibles[0].valor,Validators.required],
       mensaje:['',Validators.required]
     });
   }
 
-  submit(){}
+  presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
+    this.toastr[tipo](mensaje, titulo, {
+      timeOut: 5000,               // Duración del mensaje
+      positionClass: 'toast-top-center', // Posición: arriba en el centro
+      
+    });
+  }
+
+  submit() {
+    if (this.contactForm.invalid) {
+      this.presentToast('Complete todos los campos', 'Error', 'error');
+      return;
+    }
+  
+    // Obtener el nombre de la zona basada en el valor seleccionado
+    const zonaSeleccionada = this.zonasDisponibles.find(
+      (zona) => zona.valor === this.contactForm.get('zona_envio')?.value
+    );
+  
+    // Preparar los datos del formulario para enviar al backend
+    const contactData = {
+      nombre_solicitante: this.contactForm.get('nombre_solicitante')?.value,
+      empresa: this.contactForm.get('empresa')?.value,
+      cargo: this.contactForm.get('cargo')?.value,
+      servicios: this.contactForm.get('servicios')?.value, // Array de servicios seleccionados
+      zona_envio: zonaSeleccionada ? zonaSeleccionada.nombre : '', // Usar el nombre de la zona
+      mensaje: this.contactForm.get('mensaje')?.value,
+    };
+  
+    
+    // Llamada al servicio para enviar los datos
+    this.contactoService.contacto(contactData).subscribe(
+      () => {
+        this.presentToast(
+          'Mensaje enviado con éxito, serás contactado en breve',
+          'Éxito',
+          'success'
+        );
+        this.contactForm.reset();
+      },
+      (error) => {
+        console.error('Error al enviar el mensaje:');
+        this.presentToast(
+          'Ha ocurrido un error al enviar el correo, inténtalo nuevamente',
+          'Error',
+          'error'
+        );
+      }
+    );
+  }
+  
+  
 
   onCheckboxChange(event: Event, controlName: string): void {
     const checkbox = event.target as HTMLInputElement;

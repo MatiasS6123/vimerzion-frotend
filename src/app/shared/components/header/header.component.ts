@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CarritoService } from '../../../services/carrito.service';
 import { CarritoComponent } from '../carrito/carrito.component';
 import { AuthService } from '../../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,8 @@ export class HeaderComponent {
     private router: Router,
     private carritoService: CarritoService,
     private cdr: ChangeDetectorRef,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr:ToastrService
   ) {
     this.router.events.subscribe(() => {
       this.currentSection = this.router.url.replace('/', '') || 'inicio';
@@ -36,6 +38,14 @@ export class HeaderComponent {
 
     this.carritoService.getIsOpen$().subscribe((isOpen) => {
       this.isCarritoOpen = isOpen;
+    });
+  }
+
+  presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
+    this.toastr[tipo](mensaje, titulo, {
+      timeOut: 5000,               // Duración del mensaje
+      positionClass: 'toast-top-center', // Posición: arriba en el centro
+      
     });
   }
 
@@ -60,6 +70,9 @@ export class HeaderComponent {
   }
 
   navegarACheckout(): void {
+    if(this.isAuthenticated){
+      this.presentToast("Porfavor inicie sesión o registrese para continuar","Informacion","info")
+    }
     this.closeCarrito(); // Cierra el carrito
     this.router.navigate(['/checkout']); // Redirige al checkout
   }

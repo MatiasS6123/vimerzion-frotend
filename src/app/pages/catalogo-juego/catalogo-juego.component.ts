@@ -46,15 +46,13 @@ export class CatalogoJuegoComponent {
         .pipe(finalize(() => (this.loading = false)))
         .subscribe({
           next: (response) => {
-            console.log(response.games)
             this.juegos = response.games;
-            console.log('Juegos cargados:', this.juegos);
             this.total = response.total;
             this.page = response.page;
             this.pages = response.pages;
           },
           error: (error) => {
-            console.error('Error al cargar el catálogo de juegos:', error);
+            console.error('Error al cargar el catálogo de juegos:');
             this.juegos = [];
           },
         });
@@ -65,7 +63,7 @@ export class CatalogoJuegoComponent {
   
   openModal(juego: any): void {
     if (!juego.plataforma || typeof juego.plataforma !== 'object') {
-      console.error('Plataforma no definida o no es un objeto:', juego);
+      console.error('Plataforma no definida o no es un objeto:');
       return;
     }
   

@@ -68,7 +68,6 @@ export class RegistroAdministradoresComponent {
         });
       },
       error: (error) => {
-        console.error('Error al cargar los datos del usuario:', error);
         alert('No se pudo cargar la información del usuario.');
         this.router.navigate(['/gestion-usuarios']);
       },
@@ -97,7 +96,7 @@ export class RegistroAdministradoresComponent {
           this.router.navigate(['/gestion-usuarios']);
         },
         error: (error) => {
-          console.error('Error al actualizar usuario:', error);
+          console.error('Error al actualizar usuario:');
           alert('Ocurrió un error al actualizar el usuario.');
         },
       });
@@ -108,7 +107,7 @@ export class RegistroAdministradoresComponent {
           this.router.navigate(['/gestion-usuarios']);
         },
         error: (error) => {
-          console.error('Error al registrar usuario:', error);
+          console.error('Error al registrar usuario:');
           alert('Ocurrió un error al registrar el usuario.');
         },
       });

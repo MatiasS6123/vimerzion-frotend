@@ -42,7 +42,7 @@ export class OrdenesComponent implements OnInit {
         this.loadOrdersById();
       }
     }, (error) => {
-      console.error('Error al obtener el rol o el ID:', error);
+      console.error('Error al obtener el rol o el ID:');
       this.errorMessage = 'Error al cargar la información del usuario.';
     });
   }
@@ -55,7 +55,7 @@ export class OrdenesComponent implements OnInit {
       },
       (error) => {
         this.errorMessage = error.message || 'Error al cargar órdenes';
-        console.error('Error al cargar órdenes:', error);
+        console.error('Error al cargar órdenes:');
       }
     );
   }
@@ -64,9 +64,7 @@ export class OrdenesComponent implements OnInit {
     const userId = this.id;
     this.orderService.getAllOrdersById(userId, 0, 10).subscribe(
       (response) => {
-        console.log('Respuesta completa del backend:', response); // Verifica toda la respuesta
-        console.log('Data:', response.data);
-  
+        
         // Verifica que "response.data" contenga "ordenes" y "pagination"
         if (response && response.data) {
           this.orders = response.data.ordenes || [];
@@ -76,11 +74,10 @@ export class OrdenesComponent implements OnInit {
           this.orders = [];
         }
   
-        console.log('Órdenes asignadas:', this.orders);
       },
       (error) => {
         this.errorMessage = error.message || 'Error al cargar órdenes';
-        console.error('Error al cargar órdenes:', error);
+        console.error('Error al cargar órdenes:');
       }
     );
   }
@@ -107,7 +104,7 @@ export class OrdenesComponent implements OnInit {
         }
       },
       (error) => {
-        this.errorMessage = error.message || 'Error al obtener el rol.';
+        
       }
     );
   }

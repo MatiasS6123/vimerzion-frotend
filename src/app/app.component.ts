@@ -20,6 +20,7 @@ export class AppComponent {
   isLoading: boolean = true; // Spinner de carga inicial
   isAuthenticated: boolean = false; // Controla si el usuario está autenticado
   currentUrl:string=''
+  private tokenExpirationTimer: any;
   private authService=inject(AuthService);
   private router=inject(Router);
 
@@ -38,17 +39,23 @@ export class AppComponent {
           this.getRole(); // Obtén el rol del usuario
           this.checkTokenExpiration(); // Verifica si el token está próximo a expirar
         } else {
-          this.isAuthenticated = false;
-          this.isLoading = false; // Detiene la carga
-          this.currentUrl
+          this.handleUnauthenticated();
         }
       },
       (error) => {
-        this.currentUrl
-        this.isAuthenticated = false;
-        this.isLoading = false; // Detiene la carga en caso de error
+        this.handleUnauthenticated();
       }
     );
+  }
+
+  private handleUnauthenticated(): void {
+    this.isAuthenticated = false;
+    this.isLoading = false;
+    this.rolUsuario = '';
+    // Limpia el timer si existe
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
   }
 
   updateRole(role: string): void {
@@ -66,36 +73,50 @@ export class AppComponent {
       },
       (error) => {
         this.router.navigate(['/login']);
-        this.isAuthenticated = false; // Asegura que el usuario no quede como autenticado
-        this.isLoading = false; // Detiene el spinner
+        this.handleUnauthenticated();
       }
     );
   }
 
+  ngOnDestroy(): void {
+    // Limpia el timer cuando el componente se destruye
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+  }
+
   // Verifica si el token está próximo a expirar
   checkTokenExpiration(): void {
-    this.authService.getRemainingTime().subscribe(
-      (response) => {
+    // Limpia cualquier timer existente
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+
+    this.authService.getRemainingTime().subscribe({
+      next: (response) => {
         const remainingTime = response.remainingTime;
-        console.log(remainingTime)
         
-        if (remainingTime > 0) {
-          setTimeout(() => {
+        if (remainingTime <= 0) {
+          this.handleTokenExpiration();
+        } else {
+          this.tokenExpirationTimer = setTimeout(() => {
             this.handleTokenExpiration();
           }, remainingTime);
-        } else {
-          this.handleTokenExpiration(); // Maneja la expiración inmediatamente
         }
       },
-      (error) => {
-        this.handleTokenExpiration(); // Maneja como si el token estuviera expirado
+      error: () => {
+        this.handleTokenExpiration();
       }
-    );
+    });
   }
 
   // Maneja la expiración del token
   handleTokenExpiration(): void {
     this.isTokenExpired = true;
+    // Asegurarse de que el usuario está autenticado cuando se muestra el modal
+    if (!this.isAuthenticated) {
+      this.isAuthenticated = true;
+    }
   }
 
   handleSuccessfulLogin(): void {
@@ -109,10 +130,18 @@ export class AppComponent {
   }
   // Maneja el cierre de sesión desde el modal
   handleLogout(): void {
-    this.isTokenExpired = false; // Oculta el modal
-    this.authService.logout().subscribe(() => {
-      this.isAuthenticated = false; // Marca como no autenticado
-      this.router.navigate(['/login']); // Redirige al login
+    this.authService.logout().subscribe({
+      next: () => {
+        this.isTokenExpired = false;
+        this.handleUnauthenticated();
+        // Fuerza la recarga de la página para actualizar todo el estado
+        window.location.href = '/login';
+      },
+      error: () => {
+        this.isTokenExpired = false;
+        this.handleUnauthenticated();
+        window.location.href = '/login';
+      }
     });
   }
   

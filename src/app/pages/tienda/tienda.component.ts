@@ -35,7 +35,7 @@ export class TiendaComponent {
         this.pages = response.pages;
       },
       error: (error) => {
-        console.error('Error al cargar los paquetes:', error);
+        console.error('Error al cargar los paquetes:');
       },
     });
   }

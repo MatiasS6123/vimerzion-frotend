@@ -54,10 +54,7 @@ export class CheckoutComponent {
 
   actualizarTotal(): void {
     const envio = Number(this.opcionEnvio) || 0; // Forzar conversión a número
-    console.log('Subtotal:', this.total);
-    console.log('Costo de Envío:', envio);
     this.totalConEnvio = this.total + envio;
-    console.log('Total con Envío:', this.totalConEnvio);
   }
   
   

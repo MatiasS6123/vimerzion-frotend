@@ -49,7 +49,7 @@ export class MostrarServiciosComponent{
           };
           this.currentIndex = 0;
         },
-        error: (err) => console.error('Error loading service:', err)
+        error: (err) => console.error('Error loading service:')
       });
     }
   }

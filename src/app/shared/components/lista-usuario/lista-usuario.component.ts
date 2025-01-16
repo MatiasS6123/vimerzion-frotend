@@ -31,7 +31,7 @@ export class ListaUsuarioComponent {
         this.roles = response.data.map((role: any) => role.nombre); // Solo nombres de roles
       },
       error: (error) => {
-        console.error('Error al cargar roles:', error);
+        console.error('Error al cargar roles:');
       }
     });
   }

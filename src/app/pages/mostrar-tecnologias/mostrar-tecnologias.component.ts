@@ -28,24 +28,20 @@ export class MostrarTecnologiasComponent {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const nombre = params['nombre'] || this.defaultName;
-      console.log('Loading technology for name:', nombre);
       this.loadTechnologyByName(nombre);
     });
   }
 
   loadTechnologyByName(nombre: string) {
     if (nombre) {
-      console.log('Loading technology:', nombre);
       this.tecnologiaService.getTecnologiaByName(nombre).subscribe({
         next: (data: Tecnologia) => {
-          console.log('Technology data received:', data);
           this.tecnologia = {
             ...data,
             activo: data.activo ?? false, // Manejo de undefined
           };
-          console.log('Image loaded:', data.imagen?.url);
         },
-        error: (err) => console.error('Error loading technology:', err),
+        error: (err) => console.error('Error loading technology:'),
       });
     }
   }
