@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.prod';
 })
 export class ContactService {
 
-  private API_URL=`${environment.apiUrl}/contact`;
+  private API_URL=`${environment.apiUrl}/contact`
   constructor(private http:HttpClient) { }
 
   contacto(contacto:any):Observable<any>{

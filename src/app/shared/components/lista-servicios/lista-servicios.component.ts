@@ -29,8 +29,8 @@ export class ListaServiciosComponent {
     this.loadServices(this.currentPage, this.itemsPerPage);
   }
 
-  handleAction(id: string): void {
-    this.router.navigate(['/gestion-servicios'], { queryParams: { id: id } });
+  handleAction(_id: string| undefined): void {
+    this.router.navigate(['/gestion-servicios'], { queryParams: { id: _id } });
   }
 
   loadServices(page: number, limit: number) {
