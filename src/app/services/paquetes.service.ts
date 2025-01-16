@@ -11,8 +11,8 @@ export class PaquetesService {
 
   private http=inject(HttpClient)
   private API_URL=`${environment.apiUrl}/package`
-  
 
+  
   getAllPaquetesPaginados(page: number, limit: number): Observable<{ paquetes: Paquete[]; total: number; page: number; pages: number }> {
     return this.http
       .get<{ paquetes: Paquete[]; total: number; page: number; pages: number }>(

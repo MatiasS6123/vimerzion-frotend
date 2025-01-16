@@ -1,20 +1,26 @@
-<section class="py-12 w-full text-white bg-[#1f1062]">
-    <!-- Título -->
-    <h1 class="text-4xl uppercase font-bold text-center mb-6">
-      {{ titulo }}
-    </h1>
-  
-    <!-- Contenedor principal -->
-    <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-8">
-      <!-- Imagen -->
-      <div class="w-full lg:w-1/2">
-        <img [src]="imagenUrl" alt="{{ titulo }}" class="rounded-lg shadow-lg" />
-      </div>
-  
-      <!-- Descripción -->
-      <div class="w-full lg:w-1/2 bg-[#26216c] p-6 rounded-lg shadow-lg">
-        <div [innerHTML]="descripcion" class="text-lg leading-relaxed"></div>
-      </div>
+<section class="py-12 px-6 bg-gradient-to-br  text-white">
+  <!-- Contenedor Principal -->
+  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <!-- Contenedor de texto -->
+    <div class="space-y-6">
+      <h1 class="text-5xl font-extrabold">
+        <span>{{ titulo.split(' ')[0] }}</span>
+        <span class="text-[#00eefd]">{{ titulo.split(' ').slice(1).join(' ') }}</span>
+      </h1>
+      <p class="text-lg leading-relaxed">
+        Sumérgete en el fascinante mundo de los <span class="text-[#00eefd]">hologramas 3D</span> y sorprende a tu audiencia con una experiencia visual única. Incluye:
+      </p>
+      <ul class="list-disc list-inside space-y-2">
+        <li class="text-lg"><span class="text-[#00eefd] font-bold">Ventilador holográfico</span> (60 cm de diámetro): Este dispositivo utiliza hélices equipadas con MICRO LED que giran a gran velocidad para proyectar diseños 2D y 3D en el aire.</li>
+        <li class="text-lg"><span class="text-[#00eefd] font-bold">Diseños 3D predeterminados</span> (5): Tendrás acceso a cinco diseños predefinidos que dejarán boquiabierta a tu audiencia.</li>
+        <li class="text-lg"><span class="text-[#00eefd] font-bold">Animaciones 3D</span> con imágenes o fotografías: Añade un toque dinámico y personalizado a tus presentaciones holográficas.</li>
+        <li class="text-lg"><span class="text-[#00eefd] font-bold">Pedestal resistente</span> (2 metros): El soporte garantiza que tu holograma se mantenga estable y visible durante tus exposiciones.</li>
+      </ul>
     </div>
-  </section>
-  
+
+    <!-- Imagen -->
+    <div class="flex justify-center">
+      <img [src]="imagenUrl" alt="{{ titulo }}" class="rounded-lg shadow-lg max-w-full">
+    </div>
+  </div>
+</section>

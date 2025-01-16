@@ -10,9 +10,9 @@ import { environment } from '../../environments/environment.prod';
 export class OrderService {
 
   private API_URL = `${environment.apiUrl}/order`;
- 
-  constructor(private http: HttpClient) {}
 
+  constructor(private http: HttpClient) {}
+  
   createOrderWithWebpay(orderData: any) {
     return this.http.post<{ transactionUrl: string }>(`${this.API_URL}/webpay`, orderData);
   }
