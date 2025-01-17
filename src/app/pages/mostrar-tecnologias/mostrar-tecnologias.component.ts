@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { TecnologiasService } from '../../services/tecnologias.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Tecnologia } from '../../models/tecnologias';
 
 @Component({
   selector: 'app-mostrar-tecnologias',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './mostrar-tecnologias.component.html',
   styleUrl: './mostrar-tecnologias.component.css'
 })

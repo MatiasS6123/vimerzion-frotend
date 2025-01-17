@@ -9,7 +9,7 @@
       <!-- Imagen -->
       <div class="shadow-md p-3 text-center max-w-[640px] mx-auto">
         <div class="flex flex-col gap-4">
-          <div class="relative w-full h-[400px] rounded-lg overflow-hidden">
+          <div class="relative w-full h-[500px] rounded-lg overflow-hidden">
             <img
               [src]="tecnologia.imagen.url"
               [alt]="tecnologia.nombre"
@@ -33,5 +33,27 @@
             {{ tecnologia.descripcion }}
           </p>
     </div>
+
+    <!-- Contenido adicional -->
+<!-- Contenido adicional -->
+<div class="text-center text-[#f1f1f1] mt-8">
+  <!-- Iconos o imágenes adicionales -->
+  <div class="flex justify-center space-x-6 mb-6">
+    <img src="assets/logo-play.jpg" alt="PlayStation VR" class="h-12">
+    <img src="assets/logo-oculus.jpg" alt="Oculus" class="h-12">
+    <img src="assets/logo-kat-vr.jpg" alt="KAT VR" class="h-12">
+  </div>
+
+  <!-- Botón de acción -->
+  <a [routerLink]="'/tienda'"
+     class="inline-block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-[#00eefd] font-bold 
+            text-base md:text-lg lg:text-xl px-6 py-3 rounded-md 
+            hover:bg-[#00cce3] transition-all duration-300">
+    <span class="text-[#1f1062] font-bold text-[20px] md:text-[24px] lg:text-[30px]">
+      Cotiza aquí
+    </span>
+  </a>
+</div>
+
   </section>
   
