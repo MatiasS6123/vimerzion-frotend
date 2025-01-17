@@ -53,6 +53,12 @@ export class MostrarTecnologiasComponent {
       oculus_quest_2: 'Oculus Quest 2',
       tecnologia_haptica: 'Tecnología Haptica',
       hologramas_3d: 'Hologramas 3D',
+      simulador_parapente:'Simulador Parapente',
+      simulador_de_vuelo:'Simulador de Vuelo',
+      simulador_de_carreras:'Simulador de Carreras',
+      estasciones_virtuales:'Estasciones Virtuales',
+      plataforma_360_View:'Plataforma 360° View',
+
     };
     return nombreTecnologia[nombre] || nombre; // Devolver el valor original si no está en el mapa
   }

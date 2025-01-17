@@ -14,10 +14,9 @@ export class ContactComponent {
   contactForm: FormGroup;
   messageStatus: string = '';
   serviciosDisponibles = [
-    { nombre: 'Servicio 1', valor: 'servicio1' },
-    { nombre: 'Servicio 2', valor: 'servicio2' },
-    { nombre: 'Servicio 3', valor: 'servicio3' },
-    { nombre: 'Servicio 4', valor: 'servicio4' },
+    { nombre: 'Activacion Publicitaria VR', valor: 'Activacion Publicitaria VR' },
+    { nombre: 'Eventos Corporativos VR', valor: 'Eventos Corporativos VR' },
+    { nombre: 'Team Building VR', valor: 'Team Building VR' },
   ];
   
   zonasDisponibles = [
@@ -31,6 +30,9 @@ export class ContactComponent {
     'assets/servicio-empresa.jpg',
     'assets/servicio-empresa2.jpg',
     'assets/servicio-empresa3.jpg',
+    'assets/servicio-empresa4.png',
+    'assets/servicio-empresa5.png',
+    'assets/servicio-empresa6.png',
   ];
 
   
@@ -97,7 +99,15 @@ export class ContactComponent {
           'Éxito',
           'success'
         );
-        this.contactForm.reset();
+        this.contactForm.reset({
+          nombre_solicitante: '',
+          empresa: '',
+          cargo: '',
+          servicios: [], // Restablece los checkboxes
+          zona_envio: this.zonasDisponibles[0].valor, // Valor por defecto para zona_envio
+          mensaje: '',
+        });
+        
       },
       (error) => {
         console.error('Error al enviar el mensaje:');
