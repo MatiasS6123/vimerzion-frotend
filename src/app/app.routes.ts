@@ -95,13 +95,6 @@ export const routes: Routes = [
         
     },
     {
-        path:'gestion-servicios',
-        component:ServicioComponent,
-        canActivate: [authRoleGuard],
-        data: { roles: ['ADMINISTRADOR'] },
-        runGuardsAndResolvers: 'pathParamsOrQueryParamsChange',
-    },
-    {
         path:'gestion-paquetes',
         component:PaquetesComponent,
         canActivate: [authRoleGuard],
