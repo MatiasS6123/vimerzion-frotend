@@ -28,6 +28,7 @@ export class MostrarTecnologiasComponent {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const nombre = params['nombre'] ? this.mapPlatform(params['nombre']) :"";;
+      console.log(nombre)
       this.loadTechnologyByName(nombre);
     });
   }

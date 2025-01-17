@@ -53,6 +53,7 @@ export class RegistroAdministradoresComponent {
       telefono: [''], // Campos adicionales para CLIENTE
       direccion: [''],
       newPassword: [''], // Campo para la nueva contraseña
+      activo:[true]
     });
   }
 
@@ -65,6 +66,8 @@ export class RegistroAdministradoresComponent {
           nombreRol: user.rol, // Cargar el rol del usuario
           telefono: user.telefono || '',
           direccion: user.direccion || '',
+          activo:user.activo
+
         });
       },
       error: (error) => {
@@ -93,7 +96,7 @@ export class RegistroAdministradoresComponent {
       this.userService.actualizarUsuario(this.userId, userData).subscribe({
         next: () => {
           alert('Usuario actualizado con éxito.');
-          this.router.navigate(['/gestion-usuarios']);
+          this.router.navigate(['/lista-usuarios']);
         },
         error: (error) => {
           console.error('Error al actualizar usuario:');

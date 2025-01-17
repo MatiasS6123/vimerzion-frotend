@@ -23,8 +23,9 @@ export class TecnologiaComponent {
     private toastr:ToastrService
   ){
     this.tecnologiaForm = this.fb.group({
-          nombre: ['', Validators.required],
+          nombre: ['Oculus Quest 2', Validators.required],
           descripcion: ['', Validators.required],
+          activo:[true],
           foto:[]
         });
   }
@@ -45,6 +46,8 @@ export class TecnologiaComponent {
               this.tecnologiaForm.patchValue({
                 nombre: tecnologia.nombre,
                 descripcion: tecnologia.descripcion,
+                activo:tecnologia.activo,
+
               });
   
               // Si hay una imagen, configurarla en la vista previa

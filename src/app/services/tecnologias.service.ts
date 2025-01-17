@@ -44,6 +44,7 @@ export class TecnologiasService {
     const formData = new FormData();
     formData.append('nombre', tecnologia.nombre);
     formData.append('descripcion', tecnologia.descripcion);
+    formData.append("activo",tecnologia.activo.toString() || 'true');
     formData.append('imagen', imagen);
 
     return this.http.post<Tecnologia>(`${this.API_URL}`, formData).pipe(
@@ -66,6 +67,7 @@ export class TecnologiasService {
     const formData = new FormData();
     if (tecnologia.nombre) formData.append('nombre', tecnologia.nombre);
     if (tecnologia.descripcion) formData.append('descripcion', tecnologia.descripcion);
+    formData.append("activo",tecnologia.activo.toString())
     if (imagen) formData.append('imagen', imagen);
 
     return this.http.put<Tecnologia>(`${this.API_URL}/${id}`, formData).pipe(
