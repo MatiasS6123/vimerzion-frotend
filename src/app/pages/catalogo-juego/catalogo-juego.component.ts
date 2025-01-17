@@ -96,6 +96,8 @@ export class CatalogoJuegoComponent {
       playstation_vr: 'PlayStation vr',
       nintendo_switch: 'Nintendo Switch',
       oculus: 'Oculus',
+      meta_quest_2:'Meta Quest 2',
+      simuladores_psvr_2:'Simuladores PsVr 2',
     };
     return platformMap[platform] || platform; // Devolver el valor original si no está en el mapa
   }

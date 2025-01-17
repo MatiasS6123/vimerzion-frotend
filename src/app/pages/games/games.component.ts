@@ -23,7 +23,7 @@ interface PlataformaSeleccionada {
 })
 export class GamesComponent implements OnInit {
   juegoForm!: FormGroup;
-  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch', 'Oculus'];
+  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch', 'Oculus',"Meta Quest 2", "Simuladores PsVr 2"];
   isEditMode = false;
   juegoId?: string;
   isLoading = false;
@@ -43,7 +43,7 @@ export class GamesComponent implements OnInit {
     this.juegoForm = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
-      categoria: ['', Validators.required],
+      categoria: ['Aventura', Validators.required],
       activo: [true],
       plataformas: this.fb.array([])
     });

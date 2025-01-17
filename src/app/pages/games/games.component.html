@@ -28,13 +28,21 @@
 
         <div class="mb-6">
             <label for="categoria" class="block text-lg font-medium text-gray-700">Categoría</label>
-            <input
+            <select
                 id="categoria"
-                type="text"
                 formControlName="categoria"
-                placeholder="Ejemplo: Aventura, Acción"
                 class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            />
+            >
+            <option value="Aventura">Aventura</option>
+            <option value="RPG">RPG</option>
+            <option value="Acción">Acción</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Simulación">Simulación</option>
+            <option value="Sand Box">Sand Box</option>
+            <option value="Carreras">Carreras</option>
+            <option value="Shutter">Shutter</option>
+
+            </select>
         </div>
 
         <div class="mb-6 flex items-center">
