@@ -102,12 +102,6 @@
           <li class="list-disc ml-4">
             <a routerLink="/tecnologias" [queryParams]="{ nombre: 'hologramas_3d'}" class="hover:text-[#00eefd] transition py-1 block">Hologramas 3D</a>
           </li>
-          <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Bhaptics'}" class="hover:text-[#00eefd] transition py-1 block">Bhaptics x40</a>
-          </li>
-          <li class="list-disc ml-4">
-            <a [routerLink]="['/tecnologias']" [queryParams]="{ nombre: 'Simuladores' }" class="hover:text-[#00eefd] transition py-1 block">Simuladores</a>
-          </li>
         </ul>
       </li>
       <ng-container *ngIf="!isAuthenticated">

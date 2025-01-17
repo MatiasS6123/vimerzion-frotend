@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TecnologiasService } from '../../services/tecnologias.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tecnologia } from '../../models/tecnologias';
 
 @Component({
@@ -13,7 +13,8 @@ import { Tecnologia } from '../../models/tecnologias';
 export class MostrarTecnologiasComponent {
   constructor(
     private tecnologiaService: TecnologiasService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router:Router
   ) {}
 
   tecnologia: Tecnologia = {
@@ -62,5 +63,15 @@ export class MostrarTecnologiasComponent {
     };
     return nombreTecnologia[nombre] || nombre; // Devolver el valor original si no está en el mapa
   }
+
+  goToDetalle(): void {
+      const titulo = this.tecnologia.nombre // Usa el título del servicio si no hay título en la foto
+      const imagen = this.tecnologia.imagen.url // Valida que la URL esté disponible
+      this.router.navigate(['/detalle-servicio'], {
+        queryParams: { titulo, imagen }
+      });
+    
+  }
+  
 
 }

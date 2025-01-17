@@ -2,44 +2,31 @@
   <!-- Título principal -->
   <h2 class="text-4xl uppercase font-bold text-center text-[#f1f1f1] mb-8">
     Servicios
-    <span class="bg-[#00eefd] uppercase text-[#000000] px-6 py-2 transform -skew-x-12">
-      {{ servicio.titulo }}
-    </span>
   </h2>
 
   <!-- Contenedor principal del slider -->
-  <div *ngIf="servicio.fotos.length > 0; else noFotos" class="max-w-6xl mx-auto relative">
+  <div *ngIf="fotos.length > 0; else noFotos" class="max-w-6xl mx-auto relative">
     <!-- Imagen slider -->
-    <div class="bg-white rounded-lg shadow-md p-6 max-w-[640px] mx-auto">
-      <div class="relative w-full h-[400px] rounded-lg overflow-hidden">
-        <div *ngFor="let foto of servicio.fotos; let i = index"
+    <div class=" rounded-lg shadow-md p-6 max-w-[640px] mx-auto">
+      <div class="relative w-full h-[750px] rounded-lg overflow-hidden">
+        <div *ngFor="let foto of fotos; let i = index"
              [class.opacity-100]="currentIndex === i"
              [class.opacity-0]="currentIndex !== i"
              class="absolute inset-0 transition-opacity duration-500 ease-in-out">
           <img
             [src]="foto.url"
             [alt]="foto.titulo"
-            class="object-cover w-full h-full cursor-pointer"
-            (click)="goToDetalle()"
+            class="object-cover w-full h-full"
           />
         </div>
       </div>
-    </div>
-
-    <!-- Título dinámico debajo del slider -->
-    <div class="text-center mt-6">
-      <h3 class="uppercase text-3xl font-bold text-[#f1f1f1] transition-all duration-500 ease-in-out"
-          [class.opacity-100]="titleVisible"
-          [class.opacity-0]="!titleVisible">
-        {{ servicio.fotos[currentIndex].titulo }}
-      </h3>
     </div>
 
     <!-- Botones de navegación -->
     <button 
       (click)="prevSlide()"
       class="absolute left-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors"
-      *ngIf="servicio.fotos.length > 1">
+      *ngIf="fotos.length > 1">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
@@ -48,14 +35,14 @@
     <button 
       (click)="nextSlide()"
       class="absolute right-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors"
-      *ngIf="servicio.fotos.length > 1">
+      *ngIf="fotos.length > 1">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
     </button>
   </div>
 
-  <!-- Mensaje si no hay fotos -->
+  <!-- Bloque alternativo cuando no hay fotos -->
   <ng-template #noFotos>
     <div class="text-center text-gray-400">
       <p class="text-lg">No hay imágenes disponibles para este servicio.</p>
@@ -64,18 +51,6 @@
 
   <!-- Contenido adicional -->
   <div class="text-center text-[#f1f1f1] mt-8">
-    <!-- Descripción dinámica -->
-    <p *ngIf="servicio.fotos.length > 0 && servicio.fotos[currentIndex]?.descripcion_foto; else noDescripcion"
-       class="text-lg mb-6 max-w-3xl mx-auto">
-      {{ servicio.fotos[currentIndex].descripcion_foto }}
-    </p>
-
-    <ng-template #noDescripcion>
-      <p class="text-lg mb-6 max-w-3xl mx-auto text-gray-400">
-        Descripción no disponible.
-      </p>
-    </ng-template>
-  
     <!-- Iconos o imágenes adicionales -->
     <div class="flex justify-center space-x-6 mb-6">
       <img src="assets/logo-play.jpg" alt="PlayStation VR" class="h-12">

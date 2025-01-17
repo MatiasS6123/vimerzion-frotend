@@ -20,7 +20,7 @@ export class DetalleServicioService {
       imagenUrl: 'ruta-a-imagen-hologramas.jpg',
     },
     {
-      titulo: 'Simuladores de carreras',
+      titulo: 'Simulador de Carreras',
       descripcion: `
         <p>Son un conjunto de elementos que garantizan una <strong>experiencia de conducción realista y emocionante</strong> para los amantes de los autos y las carreras. Incluye:</p>
         <ul>
@@ -41,7 +41,7 @@ export class DetalleServicioService {
       imagenUrl: 'ruta-a-imagen-simuladores-carreras.jpg',
     },
     {
-      titulo: 'Simulador de vuelo',
+      titulo: 'Simulador de Vuelo',
       descripcion: `
         <p>Son un conjunto de elementos diseñados para brindarte una <strong>experiencia llena de acción y adrenalina</strong>. En este entorno, vivirás aventuras en el aire que te harán sentir la emoción de pilotar. Incluye:</p>
         <ul>
@@ -62,7 +62,7 @@ export class DetalleServicioService {
       imagenUrl: 'ruta-a-imagen-simulador-vuelo.jpg',
     },
     {
-      titulo: 'Simulador de parapente',
+      titulo: 'Simulador Parapente',
       descripcion: `
         <p>Son un conjunto de elementos diseñados para brindar una <strong>experiencia de vuelo realista</strong>, permitiendo al usuario experimentar la sensación de estar en el aire. Incluye:</p>
         <ul>
@@ -104,7 +104,23 @@ export class DetalleServicioService {
       imagenUrl: 'ruta-a-imagen-plataforma-360.jpg',
     },
     {
-      titulo: 'Estaciones virtuales',
+      titulo: 'Tecnología Haptica',
+      descripcion: `Haptica
+        <p>Descubre la tecnología háptica, una experiencia emocionante y revolucionaria que te sumerge en un mundo de <strong>sensaciones palpables</strong>. Mediante el uso de vibraciones sutiles, movimientos precisos y retroalimentación táctil, esta tecnología te permite sentir y experimentar virtualmente cualquier cosa.</p>
+        <p>Ya sea que estés explorando un videojuego, un metaverso o incluso participando en un entrenamiento virtual, la tecnología háptica te <strong>sumergirá por completo</strong>.</p>
+      `,
+      imagenUrl: 'ruta-a-imagen-haptica.jpg', // Sustituye con la URL correspondiente
+    },
+    {
+      titulo: 'Oculus Quest 2',
+      descripcion: `
+        <p>Oculus Quest 2 son unas gafas de realidad virtual que ofrecen la tecnología más avanzada para que puedas disfrutar de cientos de videojuegos en cualquier lugar y con total comodidad.</p>
+        <p>Sirven para jugar los títulos más populares, realizar ejercicios y explorar experiencias de realidad virtual. El diseño cómodo de este dispositivo lo convierte en el complemento ideal para la diversión y el entretenimiento.</p>
+      `,
+      imagenUrl: 'ruta-a-imagen-oculus.jpg', // Sustituye con la URL correspondiente
+    },
+    {
+      titulo: 'Estasciones Virtuales',
       descripcion: `
         <p>Son un conjunto de elementos que ofrecen una <strong>experiencia inmersiva y segura</strong>. Te sumergen en un universo virtual, haciéndote sentir como si estuvieras dentro de él. Incluye:</p>
         <ul>

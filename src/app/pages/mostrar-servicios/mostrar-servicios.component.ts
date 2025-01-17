@@ -20,44 +20,25 @@ export class MostrarServiciosComponent{
     private router:Router
   ) {}
 
-  servicio: Servicio = {
-    titulo: '',
-    descripcion: '',
-    fotos: [],
-    activo: false // Inicializamos con un valor por defecto
-  };
-
+    fotos= [
+    { titulo: 'Servicio 2', url: 'assets/servicio-empresa4.png' },
+    { titulo: 'Servicio 3', url: 'assets/servicio-empresa5.png' },
+    { titulo: 'Servicio 4', url: 'assets/servicio-empresa6.png' },
+    ]
   currentIndex = 0;
   titleVisible = true;
-  titulo = '';
-
+  
   ngOnInit(): void {
 
-    this.route.queryParams.subscribe(params => {
-      this.titulo = params['titulo'] ;
-      this.loadServiceByName(this.titulo);
-    });
+    
   }
 
-  loadServiceByName(titulo: string) {
-    if (titulo) {
-      this.servicioService.getServiciosByName(titulo).subscribe({
-        next: (data: Servicio) => {
-          this.servicio = {
-            ...data,
-            activo: data.activo ?? false // Manejo de undefined
-          };
-          this.currentIndex = 0;
-        },
-        error: (err) => console.error('Error loading service:')
-      });
-    }
-  }
+  
 
   nextSlide() {
     this.titleVisible = false;
     setTimeout(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.servicio.fotos.length;
+      this.currentIndex = (this.currentIndex + 1) % this.fotos.length;
       this.titleVisible = true;
     }, 300);
   }
@@ -65,24 +46,10 @@ export class MostrarServiciosComponent{
   prevSlide() {
     this.titleVisible = false;
     setTimeout(() => {
-      this.currentIndex = (this.currentIndex - 1 + this.servicio.fotos.length) % this.servicio.fotos.length;
+      this.currentIndex = (this.currentIndex - 1 + this.fotos.length) % this.fotos.length;
       this.titleVisible = true;
     }, 300);
   }
-
-  goToDetalle(): void {
-    if (this.servicio.fotos.length > 0 && this.currentIndex < this.servicio.fotos.length) {
-      const titulo = this.servicio.fotos[this.currentIndex]?.titulo || this.servicio.titulo; // Usa el título del servicio si no hay título en la foto
-      const imagen = this.servicio.fotos[this.currentIndex]?.url; // Valida que la URL esté disponible
-      this.router.navigate(['/detalle-servicio'], {
-        queryParams: { titulo, imagen }
-      });
-    } else {
-      console.warn('No hay fotos disponibles para redirigir al detalle.');
-    }
-  }
-  
-  
 
   goToSlide(index: number) {
     if (index !== this.currentIndex) {
