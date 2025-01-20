@@ -19,12 +19,20 @@ export class TiendaComponent {
   pages = 1;
   limit = 5;
   currentIndex = 0;
+  user:string ="";
   constructor(private paqueteService: PaquetesService, private carritoService: CarritoService ) {}
 
   ngOnInit(): void {
     this.fetchPaquetes();
+    this.user=this.getTypeUser()??'';
+
   }
 
+
+
+  getTypeUser(): string | null {
+    return localStorage.getItem('userSelection'); // Obtiene el tipo de usuario desde localStorage
+  }
   fetchPaquetes(): void {
     this.paqueteService.getAllPaquetesPaginados(this.page, this.limit).subscribe({
       next: (response) => {

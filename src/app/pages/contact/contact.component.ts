@@ -1,18 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ContactService } from '../../services/contact.service';
+import { RouterLink } from '@angular/router';
+import { ModalPaqueteComponent } from '../../shared/components/modal-paquete/modal-paquete.component';
+import { Paquete } from '../../models/paquete';
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,RouterLink,ModalPaqueteComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })
 export class ContactComponent {
+  modalPaquetesVisible = false; // Controla la visibilidad del modal
+  paquetes: Paquete[] = []; // Lista de paquetes
+  paquetesSeleccionados: Paquete[] = []; // Lista de paquetes seleccionados
   contactForm: FormGroup;
-  messageStatus: string = '';
+  formSubmitted = false;
+  @ViewChild(ModalPaqueteComponent) modalPaquete!: ModalPaqueteComponent; // Referencia al modal
   serviciosDisponibles = [
     { nombre: 'Activacion Publicitaria VR', valor: 'Activacion Publicitaria VR' },
     { nombre: 'Eventos Corporativos VR', valor: 'Eventos Corporativos VR' },
@@ -26,14 +33,13 @@ export class ContactComponent {
     { nombre: 'Extremos de santiago',valor:'Extremos de santiago' },
   ];
   currentIndex = 0;
+  // Imágenes del slider
   images = [
-    'assets/servicio-empresa.jpg',
-    'assets/servicio-empresa2.jpg',
-    'assets/servicio-empresa3.jpg',
-    'assets/servicio-empresa4.png',
-    'assets/servicio-empresa5.png',
-    'assets/servicio-empresa6.png',
+    { url: 'assets/servicio-empresa.jpg' },
+    { url: 'assets/servicio-empresa2.jpg' },
+    { url: 'assets/servicio-empresa3.jpg' },
   ];
+
 
   
   constructor(private fb: FormBuilder, private toastr:ToastrService,private contactoService:ContactService) {
@@ -43,7 +49,8 @@ export class ContactComponent {
       cargo: ['', Validators.required],
       servicios:[[],Validators.required],
       zona_envio:[this.zonasDisponibles[0].valor,Validators.required],
-      mensaje:['',Validators.required]
+      mensaje:['',Validators.required],
+      paquetes: [[]], 
     });
   }
 
@@ -59,66 +66,102 @@ export class ContactComponent {
     return `translateX(-${this.currentIndex * 100}%)`;
   }
 
-  nextImage() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  }
-
-  prevImage() {
+   // Navegar a la imagen anterior
+   prevImage() {
     this.currentIndex =
       (this.currentIndex - 1 + this.images.length) % this.images.length;
   }
 
+  // Navegar a la imagen siguiente
+  nextImage() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  }
+
+
+
+  abrirModal(): void {
+    this.modalPaquetesVisible = true;
+    
+  }
+  
+  cerrarModal(): void {
+    this.modalPaquetesVisible = false;
+  }
+  
+  guardarPaquetesSeleccionados(paquetes: Paquete[]): void {
+    this.paquetesSeleccionados = paquetes;
+  
+    // Extraer solo los nombres de los paquetes seleccionados
+    const nombresPaquetes = paquetes.map(paquete => paquete.nombre);
+  
+    // Actualizar el formulario con los nombres
+    this.contactForm.patchValue({ paquetes: nombresPaquetes });
+  
+    this.cerrarModal();
+  }
+  
+  
+  limpiarEstadoModal(): void {
+    this.paquetesSeleccionados = []; // Limpia los paquetes seleccionados
+    this.cerrarModal(); // Cierra el modal
+  }
+  
 
   submit() {
-    if (this.contactForm.invalid) {
-      this.presentToast('Complete todos los campos', 'Error', 'error');
-      return;
-    }
-  
-    // Obtener el nombre de la zona basada en el valor seleccionado
-    const zonaSeleccionada = this.zonasDisponibles.find(
-      (zona) => zona.valor === this.contactForm.get('zona_envio')?.value
-    );
-  
-    // Preparar los datos del formulario para enviar al backend
-    const contactData = {
-      nombre_solicitante: this.contactForm.get('nombre_solicitante')?.value,
-      empresa: this.contactForm.get('empresa')?.value,
-      cargo: this.contactForm.get('cargo')?.value,
-      servicios: this.contactForm.get('servicios')?.value, // Array de servicios seleccionados
-      zona_envio: zonaSeleccionada ? zonaSeleccionada.nombre : '', // Usar el nombre de la zona
-      mensaje: this.contactForm.get('mensaje')?.value,
-    };
-  
     
-    // Llamada al servicio para enviar los datos
-    this.contactoService.contacto(contactData).subscribe(
-      () => {
-        this.presentToast(
-          'Mensaje enviado con éxito, serás contactado en breve',
-          'Éxito',
-          'success'
-        );
-        this.contactForm.reset({
-          nombre_solicitante: '',
-          empresa: '',
-          cargo: '',
-          servicios: [], // Restablece los checkboxes
-          zona_envio: this.zonasDisponibles[0].valor, // Valor por defecto para zona_envio
-          mensaje: '',
-        });
-        
-      },
-      (error) => {
-        console.error('Error al enviar el mensaje:');
-        this.presentToast(
-          'Ha ocurrido un error al enviar el correo, inténtalo nuevamente',
-          'Error',
-          'error'
-        );
-      }
-    );
+  if (this.contactForm.invalid) {
+    this.formSubmitted = true;
+    this.presentToast('Complete todos los campos', 'Error', 'error');
+    console.log(this.contactForm.value)
+    return;
   }
+
+  const zonaSeleccionada = this.zonasDisponibles.find(
+    (zona) => zona.valor === this.contactForm.get('zona_envio')?.value
+  );
+
+  const contactData = {
+    nombre_solicitante: this.contactForm.get('nombre_solicitante')?.value,
+    empresa: this.contactForm.get('empresa')?.value,
+    cargo: this.contactForm.get('cargo')?.value,
+    servicios: this.contactForm.get('servicios')?.value,
+    zona_envio: zonaSeleccionada ? zonaSeleccionada.nombre : '',
+    mensaje: this.contactForm.get('mensaje')?.value,
+    paquetes: this.contactForm.get('paquetes')?.value, // Incluir paquetes seleccionados
+  };
+
+  this.contactoService.contacto(contactData).subscribe(
+    () => {
+      this.presentToast(
+        'Mensaje enviado con éxito, serás contactado en breve',
+        'Éxito',
+        'success'
+      );
+      this.contactForm.reset({
+        nombre_solicitante: '',
+        empresa: '',
+        cargo: '',
+        servicios: [],
+        zona_envio: this.zonasDisponibles[0].valor,
+        mensaje: '',
+        paquetes: [], // Resetear los paquetes seleccionados
+      });
+      // Limpiar el estado del modal y cerrarlo
+      this.modalPaquete.limpiarEstado();
+      this.cerrarModal();
+
+    },
+    (error) => {
+      console.error('Error al enviar el mensaje:', error);
+      this.presentToast(
+        'Ha ocurrido un error al enviar el correo, inténtalo nuevamente',
+        'Error',
+        'error'
+      );
+    }
+  );
+}
+
   
   
 

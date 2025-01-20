@@ -31,9 +31,11 @@ export class CheckoutComponent {
   ];
   submitted = false;
   
-  opcionEnvio = 0; // Valor por defecto
+  opcionEnvio: number | null = null; // Valor inicial como null
+
   totalConEnvio = 0;
 
+  modalVisible = false; // Controla la visibilidad del modal
   constructor(
     private carritoService: CarritoService,
     private orderService: OrderService,
@@ -57,6 +59,13 @@ export class CheckoutComponent {
     this.totalConEnvio = this.total + envio;
   }
   
+  abrirModal(): void {
+    this.modalVisible = true; // Muestra el modal
+  }
+
+  cerrarModal(): void {
+    this.modalVisible = false; // Oculta el modal
+  }
   
   getUserId(){
     this.authService.getId().subscribe(

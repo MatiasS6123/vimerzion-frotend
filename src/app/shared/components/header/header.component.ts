@@ -22,7 +22,9 @@ export class HeaderComponent implements OnInit{
   @Input() rolUsuario: string | null = null;
   @Output() roleCleared = new EventEmitter<void>();
   activeSubmenu: string | null = null;
-  isPersonSelected: boolean = false;
+  isPersonSelected: string | null = null;
+  activeSimuladoresSubmenu: boolean = false;
+
   constructor(
     private router: Router,
     private carritoService: CarritoService,
@@ -42,24 +44,25 @@ export class HeaderComponent implements OnInit{
     this.carritoService.getIsOpen$().subscribe((isOpen) => {
       this.isCarritoOpen = isOpen;
     });
-    this.selectionService.getSelection().subscribe((selection) => {
-      this.isPersonSelected = selection === 'Personas';
-      
-    });
+    
+    
     
   }
 
   ngOnInit(): void {
+    // Recuperar selección previa
     const storedSelection = localStorage.getItem('userSelection');
-  if (storedSelection) {
-    this.isPersonSelected = storedSelection === 'Personas';
+    if (storedSelection) {
+      this.isPersonSelected = storedSelection;
+    }
+
+    // Escuchar cambios en la selección
+    this.selectionService.getSelection().subscribe((selection) => {
+      this.isPersonSelected = selection;
+    });
   }
 
-  // Escuchar cambios de selección
-  this.selectionService.getSelection().subscribe((selection) => {
-    this.isPersonSelected = selection === 'Personas';
-  });
-  }
+  
 
   presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
     this.toastr[tipo](mensaje, titulo, {
@@ -70,8 +73,15 @@ export class HeaderComponent implements OnInit{
   }
 
   toggleSubmenu(menu: string): void {
-    this.activeSubmenu = this.activeSubmenu === menu ? null : menu;
+    if (menu === 'tecnologias') {
+      this.activeSubmenu = this.activeSubmenu === 'tecnologias' ? null : 'tecnologias';
+      // Cierra el submenú de simuladores al alternar el menú principal
+      this.activeSimuladoresSubmenu = false;
+    } else if (menu === 'simuladores') {
+      this.activeSimuladoresSubmenu = !this.activeSimuladoresSubmenu;
+    }
   }
+  
   
   get isAuthenticated(): boolean {
     return !!this.rolUsuario && this.rolUsuario !== '';
@@ -90,7 +100,7 @@ export class HeaderComponent implements OnInit{
   }
 
   navegarACheckout(): void {
-    if(this.isAuthenticated){
+    if(!this.isAuthenticated){
       this.presentToast("Porfavor inicie sesión o registrese para continuar","Informacion","info")
     }
     this.closeCarrito(); // Cierra el carrito

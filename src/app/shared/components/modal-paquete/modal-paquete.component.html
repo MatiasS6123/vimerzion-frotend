@@ -1,0 +1,54 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto"
+  *ngIf="isVisible"
+>
+  <div
+    class="bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-[90%] sm:max-w-md lg:max-w-2xl overflow-y-auto"
+    style="max-height: calc(100vh - 2rem);"
+  >
+    <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center text-[#1f1062]">
+      Seleccione Paquetes
+    </h2>
+
+    <!-- Contenido del modal -->
+    <div>
+      <div *ngIf="paquetes.length > 0; else noPaquetes" class="space-y-6">
+        <div *ngFor="let paquete of paquetes" class="flex items-start space-x-4 border-b pb-4">
+          <div class="flex-1">
+            <h3 class="font-semibold text-[#1f1062] text-base sm:text-lg">
+              {{ paquete.nombre }}
+            </h3>
+            <p class="text-gray-500 text-sm">{{ paquete.descripcion }}</p>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              [value]="paquete"
+              (change)="togglePaqueteSeleccionado(paquete)"
+              [checked]="paquetesSeleccionadosTemp.includes(paquete)"
+              class="w-5 h-5 accent-blue-500"
+            />
+          </div>
+        </div>
+      </div>
+      <ng-template #noPaquetes>
+        <p class="text-center text-gray-500 text-sm">No hay paquetes disponibles.</p>
+      </ng-template>
+    </div>
+
+    <div class="mt-4 space-y-3">
+      <button
+        class="w-full bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600 text-sm sm:text-base"
+        (click)="confirmarPaquetes()"
+      >
+        Confirmar Selección
+      </button>
+      <button
+        class="w-full bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600 text-sm sm:text-base"
+        (click)="cerrar()"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

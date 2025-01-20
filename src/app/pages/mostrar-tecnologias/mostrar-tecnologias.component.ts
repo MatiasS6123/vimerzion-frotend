@@ -29,7 +29,6 @@ export class MostrarTecnologiasComponent {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const nombre = params['nombre'] ? this.mapPlatform(params['nombre']) :"";;
-      console.log(nombre)
       this.loadTechnologyByName(nombre);
     });
   }
@@ -59,6 +58,8 @@ export class MostrarTecnologiasComponent {
       simulador_de_carreras:'Simulador de Carreras',
       estasciones_virtuales:'Estasciones Virtuales',
       plataforma_360_View:'Plataforma 360° View',
+      realidad_virtual:'Realidad Virtual',
+      realidad_mixta:'Realidad Mixta',
 
     };
     return nombreTecnologia[nombre] || nombre; // Devolver el valor original si no está en el mapa
