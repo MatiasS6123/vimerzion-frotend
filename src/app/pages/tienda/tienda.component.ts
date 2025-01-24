@@ -4,11 +4,12 @@ import { PaquetesService } from '../../services/paquetes.service';
 import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../services/carrito.service';
 import { CarritoItem } from '../../models/carrito';
+import { ContactComponent } from '../contact/contact.component';
 
 @Component({
   selector: 'app-tienda',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,ContactComponent],
   templateUrl: './tienda.component.html',
   styleUrl: './tienda.component.css'
 })
@@ -20,6 +21,7 @@ export class TiendaComponent {
   limit = 5;
   currentIndex = 0;
   user:string ="";
+  isModalOpen: boolean = false;
   constructor(private paqueteService: PaquetesService, private carritoService: CarritoService ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,14 @@ export class TiendaComponent {
       minimumFractionDigits: 0,
     }).format(monto);
   }
+  openModal(): void {
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+  
   nextPage(): void {
     if (this.page < this.pages) {
       this.page++;

@@ -1,32 +1,31 @@
 <div *ngIf="isLoading" class="loading-spinner text-center text-white p-6 rounded-md shadow-md">
-    <!-- Spinner de carga -->
-    <p class="font-bold text-lg">Cargando, por favor espera...</p>
-  </div>
-  
-  <div *ngIf="!isLoading && success" class="success-message bg-[#1f1062] text-white p-6 rounded-md shadow-md">
-    <h2 class="text-[#00eefd] font-bold text-2xl mb-4">¡Pago realizado con éxito!</h2>
-    <p class="font-bold mb-2 text-lg">Tu orden ha sido confirmada:</p>
-    <ul class="mb-4 text-base font-medium">
-      <li><strong>ID de Orden:</strong> {{ orderDetails.id }}</li>
-      <li><strong>Total:</strong> {{ formatearPesos(orderDetails.total) }}</li>
-    </ul>
-    <button 
-      class="bg-[#00eefd] text-[#1f1062] font-bold py-2 px-4 rounded hover:bg-[#00d5e6] transition-colors"
-      (click)="volverAlInicio()"
-    >
-      Volver al inicio
-    </button>
-  </div>
-  
-  
-  <div *ngIf="!isLoading && !success" class="error-message  text-white p-6 rounded-md shadow-md">
-    <h2 class="text-red-500 font-bold text-2xl mb-4">Error al procesar el pago</h2>
-    <p class="text-base font-medium mb-4">{{ errorMessage }}</p>
-    <button 
-      class="bg-[#00eefd] text-[#1f1062] font-bold py-2 px-4 rounded hover:bg-[#00d5e6] transition-colors"
-      (click)="reintentar()"
-    >
-      Reintentar
-    </button>
-  </div>
-  
+  <!-- Spinner de carga -->
+  <p class="font-bold text-lg">Cargando, por favor espera...</p>
+</div>
+
+<div *ngIf="!isLoading && success" class="success-message bg-[#1f1062] text-white p-6 rounded-md shadow-md">
+  <h2 class="text-[#00eefd] font-bold text-2xl mb-4">¡Pago realizado con éxito!</h2>
+  <p class="font-bold mb-2 text-lg">Tu orden ha sido confirmada:</p>
+  <ul class="mb-4 text-base font-medium">
+    <li><strong>ID de Orden:</strong> {{ orderDetails.id }}</li>
+    <li><strong>Total:</strong> {{ formatearPesos(orderDetails.total) }}</li>
+  </ul>
+  <button 
+    class="bg-[#00eefd] text-[#1f1062] font-bold py-2 px-4 rounded hover:bg-[#00d5e6] transition-colors"
+    (click)="volverAlInicio()"
+  >
+    Volver al inicio
+  </button>
+</div>
+
+
+<div *ngIf="!isLoading && !success" class="error-message  text-white p-6 rounded-md shadow-md">
+  <h2 class="text-red-500 font-bold text-2xl mb-4">Error al procesar el pago</h2>
+  <p class="text-base font-medium mb-4">{{ errorMessage }}</p>
+  <button 
+    class="bg-[#00eefd] text-[#1f1062] font-bold py-2 px-4 rounded hover:bg-[#00d5e6] transition-colors"
+    (click)="reintentar()"
+  >
+    Reintentar
+  </button>
+</div>

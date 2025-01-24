@@ -32,13 +32,6 @@ export class ContactComponent {
     { nombre: 'Zona Sur', valor:'Zona Sur'},
     { nombre: 'Extremos de santiago',valor:'Extremos de santiago' },
   ];
-  currentIndex = 0;
-  // Imágenes del slider
-  images = [
-    { url: 'assets/servicio-empresa.jpg' },
-    { url: 'assets/servicio-empresa2.jpg' },
-    { url: 'assets/servicio-empresa3.jpg' },
-  ];
 
 
   
@@ -62,21 +55,7 @@ export class ContactComponent {
     });
   }
 
-  get transform() {
-    return `translateX(-${this.currentIndex * 100}%)`;
-  }
-
-   // Navegar a la imagen anterior
-   prevImage() {
-    this.currentIndex =
-      (this.currentIndex - 1 + this.images.length) % this.images.length;
-  }
-
-  // Navegar a la imagen siguiente
-  nextImage() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  }
-
+  
 
 
   abrirModal(): void {

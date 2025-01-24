@@ -7,10 +7,11 @@
   <!-- Menú con enlaces activos -->
   <ul class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8">
     <!-- Menú para Personas -->
-    <ng-container *ngIf="isPersonSelected === 'Personas' && !isAdmin">
+    <ng-container *ngIf="(isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' )&& !isAdmin">
       <!-- Inicio -->
       <li>
-        <a routerLink="/inicio" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+        <a routerLink="/inicio"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'inicio'}">
           Inicio
         </a>
@@ -19,85 +20,98 @@
 
       <!-- Servicios -->
       <li class="relative">
-        <a routerLink="/servicios" [queryParams]="{ titulo: 'Personas' }" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+        <a routerLink="/servicios" [queryParams]="{ titulo: 'Personas' }"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'servicios'}">
           Servicios
         </a>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
 
-      <!-- Tienda -->
       <li class="relative">
-        <a routerLink="/tienda" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === 'tienda'}">
-          Tienda
-        </a>
+        <button (click)="toggleSubmenu('catalogo')"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'catalogo'}">
+          Catalogo
+        </button>
+        <ul *ngIf="activeSubmenu === 'catalogo'"
+        (mouseover)="onSubmenuInteraction()"
+        (mouseout)="onSubmenuInteraction()"
+        (click)="onSubmenuInteraction()"
+          class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_5' }"
+              class="hover:text-[#00eefd] transition py-1 block">PlayStation 5</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_vr' }"
+              class="hover:text-[#00eefd] transition py-1 block">PlayStation VR</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'nintendo_switch' }"
+              class="hover:text-[#00eefd] transition py-1 block">Nintendo Switch</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'meta_quest_2' }"
+              class="hover:text-[#00eefd] transition py-1 block">Meta Quest 2</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'simuladores_psvr_2' }"
+              class="hover:text-[#00eefd] transition py-1 block">Simuladores PSVR 2</a>
+          </li>
+        </ul>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
+      <li class="relative">
+        <button (click)="toggleSubmenu('tecnologias')"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'tecnologias'}">
+          Tecnologias
+        </button>
+        <ul *ngIf="activeSubmenu === 'tecnologias'"
+        (mouseover)="onSubmenuInteraction()"
+  (mouseout)="onSubmenuInteraction()"
+  (click)="onSubmenuInteraction()"
+          class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'tecnologia_haptica' }" class="hover:text-[#00eefd] transition py-1 block">Tecnología Haptica</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_virtual' }" class="hover:text-[#00eefd] transition py-1 block">Realidad Virtual</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_mixta' }" class="hover:text-[#00eefd] transition py-1 block">Realidad Mixta</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'plataforma_360' }" class="hover:text-[#00eefd] transition py-1 block">Plataforma 360°</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'simuladores' }" class="hover:text-[#00eefd] transition py-1 block">Simuladores</a>
+          </li>
+          <li class="list-disc ml-4">
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Hologramas' }" class="hover:text-[#00eefd] transition py-1 block">Hologramas</a>
+          </li>
+          
+        </ul>
+      </li>
     </ng-container>
-
-    <!-- Opción Tecnologías (Visible para Personas o Empresas) -->
-<!-- Opción Tecnologías -->
-<li *ngIf="(isPersonSelected === 'Personas' || isPersonSelected === 'Empresas') && !isAdmin" class="relative"> 
-  <button
-    (click)="toggleSubmenu('tecnologias')"
-    class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
-    Tecnologías
-  </button>
-  <ul
-    *ngIf="activeSubmenu === 'tecnologias'"
-    class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
-    <!-- Opción Tecnología Haptica -->
-    <li class="list-disc ml-4">
-      <a routerLink="/tecnologias" [queryParams]="{ nombre: 'tecnologia_haptica' }" class="hover:text-[#00eefd] transition py-1 block">Tecnología Haptica</a>
-    </li>
-    <li class="list-disc ml-4">
-      <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_virtual' }" class="hover:text-[#00eefd] transition py-1 block">Realidad Virtual</a>
-    </li>
-    <li class="list-disc ml-4">
-      <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_mixta' }" class="hover:text-[#00eefd] transition py-1 block">Realidad Mixta</a>
-    </li>
-    <!-- Submenú Simuladores -->
-    <li class="list-disc ml-4 relative">
-      <button
-        (click)="toggleSubmenu('simuladores')"
-        class="hover:text-[#00eefd] transition py-1 block font-bold">
-        Simuladores
-      </button>
-      <!-- Submenú de simuladores -->
-      <ul
-        *ngIf="activeSimuladoresSubmenu"
-        class="absolute left-full top-0 w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-20 text-sm">
-        <li class="list-disc ml-4">
-          <a routerLink="/tecnologias" [queryParams]="{ nombre: 'simulador_parapente' }" class="hover:text-[#00eefd] transition py-1 block">Simulador Parapente</a>
-        </li>
-        <li class="list-disc ml-4"> 
-          <a routerLink="/tecnologias" [queryParams]="{ nombre: 'simulador_de_vuelo' }" class="hover:text-[#00eefd] transition py-1 block">Simulador de Vuelo</a>
-        </li>
-        <li class="list-disc ml-4">
-          <a routerLink="/tecnologias" [queryParams]="{ nombre: 'simulador_de_carreras' }" class="hover:text-[#00eefd] transition py-1 block">Simulador de Carreras</a>
-        </li>
-        
-      </ul>
-    </li>
-    <!-- Resto de opciones de tecnologías -->
-    <li class="list-disc ml-4">
-      <a routerLink="/tecnologias" [queryParams]="{ nombre: 'plataforma_360_View' }" class="hover:text-[#00eefd] transition py-1 block">Plataforma 360° View</a>
-    </li>
-    <li class="list-disc ml-4">
-      <a routerLink="/tecnologias" [queryParams]="{ nombre: 'hologramas_3d' }" class="hover:text-[#00eefd] transition py-1 block">Hologramas 3D</a>
-    </li>
-  </ul>
-</li>
 
 
     <!-- Opciones para Empresas -->
     <ng-container *ngIf="isPersonSelected === 'Empresas'">
-      <!-- Puedes agregar otras opciones específicas para Empresas si es necesario -->
+
+      <li class="hidden sm:block mx-2 md:mx-4">|</li>
+      <li class="relative">
+        <a routerLink="/contacto"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'contacto'}">
+          Contacto
+        </a>
+      </li>
     </ng-container>
 
     <!-- Opción Login para no autenticados -->
-    <ng-container *ngIf="!isAuthenticated &&  isPersonSelected === 'Personas'">
+    <ng-container *ngIf=" (isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' ) !isAuthenticated">
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
         <a routerLink="/login" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
@@ -109,35 +123,40 @@
     <!-- Menú para Administradores -->
     <ng-container *ngIf="isAdmin">
       <li>
-        <a routerLink="/ordenes" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+        <a routerLink="/ordenes"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'ordenes'}">
           Pedidos
         </a>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="/lista-usuarios" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+        <a routerLink="/lista-usuarios"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-usuarios'}">
           Usuarios
         </a>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="/lista-tecnologias" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+        <a routerLink="/lista-tecnologias"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-tecnologias'}">
           Tecnologías
         </a>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="/lista-juegos" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+        <a routerLink="/lista-juegos"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-juegos'}">
           Catálogo
         </a>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="/lista-paquetes" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+        <a routerLink="/lista-paquetes"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-paquetes'}">
           Paquetes
         </a>
@@ -150,7 +169,8 @@
     <!-- Carrito (visible para todos excepto admin) -->
     <ng-container *ngIf="!isAdmin &&  (isPersonSelected === 'Personas')">
       <button (click)="toggleCarrito()" class="relative">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M9 17h6m-3-7v10" />
         </svg>
         <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2">
@@ -163,14 +183,14 @@
     <div *ngIf="isClient" class="relative">
       <button (click)="toggleUserMenu()" class="text-white hover:text-[#00eefd]">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
       </button>
-      
+
       <!-- Menú desplegable -->
-      <div *ngIf="isUserMenuOpen" 
-           class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+      <div *ngIf="isUserMenuOpen"
+        class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
         <div class="py-1">
           <a routerLink="/ordenes" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             Mis Pedidos
@@ -183,12 +203,10 @@
     </div>
 
     <!-- Botón de cerrar sesión para administrador -->
-    <button *ngIf="isAdmin" (click)="logout()" 
-            class="text-white hover:text-[#00eefd] text-base sm:text-lg font-bold">
+    <button *ngIf="isAdmin" (click)="logout()" class="text-white hover:text-[#00eefd] text-base sm:text-lg font-bold">
       Cerrar Sesión
     </button>
   </div>
 </nav>
 <!-- Carrito deslizante -->
-<app-carrito *ngIf="isCarritoOpen && !isAdmin"
-(finalizarCompraEvent)="navegarACheckout()"></app-carrito>
+<app-carrito *ngIf="isCarritoOpen && !isAdmin" (finalizarCompraEvent)="navegarACheckout()"></app-carrito>

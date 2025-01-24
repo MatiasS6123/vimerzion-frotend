@@ -50,28 +50,15 @@ export class MostrarTecnologiasComponent {
 
   mapPlatform(nombre: string): string {
     const nombreTecnologia: { [key: string]: string } = {
-      oculus_quest_2: 'Oculus Quest 2',
       tecnologia_haptica: 'Tecnología Haptica',
-      hologramas_3d: 'Hologramas 3D',
-      simulador_parapente:'Simulador Parapente',
-      simulador_de_vuelo:'Simulador de Vuelo',
-      simulador_de_carreras:'Simulador de Carreras',
-      estasciones_virtuales:'Estasciones Virtuales',
-      plataforma_360_View:'Plataforma 360° View',
+      hologramas: 'Hologramas',
+      plataforma_360:'Plataforma 360°',
+      simuladores:'Simuladores',
       realidad_virtual:'Realidad Virtual',
       realidad_mixta:'Realidad Mixta',
 
     };
     return nombreTecnologia[nombre] || nombre; // Devolver el valor original si no está en el mapa
-  }
-
-  goToDetalle(): void {
-      const titulo = this.tecnologia.nombre // Usa el título del servicio si no hay título en la foto
-      const imagen = this.tecnologia.imagen.url // Valida que la URL esté disponible
-      this.router.navigate(['/detalle-servicio'], {
-        queryParams: { titulo, imagen }
-      });
-    
   }
   
 

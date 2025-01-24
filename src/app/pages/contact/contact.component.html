@@ -1,145 +1,83 @@
-<section class="container mx-auto px-4 py-8">
-  <!-- Título Principal -->
-  <header class="text-left mx-4 sm:mx-24 my-8">
-    <h1 class="text-[25px] text-white font-bold">Nuestros Servicios</h1>
-  </header>
+<div class="contact-form bg-gray-100 p-8 rounded-lg shadow-md">
+  <form [formGroup]="contactForm">
+    <!-- Nombre Solicitante -->
+    <div class="mb-4">
+      <label for="nombre_solicitante" class="block text-sm font-medium text-gray-700">Nombre Solicitante</label>
+      <input type="text" id="nombre_solicitante" formControlName="nombre_solicitante"
+        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+    </div>
 
-  <!-- Contenedor principal del slider -->
-  <div *ngIf="images.length > 0; else noFotos" class="max-w-6xl mx-auto relative">
-    <div class="rounded-lg shadow-md p-6 max-w-[640px] mx-auto">
-      <div class="relative w-full h-[500px] sm:h-[750px] rounded-lg overflow-hidden">
-        <div *ngFor="let foto of images; let i = index" [class.opacity-100]="currentIndex === i"
-          [class.opacity-0]="currentIndex !== i" class="absolute inset-0 transition-opacity duration-500 ease-in-out">
-          <img [src]="foto.url" [alt]="'Imagen del servicio ' + (i + 1)" class="object-cover w-full h-full" />
-        </div>
+    <!-- Nombre Empresa -->
+    <div class="mb-4">
+      <label for="empresa" class="block text-sm font-medium text-gray-700">Nombre Empresa</label>
+      <input type="text" id="empresa" formControlName="empresa"
+        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+    </div>
+
+    <!-- Cargo -->
+    <div class="mb-4">
+      <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo</label>
+      <input type="text" id="cargo" formControlName="cargo"
+        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+    </div>
+
+    <!-- Servicios a Arrendar -->
+    <div class="mb-4">
+      <label class="block mb-2 text-gray-700 font-medium">Servicios a Arrendar</label>
+      <div *ngFor="let servicio of serviciosDisponibles" class="flex items-center space-x-2">
+        <input type="checkbox" [value]="servicio.valor" (change)="onCheckboxChange($event, 'servicios')"
+          [checked]="contactForm.get('servicios')?.value.includes(servicio.valor)"
+          class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+        <label class="text-sm font-medium text-gray-700">{{ servicio.nombre }}</label>
       </div>
     </div>
 
-    <!-- Botones de navegación -->
-    <button (click)="prevImage()"
-      class="absolute left-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors z-10"
-      *ngIf="images.length > 1">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
+    <!-- Botón para abrir modal -->
+    <p class="text-blue-500 underline cursor-pointer" (click)="abrirModal()">Presione aquí para agregar los
+      paquetes</p>
+
+    <!-- Mostrar paquetes seleccionados -->
+    <div class="mb-4">
+      <label class="block mb-2 text-gray-700 font-medium">Paquetes Seleccionados</label>
+      <ul>
+        <li *ngFor="let nombre of contactForm.get('paquetes')?.value"
+          class="text-sm text-gray-700 list-disc list-inside">{{ nombre }}</li>
+      </ul>
+      <p *ngIf="contactForm.get('paquetes')?.value?.length === 0" class="text-sm text-gray-500">
+        No se han seleccionado paquetes.
+      </p>
+    </div>
+
+     <!-- Mostrar paquetes seleccionados -->
+     
+
+    <div class="my-5">
+      <app-modal-paquete #modalPaquete [isVisible]="modalPaquetesVisible" (closeModal)="cerrarModal()"
+        (paquetesSeleccionados)="guardarPaquetesSeleccionados($event)"></app-modal-paquete>
+
+
+    </div>
+
+    <!-- Zona de Envío -->
+    <div class="mb-4">
+      <label for="zona_envio" class="block text-sm font-medium text-gray-700">Zona de Envío</label>
+      <select formControlName="zona_envio" id="zona_envio"
+        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <option *ngFor="let zona of zonasDisponibles" [value]="zona.valor">{{ zona.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Mensaje -->
+    <div class="mb-4">
+      <label for="mensaje" class="block text-sm font-medium text-gray-700">Mensaje</label>
+      <textarea id="mensaje" formControlName="mensaje" rows="4"
+        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+    </div>
+
+    <!-- Botón Enviar -->
+    <button (click)="submit()"
+      class="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      Enviar
     </button>
-    <button (click)="nextImage()"
-      class="absolute right-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors z-10"
-      *ngIf="images.length > 1">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-  </div>
-
-  <!-- Bloque alternativo cuando no hay fotos -->
-  <ng-template #noFotos>
-    <div class="text-center text-gray-400">
-      <p class="text-lg">No hay imágenes disponibles para este servicio.</p>
-    </div>
-  </ng-template>
-
-  <!-- Contenido adicional -->
-  <div class="text-center text-[#f1f1f1] mt-8">
-    <div class="flex justify-center space-x-6 mb-6">
-      <img src="assets/PlayStation_VR2_logo.svg" alt="PlayStation VR" class="h-8">
-      <img src="assets/Oculus.svg" alt="Oculus" class="h-8">
-      <img src="assets/Nintendo_Switch_Logo.svg" alt="Nintendo_Switch_Logo" class="h-8">
-    </div>
-    <a [routerLink]="'/tienda'"
-      class="inline-block w-[70%] sm:w-[30%] bg-[#00eefd] font-bold text-lg px-8 py-3 rounded-md hover:bg-[#00cce3] transition-all duration-300">
-      <span class="text-[#1f1062] font-bold text-[20px] sm:text-[30px]">Ver paquetes</span>
-    </a>
-  </div>
-
-  <!-- Formulario de Contacto -->
-  <section class="mt-12">
-    <header class="text-left mx-4 sm:mx-24 my-8">
-      <h1 class="text-[25px] text-white font-bold">Contáctanos</h1>
-    </header>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="justify-self-end w-full max-w-lg">
-        <form [formGroup]="contactForm" class="bg-gray-100 p-6 rounded-lg shadow-md w-full">
-          <!-- Nombre -->
-          <div class="mb-4">
-            <label for="nombre_solicitante" class="block text-sm font-medium text-gray-700">Nombre Solicitante</label>
-            <input type="text" id="nombre_solicitante" formControlName="nombre_solicitante"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-          </div>
-
-          <!-- Empresa -->
-          <div class="mb-4">
-            <label for="empresa" class="block text-sm font-medium text-gray-700">Nombre Empresa</label>
-            <input type="text" id="empresa" formControlName="empresa"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-          </div>
-
-          <!-- Cargo -->
-          <div class="mb-4">
-            <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo</label>
-            <input type="text" id="cargo" formControlName="cargo"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-          </div>
-
-          <!-- Servicios -->
-          <div class="mb-4">
-            <label class="block mb-2 text-gray-700 font-medium">Servicios a Arrendar</label>
-            <div *ngFor="let servicio of serviciosDisponibles" class="flex items-center space-x-2">
-              <input type="checkbox" [value]="servicio.valor" (change)="onCheckboxChange($event, 'servicios')"
-                [checked]="contactForm.get('servicios')?.value.includes(servicio.valor)" class="w-4 h-4" />
-              <label class="text-sm font-medium text-gray-700">{{ servicio.nombre }}</label>
-            </div>
-          </div>
-
-          <!-- Botón para abrir modal -->
-          <p class="text-blue-500 underline cursor-pointer" (click)="abrirModal()">Presione aquí para agregar los
-            paquetes</p>
-
-          <!-- Mostrar paquetes seleccionados -->
-          <div class="mb-4">
-            <label class="block mb-2 text-gray-700 font-medium">Paquetes Seleccionados</label>
-            <ul>
-              <li *ngFor="let nombre of contactForm.get('paquetes')?.value" class="text-sm text-gray-700">
-                {{ nombre }}
-              </li>
-            </ul>
-            <p *ngIf="contactForm.get('paquetes')?.value?.length === 0" class="text-sm text-gray-500">
-              No se han seleccionado paquetes.
-            </p>
-          </div>
-
-
-          <div class="my-5">
-            <app-modal-paquete #modalPaquete [isVisible]="modalPaquetesVisible" (closeModal)="cerrarModal()"
-              (paquetesSeleccionados)="guardarPaquetesSeleccionados($event)"></app-modal-paquete>
-
-
-          </div>
-
-          <!-- Zonas de Envío -->
-          <div class="mb-4">
-            <label for="zona_envio" class="block text-sm font-medium text-gray-700">Zona de Envío</label>
-            <select formControlName="zona_envio" id="zona_envio"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-              <option *ngFor="let zona of zonasDisponibles" [value]="zona.valor">{{ zona.nombre }}</option>
-            </select>
-          </div>
-
-          <!-- Mensaje -->
-          <div class="mb-4">
-            <label for="mensaje" class="block text-sm font-medium text-gray-700">Mensaje</label>
-            <textarea id="mensaje" formControlName="mensaje" rows="4"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
-          </div>
-
-          <!-- Botón Enviar -->
-          <button (click)="submit()"
-            class="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Enviar
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
-</section>
+  </form>
+</div>

@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit{
   @Output() roleCleared = new EventEmitter<void>();
   activeSubmenu: string | null = null;
   isPersonSelected: string | null = null;
-  activeSimuladoresSubmenu: boolean = false;
-
+  activeCatalogoSubmenu: boolean = false;
+  hideSubmenuTimeout: any;
   constructor(
     private router: Router,
     private carritoService: CarritoService,
@@ -72,14 +72,26 @@ export class HeaderComponent implements OnInit{
     });
   }
 
-  toggleSubmenu(menu: string): void {
-    if (menu === 'tecnologias') {
-      this.activeSubmenu = this.activeSubmenu === 'tecnologias' ? null : 'tecnologias';
-      // Cierra el submenú de simuladores al alternar el menú principal
-      this.activeSimuladoresSubmenu = false;
-    } else if (menu === 'simuladores') {
-      this.activeSimuladoresSubmenu = !this.activeSimuladoresSubmenu;
+  toggleSubmenu(submenu: string) {
+    if (this.activeSubmenu === submenu) {
+      this.activeSubmenu = null;
+    } else {
+      this.activeSubmenu = submenu;
+      this.resetHideSubmenuTimeout();
     }
+  }
+
+  resetHideSubmenuTimeout() {
+    if (this.hideSubmenuTimeout) {
+      clearTimeout(this.hideSubmenuTimeout);
+    }
+    this.hideSubmenuTimeout = setTimeout(() => {
+      this.activeSubmenu = null;
+    }, 5000); // Ocultar el submenú después de 5 segundos de inactividad
+  }
+
+  onSubmenuInteraction() {
+    this.resetHideSubmenuTimeout();
   }
   
   

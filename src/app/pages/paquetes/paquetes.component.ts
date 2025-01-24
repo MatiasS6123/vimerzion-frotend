@@ -128,7 +128,7 @@ export class PaquetesComponent implements OnInit {
       if (this.id) {
         this.paqueteService.updatePaquete(this.id, paquete, foto).subscribe({
           next: (response) => {
-            this.presentToast('Agente Actualizado', 'Agente actualizado', 'success');
+            this.presentToast('Paquete Actualizado', 'Paquete actualizado', 'success');
             // Opcional: Redirigir a una lista de propiedades
           },
           error: (err) => {
@@ -141,7 +141,7 @@ export class PaquetesComponent implements OnInit {
     private createPaquete(paquete: PaqueteCrud, foto:File): void {
       this.paqueteService.createPaquete(paquete, foto).subscribe({
         next: (response) => {
-          this.presentToast('Agente Creado', 'Notificacion', 'success');
+          this.presentToast('Paquete Creado', 'Notificacion', 'success');
           this.paqueteForm.reset();
           this.selectedFile = null;
         },

@@ -13,7 +13,6 @@
             <img
               [src]="tecnologia.imagen.url"
               [alt]="tecnologia.nombre"
-              (click)="goToDetalle()"
               class="rounded-lg shadow-lg max-w-full max-h-full align-middle transform hover:scale-105 transition-transform duration-300"
             />
           </div>          
@@ -34,26 +33,24 @@
           </p>
     </div>
 
-    <!-- Contenido adicional -->
-<!-- Contenido adicional -->
-<div class="text-center text-[#f1f1f1] mt-8">
-  <!-- Iconos o imágenes adicionales -->
-  <div class="flex justify-center space-x-6 mb-6">
-    <img src="assets/PlayStation_VR2_logo.svg" alt="PlayStation VR" class="h-8">
-      <img src="assets/Oculus.svg" alt="Oculus" class="h-8">
-      <img src="assets/Nintendo_Switch_Logo.svg" alt="Nintendo_Switch_Logo" class="h-8">
-  </div>
-
-  <!-- Botón de acción -->
-  <a [routerLink]="'/tienda'"
-     class="inline-block w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-[#00eefd] font-bold 
-            text-base md:text-lg lg:text-xl px-6 py-3 rounded-md 
-            hover:bg-[#00cce3] transition-all duration-300">
-    <span class="text-[#1f1062] font-bold text-[20px] md:text-[24px] lg:text-[30px]">
-      Cotiza aquí
-    </span>
-  </a>
-</div>
-
+    <div class="text-center text-[#f1f1f1] mt-8">
+      <!-- Contenedor de logos -->
+      <div class="flex justify-center flex-wrap gap-4 sm:gap-8 mb-8">
+        <img src="assets/PlayStation_VR2_logo.svg" alt="PlayStation VR" class="h-5 sm:h-6">
+        <img src="assets/Oculus.svg" alt="Oculus" class="h-5 sm:h-6">
+        <img src="assets/Nintendo_Switch_Logo.svg" alt="Nintendo Switch" class="h-8 sm:h-12 sm:mt-[-5px]">
+      </div>
+    
+      <!-- Botón -->
+      <a 
+        [routerLink]="'/tienda'"
+        class="inline-block w-[80%] sm:w-[40%] bg-[#00eefd] text-center font-bold px-8 py-4 rounded-lg hover:bg-[#00cce3] transition-all duration-300"
+      >
+        <span class="text-[#1f1062] font-bold text-[24px] sm:text-[32px]">
+          Cotiza aquí
+        </span>
+      </a>
+    </div>
+    
   </section>
   

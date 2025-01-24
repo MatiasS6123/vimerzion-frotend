@@ -1,0 +1,63 @@
+<section class="container mx-auto px-4 py-8">
+
+    <!-- Título Principal -->
+  <header class="text-left mx-4 sm:mx-24 my-8">
+    <h1 class="text-[25px] text-white font-bold">Nuestros Servicios</h1>
+  </header>
+
+  <!-- Contenedor principal del slider -->
+  <div *ngIf="images.length > 0; else noFotos" class="max-w-6xl mx-auto relative">
+    <div class="rounded-lg shadow-md p-6 max-w-[640px] mx-auto">
+      <div class="relative w-full h-[500px] sm:h-[750px] rounded-lg overflow-hidden">
+        <div *ngFor="let foto of images; let i = index" [class.opacity-100]="currentIndex === i"
+          [class.opacity-0]="currentIndex !== i" class="absolute inset-0 transition-opacity duration-500 ease-in-out">
+          <img [src]="foto.url" [alt]="'Imagen del servicio ' + (i + 1)" class="object-cover w-full h-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones de navegación -->
+    <button (click)="prevImage()"
+      class="absolute left-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors z-10"
+      *ngIf="images.length > 1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button (click)="nextImage()"
+      class="absolute right-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors z-10"
+      *ngIf="images.length > 1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Bloque alternativo cuando no hay fotos -->
+  <ng-template #noFotos>
+    <div class="text-center text-gray-400">
+      <p class="text-lg">No hay imágenes disponibles para este servicio.</p>
+    </div>
+  </ng-template>
+
+  <div class="text-center text-[#f1f1f1] mt-8">
+    <!-- Contenedor de logos -->
+    <div class="flex justify-center flex-wrap gap-4 sm:gap-8 mb-8">
+      <img src="assets/PlayStation_VR2_logo.svg" alt="PlayStation VR" class="h-5 sm:h-6">
+      <img src="assets/Oculus.svg" alt="Oculus" class="h-5 sm:h-6">
+      <img src="assets/Nintendo_Switch_Logo.svg" alt="Nintendo Switch" class="h-8 sm:h-12 mt-[-5px]">
+    </div>
+  
+    <!-- Botón -->
+    <a 
+      [routerLink]="'/tienda'"
+      class="inline-block w-[80%] sm:w-[40%] bg-[#00eefd] text-center font-bold px-8 py-4 rounded-lg hover:bg-[#00cce3] transition-all duration-300"
+    >
+      <span class="text-[#1f1062] font-bold text-[24px] sm:text-[32px]">
+        Cotiza aquí
+      </span>
+    </a>
+  </div>
+  
+
+</section>

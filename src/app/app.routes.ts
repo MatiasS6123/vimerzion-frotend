@@ -24,6 +24,7 @@ import { ListaTecnologiaComponent } from './shared/components/lista-tecnologia/l
 import { DetalleOrdenComponent } from './shared/components/detalle-orden/detalle-orden.component';
 import { DetalleServicioComponent } from './shared/components/detalle-servicio/detalle-servicio.component';
 import { ListaUsuarioComponent } from './shared/components/lista-usuario/lista-usuario.component';
+import { InfoServiciosContactoComponent } from './shared/components/info-servicios-contacto/info-servicios-contacto.component';
 
 export const routes: Routes = [
     {
@@ -39,7 +40,7 @@ export const routes: Routes = [
     },
     {
         path:'contacto',
-        component:ContactComponent,
+        component:InfoServiciosContactoComponent,
         data: { public: true },
     },
     {
