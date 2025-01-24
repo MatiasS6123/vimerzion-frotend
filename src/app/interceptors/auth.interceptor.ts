@@ -5,7 +5,9 @@ import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class authInterceptor implements HttpInterceptor{
-  private readonly publicRoutes = ['/inicio', '/servicios', '/catalogo', '/tecnologias', '/registro', '/login','/contacto','/tienda'];
+  private readonly publicRoutes = ['/inicio', '/servicios', '/catalogo', '/tecnologias', '/registro', '/login','/contacto','/tienda','/devoluciones'
+    ,'/terminos','/pagos'
+  ];
 
   constructor(private router: Router) {}
 

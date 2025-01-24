@@ -25,6 +25,9 @@ import { DetalleOrdenComponent } from './shared/components/detalle-orden/detalle
 import { DetalleServicioComponent } from './shared/components/detalle-servicio/detalle-servicio.component';
 import { ListaUsuarioComponent } from './shared/components/lista-usuario/lista-usuario.component';
 import { InfoServiciosContactoComponent } from './shared/components/info-servicios-contacto/info-servicios-contacto.component';
+import { PoliticasDevolucionComponent } from './shared/components/politicas-devolucion/politicas-devolucion.component';
+import { TerminosCondicionesComponent } from './shared/components/terminos-condiciones/terminos-condiciones.component';
+import { PagosComponent } from './shared/components/pagos/pagos.component';
 
 export const routes: Routes = [
     {
@@ -73,6 +76,21 @@ export const routes: Routes = [
         path:'tienda',
         component:TiendaComponent,
         data: { public: true },
+    },
+    {
+        path:'devoluciones',
+        component:PoliticasDevolucionComponent,
+        data:{public :true}
+    },
+    {
+        path:'terminos',
+        component:TerminosCondicionesComponent,
+        data:{public :true}
+    },
+    {
+        path:'pagos',
+        component:PagosComponent,
+        data:{public :true}
     },
     {
         path:'gestion-juegos',
