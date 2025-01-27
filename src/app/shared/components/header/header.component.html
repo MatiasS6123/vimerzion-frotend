@@ -98,7 +98,7 @@
 
 
     <!-- Opciones para Empresas -->
-    <ng-container *ngIf="isPersonSelected === 'Empresas'">
+    <ng-container *ngIf="isPersonSelected === 'Empresas' && !isAuthenticated">
 
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li class="relative">
