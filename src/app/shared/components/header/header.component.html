@@ -111,7 +111,7 @@
     </ng-container>
 
     <!-- Opción Login para no autenticados -->
-    <ng-container *ngIf=" (isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' ) !isAuthenticated">
+    <ng-container *ngIf=" (isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' ) && !isAuthenticated">
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
         <a routerLink="/login" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
