@@ -16,25 +16,5 @@ export class DetalleServicioComponent {
 
   constructor(private route: ActivatedRoute,private detalleServicioService: DetalleServicioService ) {}
 
-  ngOnInit(): void {
-    // Obtener los parámetros de la ruta
-    this.route.queryParams.subscribe((params) => {
-      const titulo = params['titulo'];
-      const imagen= params['imagen']
-      if (titulo) {
-        const servicio = this.detalleServicioService.getServicioDetalles(titulo); // Usa el servicio
-
-        if (servicio) {
-          this.titulo = servicio.titulo;
-          this.descripcion = servicio.descripcion;
-          this.imagenUrl = imagen;
-        } else {
-          this.titulo = 'Servicio no encontrado';
-          this.descripcion = '<p>Descripción no disponible.</p>';
-          this.imagenUrl = 'ruta-a-imagen-default.jpg'; // Imagen por defecto
-        }
-      }
-    });
-  }
-
+  
 }

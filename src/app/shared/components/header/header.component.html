@@ -11,7 +11,7 @@
       <!-- Inicio -->
       <li>
         <a routerLink="/inicio"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base font-montserrat sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'inicio'}">
           Inicio
         </a>
@@ -21,7 +21,7 @@
       <!-- Servicios -->
       <li class="relative">
         <a routerLink="/servicios" [queryParams]="{ titulo: 'Personas' }"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base sm:text-lg font-montserrat md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'servicios'}">
           Servicios
         </a>
@@ -30,7 +30,7 @@
 
       <li class="relative">
         <button (click)="toggleSubmenu('catalogo')"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base sm:text-lg md:text-xl font-montserrat font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'catalogo'}">
           Catalogo
         </button>
@@ -41,30 +41,30 @@
           class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_5' }"
-              class="hover:text-[#00eefd] transition py-1 block">PlayStation 5</a>
+              class="hover:text-[#00eefd] font-montserrat transition py-1 block">PlayStation 5</a>
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_vr' }"
-              class="hover:text-[#00eefd] transition py-1 block">PlayStation VR</a>
+              class="hover:text-[#00eefd] font-montserrat transition py-1 block">PlayStation VR</a>
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'nintendo_switch' }"
-              class="hover:text-[#00eefd] transition py-1 block">Nintendo Switch</a>
+              class="hover:text-[#00eefd] font-montserrat transition py-1 block">Nintendo Switch</a>
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'meta_quest_2' }"
-              class="hover:text-[#00eefd] transition py-1 block">Meta Quest 2</a>
+              class="hover:text-[#00eefd] font-montserrat transition py-1 block">Meta Quest 2</a>
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'simuladores_psvr_2' }"
-              class="hover:text-[#00eefd] transition py-1 block">Simuladores PSVR 2</a>
+              class="hover:text-[#00eefd] font-montserrat transition py-1 block">Simuladores PSVR 2</a>
           </li>
         </ul>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li class="relative">
         <button (click)="toggleSubmenu('tecnologias')"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base sm:text-lg md:text-xl font-montserrat font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'tecnologias'}">
           Tecnologias
         </button>
@@ -74,22 +74,22 @@
   (click)="onSubmenuInteraction()"
           class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
           <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'tecnologia_haptica' }" class="hover:text-[#00eefd] transition py-1 block">Tecnología Haptica</a>
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'tecnologia_haptica' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Tecnología Haptica</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_virtual' }" class="hover:text-[#00eefd] transition py-1 block">Realidad Virtual</a>
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_virtual' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Realidad Virtual</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_mixta' }" class="hover:text-[#00eefd] transition py-1 block">Realidad Mixta</a>
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_mixta' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Realidad Mixta</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'plataforma_360' }" class="hover:text-[#00eefd] transition py-1 block">Plataforma 360°</a>
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'plataforma_360' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Plataforma 360°</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'simuladores' }" class="hover:text-[#00eefd] transition py-1 block">Simuladores</a>
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'simuladores' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Simuladores</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Hologramas' }" class="hover:text-[#00eefd] transition py-1 block">Hologramas</a>
+            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Hologramas' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Hologramas</a>
           </li>
           
         </ul>
@@ -103,7 +103,7 @@
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li class="relative">
         <a routerLink="/contacto"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] font-montserrat transition relative"
           [ngClass]="{'active-link': currentSection === 'contacto'}">
           Contacto
         </a>
@@ -114,7 +114,7 @@
     <ng-container *ngIf=" (isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' ) && !isAuthenticated">
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
-        <a routerLink="/login" class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition">
+        <a routerLink="/login" class="text-base sm:text-lg md:text-xl font-bold font-montserrat hover:text-[#00eefd] transition">
           Login
         </a>
       </li>
@@ -124,7 +124,7 @@
     <ng-container *ngIf="isAdmin">
       <li>
         <a routerLink="/ordenes"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base font-montserrat sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'ordenes'}">
           Pedidos
         </a>
@@ -132,7 +132,7 @@
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
         <a routerLink="/lista-usuarios"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base font-montserrat sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-usuarios'}">
           Usuarios
         </a>
@@ -140,7 +140,7 @@
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
         <a routerLink="/lista-tecnologias"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base font-montserrat sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-tecnologias'}">
           Tecnologías
         </a>
@@ -148,7 +148,7 @@
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
         <a routerLink="/lista-juegos"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base font-montserrat sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-juegos'}">
           Catálogo
         </a>
@@ -156,7 +156,7 @@
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li>
         <a routerLink="/lista-paquetes"
-          class="text-base sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
+          class="text-base font-montserrat sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-paquetes'}">
           Paquetes
         </a>
@@ -173,7 +173,7 @@
           stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M9 17h6m-3-7v10" />
         </svg>
-        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2">
+        <span class="absolute top-0 right-0 bg-red-500 text-white font-montserrat text-xs rounded-full px-2">
           {{ carritoCount }}
         </span>
       </button>
@@ -192,10 +192,10 @@
       <div *ngIf="isUserMenuOpen"
         class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
         <div class="py-1">
-          <a routerLink="/ordenes" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          <a routerLink="/ordenes" class="block font-montserrat px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             Mis Pedidos
           </a>
-          <button (click)="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          <button (click)="logout()" class="block font-montserrat w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             Cerrar Sesión
           </button>
         </div>
@@ -203,7 +203,7 @@
     </div>
 
     <!-- Botón de cerrar sesión para administrador -->
-    <button *ngIf="isAdmin" (click)="logout()" class="text-white hover:text-[#00eefd] text-base sm:text-lg font-bold">
+    <button *ngIf="isAdmin" (click)="logout()" class="text-white font-montserrat hover:text-[#00eefd] text-base sm:text-lg font-bold">
       Cerrar Sesión
     </button>
   </div>

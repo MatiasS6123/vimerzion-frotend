@@ -5,144 +5,91 @@ import { Injectable } from '@angular/core';
 })
 export class DetalleServicioService {
 
-  private servicios = [
+  // Servicios para Empresas
+  private serviciosEmpresas = [
     {
-      titulo: 'Hologramas 3D',
-      descripcion: `
-        <p>Sumérgete en el fascinante mundo de los hologramas 3D y sorprende a tu audiencia con una experiencia visual única.</p>
-        <ul>
-          <li>Ventilador holográfico (60 cm de diámetro): Este dispositivo utiliza hélices equipadas con MICRO LED que giran a gran velocidad para proyectar diseños 2D y 3D en el aire. Desde logotipos hasta figuras tridimensionales.</li>
-          <li>Diseños 3D predeterminados (5): Tendrás acceso a cinco diseños predefinidos que dejarán boquiabierta a tu audiencia.</li>
-          <li>Animaciones 3D con imágenes o fotografías: Añade un toque dinámico y personalizado a tus presentaciones holográficas. Carga tus propias imágenes o fotografías y observa cómo cobran vida en tres dimensiones.</li>
-          <li>Pedestal resistente (2 metros): El soporte garantiza que tu holograma se mantenga estable y visible durante tus exposiciones.</li>
-        </ul>
-      `,
-      imagenUrl: 'ruta-a-imagen-hologramas.jpg',
+      titulo: 'Team Building',
+  descripcion: `
+    <span class='text-[#00eefd]'>(+10 actividades colaborativas)</span>
+    <br>
+
+    Sumérgete en una <span class='text-[#00eefd]'>experiencia única</span> de Team Building en realidad virtual. Nuestras innovadoras actividades combinan la emoción y la colaboración en un <span class='text-[#00eefd]'>entorno virtual inmersivo.</span>
+    <br><br>
+
+    Únete a tus compañeros de equipo mientras resuelven desafiantes acertijos, superan obstáculos y trabajan juntos para lograr objetivos comunes.
+    <br><br><br>
+
+    <span class='text-[#00eefd]'>¡FORTALECE LOS LAZOS DE TU EQUIPO Y LLEVA SU POTENCIAL AL SIGUIENTE NIVEL EN ESTA EMOCIONANTE AVENTURA VIRTUAL!</span> 
+  `,
+  imagenUrl: 'assets/team-building-empresa.jpg',
     },
     {
-      titulo: 'Simulador de Carreras',
-      descripcion: `
-        <p>Son un conjunto de elementos que garantizan una <strong>experiencia de conducción realista y emocionante</strong> para los amantes de los autos y las carreras. Incluye:</p>
-        <ul>
-          <li>
-            <strong>Butaca playseat:</strong> Simula a la perfección las dimensiones y la conducción de un automóvil con su respectivo volante, pedales y palanca de cambios.
-          </li>
-          <li>
-            <strong>Artefacto de realidad virtual Playstation VR o Playstation VR2:</strong> Ofrece variadas experiencias de conducción, tales como circuitos de carrera y rally.
-          </li>
-          <li>
-            <strong>Plataforma metálica:</strong> Proporciona la altura óptima para subir y disfrutar de la experiencia al máximo. Esta plataforma también permite personalizarla con tu marca o logotipo (branding) en todas sus caras visibles.
-          </li>
-          <li>
-            <strong>Televisión de 50 pulgadas:</strong> Transmite las experiencias y permite que los espectadores presencien las actividades, mejorando la interacción en tiempo real.
-          </li>
-        </ul>
+      titulo: 'Activaciones Publicitarias',
+      descripcion: `Haz que <span class='text-[#00eefd]'>tu marca cobre vida</span> de una manera totalmente nueva con nuestras <span class='text-[#00eefd]'>activaciones publicitarias</span> en realidad virtual. Transporta a tu audiencia a un mundo virtual cautivador donde podrán <span class='text-[#00eefd]'>interactuar con tu producto o servicio</span> de una manera envolvente.
+      <br>
+      Desde demostraciones interactivas hasta experiencias personalizadas, nuestra tecnología de vanguardia te ayudará a <span class='text-[#00eefd]'>conectar y cautivar a tu público</span>objetivo de una forma nunca antes vista.
+      <br><br><br>
+      <span class='text-[#00eefd]'>¡CREA UN IMPACTO DURADERO Y DEJA QUE TU MARCA SE DESTAQUE CON NUESTRAS ACTIVACIONES!</span> 
       `,
-      imagenUrl: 'ruta-a-imagen-simuladores-carreras.jpg',
+      imagenUrl: 'assets/activaciones-publicitarias.jpg',
     },
     {
-      titulo: 'Simulador de Vuelo',
-      descripcion: `
-        <p>Son un conjunto de elementos diseñados para brindarte una <strong>experiencia llena de acción y adrenalina</strong>. En este entorno, vivirás aventuras en el aire que te harán sentir la emoción de pilotar. Incluye:</p>
-        <ul>
-          <li>
-            <strong>Butaca con joystick Hotas:</strong> De alta precisión y un acelerador de tamaño real que combina precisión, comodidad y exactitud en cada movimiento.
-          </li>
-          <li>
-            <strong>Artefacto de realidad virtual Play Station VR2:</strong> Con variadas experiencias de vuelo tales como combate aéreo, aventura espacial y vuelo civil, entre otros.
-          </li>
-          <li>
-            <strong>Plataforma metálica:</strong> Proporciona la altura óptima para subir y disfrutar de la experiencia al máximo. Esta plataforma también ofrece la posibilidad de personalizarla con tu marca o logotipo (branding) en todas sus caras visibles.
-          </li>
-          <li>
-            <strong>Televisión de 50 pulgadas:</strong> Transmite las experiencias y permite que los espectadores presencien las actividades en tiempo real.
-          </li>
-        </ul>
-      `,
-      imagenUrl: 'ruta-a-imagen-simulador-vuelo.jpg',
+      titulo: 'Eventos Corporativos',
+      descripcion:`<span class='text-[#00eefd]'>Transforma tu evento corporativo</span> en una experiencia que <span class='text-[#00eefd]'>sorprenderá y cautivará</span> a todos tus invitados. Con nuestros servicios de Realidad Virtual, ofrecemos una amplia gama de actividades interactivas y emocionantes para que todos disfruten.
+      <br>
+      Desde simuladores de vuelo hasta <span class='text-[#00eefd]'>experiencias de realidad virtual envolventes</span>, garantizamos que cada asistente vivirá momentos únicos y memorables.
+      <br><br><br>
+      <span class='text-[#00eefd]'>¡DALE A TU EVENTO UN TOQUE INNOVADOR Y DEJA UNA IMPRESIÓN DURADERA EN TUS CLIENTES Y COLABORADORES!</span> 
+      ` ,
+      imagenUrl: 'assets/eventos-corporativos-empresa.jpg',
+      },
+  ];
+
+  // Servicios para Personas
+  private serviciosPersonas = [
+    {
+      titulo: 'Fiesta de Cumpleaños ',
+      descripcion: `¿Quieres que <span class='text-[#00eefd]'>tu cumpleaños sea inolvidable</span> y lleno de diversión?
+                    Con nuestras fiestas de cumpleaños VR, te transportaremos a <span class='text-[#00eefd]'>un mundo de ensueño</span> con experiencias de realidad virtual que sorprenderán y <span class='text-[#00eefd]'>emocionarán a todos</span> tus invitados.
+                    <br>
+                    Desde desafiantes juegos hasta emocionantes aventuras, ofrecemos una variedad de opciones para que todos puedan disfrutar de <span class='text-[#00eefd]'>UNA EXPERIENCIA ÚNICA Y PERSONALIZADA</span>.
+        `,  
+      imagenUrl: 'assets/fiesta-cumple.jpg',
     },
     {
-      titulo: 'Simulador Parapente',
-      descripcion: `
-        <p>Son un conjunto de elementos diseñados para brindar una <strong>experiencia de vuelo realista</strong>, permitiendo al usuario experimentar la sensación de estar en el aire. Incluye:</p>
-        <ul>
-          <li>
-            <strong>Silla de vuelo:</strong> A escala real con mandos funcionales que simulan el control del parapente con cable de acero, poleas y mosquetones.
-          </li>
-          <li>
-            <strong>Artefacto de realidad virtual Meta Quest 2:</strong> Ofrece experiencias de parapente en diversos entornos, como nieve y montaña.
-          </li>
-          <li>
-            <strong>Estructura metálica robusta:</strong> Proporciona la altura óptima y asegura la estabilidad durante la experiencia.
-          </li>
-          <li>
-            <strong>Televisión de 50 pulgadas:</strong> Transmite las experiencias y permite que los espectadores presencien las actividades.
-          </li>
-        </ul>
-      `,
-      imagenUrl: 'ruta-a-imagen-simulador-parapente.jpg',
+      titulo: 'Uso Personal',
+      descripcion: ` Sumérgete en un mundo virtual y <span class='text-[#00eefd]'>experimenta una realidad alternativa como nunca antes</span>.
+                    <br>
+                    Nuestro servicio de uso personal de realidad virtual te permite disfrutar <span class='text-[#00eefd]'>de emocionantes aventuras</span> y entretenimiento en la comodidad de <span class='text-[#00eefd]'>tu hogar.</span>
+                    <br><br><br>
+                    <span class='text-[#00eefd]'>PONEMOS A TU DISPOSICIÓN LOS EQUIPOS Y JUEGOS MÁS INNOVADORES PARA QUE VIVAS UNA EXPERIENCIA ÚNICA Y EMOCIONANTE.</span> `,
+      imagenUrl: 'assets/uso-personal.jpg',
     },
     {
-      titulo: 'Plataforma 360° View',
-      descripcion: `
-        <p>Son un conjunto de elementos que garantizan una <strong>experiencia fotográfica en 360 grados</strong>. Imagina capturar momentos desde todos los ángulos posibles. Incluye:</p>
-        <ul>
-          <li>
-            <strong>Plataforma giratoria:</strong> En la cual el celular puede girar 360 grados, asegurando así la grabación de videos panorámicos dinámicos.
-          </li>
-          <li>
-            <strong>Smartphone de primera línea (iPhone 13):</strong> Este dispositivo te permitirá grabar tus experiencias en cámara lenta y rápida, añadiendo un toque creativo a tus videos.
-          </li>
-          <li>
-            <strong>Variado cotillón:</strong> Máquina de burbujas, luces LED, alfombra y separadores de fila para una ambientación de lujo.
-          </li>
-          <li>
-            <strong>Televisión de 50 pulgadas:</strong> Permite transmitir las experiencias y descargar los videos a través de un código QR.
-          </li>
-        </ul>
-      `,
-      imagenUrl: 'ruta-a-imagen-plataforma-360.jpg',
-    },
-    {
-      titulo: 'Tecnología Haptica',
-      descripcion: `Haptica
-        <p>Descubre la tecnología háptica, una experiencia emocionante y revolucionaria que te sumerge en un mundo de <strong>sensaciones palpables</strong>. Mediante el uso de vibraciones sutiles, movimientos precisos y retroalimentación táctil, esta tecnología te permite sentir y experimentar virtualmente cualquier cosa.</p>
-        <p>Ya sea que estés explorando un videojuego, un metaverso o incluso participando en un entrenamiento virtual, la tecnología háptica te <strong>sumergirá por completo</strong>.</p>
-      `,
-      imagenUrl: 'ruta-a-imagen-haptica.jpg', // Sustituye con la URL correspondiente
-    },
-    {
-      titulo: 'Oculus Quest 2',
-      descripcion: `
-        <p>Oculus Quest 2 son unas gafas de realidad virtual que ofrecen la tecnología más avanzada para que puedas disfrutar de cientos de videojuegos en cualquier lugar y con total comodidad.</p>
-        <p>Sirven para jugar los títulos más populares, realizar ejercicios y explorar experiencias de realidad virtual. El diseño cómodo de este dispositivo lo convierte en el complemento ideal para la diversión y el entretenimiento.</p>
-      `,
-      imagenUrl: 'ruta-a-imagen-oculus.jpg', // Sustituye con la URL correspondiente
-    },
-    {
-      titulo: 'Estasciones Virtuales',
-      descripcion: `
-        <p>Son un conjunto de elementos que ofrecen una <strong>experiencia inmersiva y segura</strong>. Te sumergen en un universo virtual, haciéndote sentir como si estuvieras dentro de él. Incluye:</p>
-        <ul>
-          <li>
-            <strong>Plataforma virtual:</strong> La cual sostiene a los participantes y gira en 360°, asegurando gran movilidad al momento de interactuar con el entorno VR.
-          </li>
-          <li>
-            <strong>Artefacto de realidad virtual Meta Quest 2:</strong> Con variadas experiencias, tales como escalar una montaña, volar por los cielos, caer desde un precipicio, juegos rítmicos y mucho más.
-          </li>
-          <li>
-            <strong>Chaleco háptico:</strong> El cual reproduce vibraciones según los estímulos de algunas de nuestras experiencias. Por ejemplo, al recibir un golpe, un disparo o al tocar batería en nuestro juego rítmico.
-          </li>
-          <li>
-            <strong>Televisión de 50 pulgadas:</strong> Para transmitir las experiencias y permitir que los espectadores presencien las actividades.
-          </li>
-        </ul>
-      `,
-      imagenUrl: 'ruta-a-imagen-estaciones-virtuales.jpg',
+      titulo: 'Otras Celebraciones',
+      descripcion: `Ya sea que estés celebrando un aniversario, un matrimonio o <span class='text-[#00eefd]'>cualquier otro evento especial</span>, nuestras celebraciones VR añaden un toque de emoción y novedad a tus reuniones.
+      <br>
+
+      Con nuestras atracciones de realidad virtual de última generación, <span class='text-[#00eefd]'>tus invitados podrán disfrutar de experiencias inmersivas</span> y divertidas que dejarán una impresión duradera.
+<br><br><br>
+    <span class='text-[#00eefd]'>¡HAZ DE TU EVENTO ALGO INOLVIDABLE CON NUESTRAS EMOCIONANTES OPCIONES DE REALIDAD VIRTUAL!</span> `,
+      imagenUrl: 'assets/otras-celebraciones.jpg',
     },
   ];
 
-  getServicioDetalles(titulo: string) {
-    return this.servicios.find((servicio) => servicio.titulo === titulo);
+  /**
+   * Devuelve los servicios según el tipo (personas o empresas) almacenado en localStorage.
+   */
+  getServiciosPorTipo(): { titulo: string; descripcion: string; imagenUrl: string }[] {
+    const tipoSeleccionado = localStorage.getItem('userSelection');
+
+    if (tipoSeleccionado === 'Empresas') {
+      return this.serviciosEmpresas;
+    } else if (tipoSeleccionado === 'Personas') {
+      return this.serviciosPersonas;
+    }
+
+    console.error('No se encontró una selección válida en localStorage.');
+    return [];
   }
 }

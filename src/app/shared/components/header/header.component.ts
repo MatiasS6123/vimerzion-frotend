@@ -112,9 +112,7 @@ export class HeaderComponent implements OnInit{
   }
 
   navegarACheckout(): void {
-    if(!this.isAuthenticated){
-      this.presentToast("Porfavor inicie sesión o registrese para continuar","Informacion","info")
-    }
+    
     this.closeCarrito(); // Cierra el carrito
     this.router.navigate(['/checkout']); // Redirige al checkout
   }

@@ -1,9 +1,5 @@
 <section class="py-12 w-full">
     <!-- Título principal -->
-    <h2 class="text-4xl uppercase font-bold text-center text-white mb-8">
-      {{ tecnologia.nombre }}
-    </h2>
-  
     <!-- Contenedor principal -->
     <div class="max-w-6xl mx-auto relative">
       <!-- Imagen -->
@@ -24,32 +20,35 @@
   
     <!-- Contenido adicional -->
     <div class="mt-5 text-center text-white">
-        <h3 class="uppercase text-3xl font-bold text-[#f1f1f1]">
+        <h3 class="uppercase font-montserrat text-3xl font-bold text-[#f1f1f1]">
             {{ tecnologia.nombre }}
           </h3>
 
-          <p class="text-lg mt-6 text-[#f1f1f1]">
+          <p class="text-lg mt-6 font-roboto text-[#f1f1f1]">
             {{ tecnologia.descripcion }}
           </p>
     </div>
 
     <div class="text-center text-[#f1f1f1] mt-8">
       <!-- Contenedor de logos -->
-      <div class="flex justify-center flex-wrap gap-4 sm:gap-8 mb-8">
-        <img src="assets/PlayStation_VR2_logo.svg" alt="PlayStation VR" class="h-5 sm:h-6">
-        <img src="assets/Oculus.svg" alt="Oculus" class="h-5 sm:h-6">
-        <img src="assets/Nintendo_Switch_Logo.svg" alt="Nintendo Switch" class="h-8 sm:h-12 sm:mt-[-5px]">
+      <div class="flex justify-center items-center gap-4 sm:gap-8 lg:gap-12 mb-12 flex-wrap">
+        <img src="assets/PlayStation_VR2_logo (1).svg" alt="PlayStation VR" class="h-6 sm:h-8 lg:h-10 max-w-[120px]">
+        <img src="assets/Oculus_(10).svg" alt="Oculus" class="h-6 sm:h-8 lg:h-10 max-w-[120px]">
+        <img src="assets/Nintendo_Switch_Logo (1).svg" alt="Nintendo Switch" class="h-8 sm:h-10 lg:h-12 max-w-[140px]">
+        <img src="assets/kat-vr.svg" alt="Kat VR" class="h-6 sm:h-8 lg:h-10 max-w-[120px]">
       </div>
+      
     
       <!-- Botón -->
+      <!-- Botón -->
       <a 
-        [routerLink]="'/tienda'"
-        class="inline-block w-[80%] sm:w-[40%] bg-[#00eefd] text-center font-bold px-8 py-4 rounded-lg hover:bg-[#00cce3] transition-all duration-300"
-      >
-        <span class="text-[#1f1062] font-bold text-[24px] sm:text-[32px]">
-          Cotiza aquí
-        </span>
-      </a>
+      [routerLink]="'/tienda'"
+      class="inline-block w-[90%] sm:w-[50%] bg-gradient-to-r from-[#00eefd] to-[#00cce3] text-center font-bold px-10 py-4 rounded-full hover:from-[#00cce3] hover:to-[#00a3b3] transition-all duration-300 shadow-lg"
+    >
+      <span class="text-[#1d1867] font-bold text-[20px] sm:text-[28px] tracking-wide">
+        Cotiza aquí
+      </span>
+    </a>
     </div>
     
   </section>

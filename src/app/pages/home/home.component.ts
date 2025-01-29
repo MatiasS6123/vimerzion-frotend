@@ -15,9 +15,7 @@ export class HomeComponent {
   handleSelection(selection: string): void {
     this.selectionService.setSelection(selection);
 
-    if (selection === 'Empresas') {
-      this.router.navigate(['/contacto']);
-    }
+    
   }
 
 }

@@ -43,7 +43,7 @@ export const routes: Routes = [
     },
     {
         path:'contacto',
-        component:InfoServiciosContactoComponent,
+        component:ContactComponent,
         data: { public: true },
     },
     {

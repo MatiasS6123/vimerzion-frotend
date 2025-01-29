@@ -2,29 +2,29 @@
     <table class="w-full border-collapse border border-gray-300 shadow-lg">
       <thead class="bg-gray-100 text-gray-600 uppercase text-sm">
         <tr>
-          <th class="border border-gray-300 px-4 py-2">ID</th>
-          <th *ngIf="role === 'ADMINISTRADOR'" class="border border-gray-300 px-4 py-2">Cliente</th>
-          <th class="border border-gray-300 px-4 py-2">Fecha</th>
-          <th class="border border-gray-300 px-4 py-2">Total</th>
-          <th class="border border-gray-300 px-4 py-2">Método de Pago</th>
-          <th class="border border-gray-300 px-4 py-2">Estado</th>
-          <th *ngIf="role === 'ADMINISTRADOR'" class="border border-gray-300 px-4 py-2">Acciones</th>
+          <th class="border border-gray-300 font-montserrat px-4 py-2">ID</th>
+          <th *ngIf="role === 'ADMINISTRADOR'" class="border font-montserrat border-gray-300 px-4 py-2">Cliente</th>
+          <th class="border font-montserrat border-gray-300 px-4 py-2">Fecha</th>
+          <th class="border font-montserrat border-gray-300 px-4 py-2">Total</th>
+          <th class="border font-montserrat border-gray-300 px-4 py-2">Método de Pago</th>
+          <th class="border font-montserrat border-gray-300 px-4 py-2">Estado</th>
+          <th *ngIf="role === 'ADMINISTRADOR'" class="border font-montserrat border-gray-300 px-4 py-2">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let order of orders" class="odd:bg-gray-50 even:bg-white">
-          <td class="border border-gray-300 px-4 py-2 text-gray-700">{{ order.id }}</td>
-          <td *ngIf="role === 'ADMINISTRADOR'" class="border border-gray-300 px-4 py-2 text-gray-700">{{ order.cliente }}</td>
-          <td class="border border-gray-300 px-4 py-2 text-gray-700">{{ order.fecha | date: 'short' }}</td>
-          <td class="border border-gray-300 px-4 py-2 text-gray-700">{{ order.total | currency: 'CLP' }}</td>
-          <td class="border border-gray-300 px-4 py-2 text-gray-700">{{ order.metodoPago }}</td>
-          <td class="border border-gray-300 px-4 py-2">
+          <td class="border font-roboto border-gray-300 px-4 py-2 text-gray-700">{{ order.id }}</td>
+          <td *ngIf="role === 'ADMINISTRADOR'" class="border font-roboto border-gray-300 px-4 py-2 text-gray-700">{{ order.cliente }}</td>
+          <td class="border border-gray-300 px-4 py-2 font-roboto text-gray-700">{{ order.fecha | date: 'short' }}</td>
+          <td class="border border-gray-300 px-4 py-2 font-roboto text-gray-700">{{ order.total | currency: 'CLP' }}</td>
+          <td class="border border-gray-300 px-4 py-2 font-roboto text-gray-700">{{ order.metodoPago }}</td>
+          <td class="border border-gray-300 font-roboto px-4 py-2">
             <span
-              class="px-2 py-1 rounded text-xs font-semibold"
+              class="px-2 py-1 rounded font-roboto text-xs font-semibold"
               [ngClass]="{
-                'bg-yellow-500 text-white': order.estado === 'PENDIENTE',
-                'bg-green-500 text-white': order.estado === 'COMPLETADO',
-                'bg-red-500 text-white': order.estado === 'CANCELADO'
+                'bg-yellow-500 font-roboto text-white': order.estado === 'PENDIENTE',
+                'bg-green-500 font-roboto text-white': order.estado === 'COMPLETADO',
+                'bg-red-500 font-roboto text-white': order.estado === 'CANCELADO'
               }"
             >
               {{ order.estado }}
@@ -32,7 +32,7 @@
           </td>
           <td *ngIf="role === 'ADMINISTRADOR'" class="border border-gray-300 px-4 py-2">
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded shadow-md transition"
+              class="bg-blue-500 font-roboto hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded shadow-md transition"
               (click)="viewOrder(order.id)"
             >
               Ver
@@ -45,14 +45,14 @@
     <!-- Paginación -->
     <div class="flex justify-between items-center mt-4">
       <button
-      class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
+      class="px-6 py-3 bg-gradient-to-r font-roboto from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
         (click)="loadOrders((pagination.currentPage - 2) * pagination.pageSize, pagination.pageSize)"
         [disabled]="pagination.currentPage === 1"
       >
         Anterior
       </button>
       <button
-      class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
+      class="px-6 py-3 bg-gradient-to-r font-roboto from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
         (click)="loadOrders(pagination.currentPage * pagination.pageSize, pagination.pageSize)"
         [disabled]="pagination.currentPage * pagination.pageSize >= pagination.totalItems"
       >

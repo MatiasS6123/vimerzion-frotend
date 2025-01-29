@@ -3,7 +3,7 @@
   [class.translate-x-full]="!isOpen" [class.translate-x-0]="isOpen">
   <!-- Header -->
   <header class="flex justify-between items-center px-4 py-2 border-b border-gray-300">
-    <h2 class="text-xl font-bold">Carrito</h2>
+    <h2 class="text-xl font-bold font-montserrat">Carrito</h2>
     <button (click)="closeCarrito()" class="text-gray-500 hover:text-gray-800">
       &times;
     </button>
@@ -14,8 +14,8 @@
     <ul class="divide-y divide-gray-200">
       <li *ngFor="let item of carrito" class="flex justify-between items-center py-2">
         <div>
-          <p class="text-sm font-bold">{{ item.nombre }}</p>
-          <p class="text-sm text-gray-500">{{ item.cantidad }} x {{ formatearPesos(item.precio ) }}</p>
+          <p class="text-sm font-roboto font-bold">{{ item.nombre }}</p>
+          <p class="text-sm font-roboto text-gray-500">{{ item.cantidad }} x {{ formatearPesos(item.precio ) }}</p>
         </div>
         <div class="flex items-center">
           <!-- Botón para disminuir cantidad -->
@@ -23,13 +23,13 @@
             class="px-2 py-1 text-gray-500 bg-gray-200 rounded hover:bg-gray-300">
             -
           </button>
-          <span class="mx-2 text-sm font-bold">{{ item.cantidad }}</span>
+          <span class="mx-2 text-sm font-roboto font-bold">{{ item.cantidad }}</span>
           <!-- Botón para aumentar cantidad -->
           <button (click)="incrementarCantidad(item.id)"
-            class="px-2 py-1 text-gray-500 bg-gray-200 rounded hover:bg-gray-300">
+            class="px-2 py-1 font-roboto text-gray-500 bg-gray-200 rounded hover:bg-gray-300">
             +
           </button>
-          <p class="text-sm font-bold ml-4">{{ formatearPesos(item.subtotal ?? 0)  }}</p>
+          <p class="text-sm font-roboto font-bold ml-4">{{ formatearPesos(item.subtotal ?? 0)  }}</p>
           <!-- Botón para eliminar -->
           <button (click)="eliminarDelCarrito(item.id)" class="ml-4 text-red-500 hover:text-red-700">
             &times;
@@ -41,7 +41,7 @@
     <!-- Total y botón de finalizar -->
     <div class="mt-4 border-t border-gray-300 pt-4">
       <p class="text-lg font-bold">Total: ${{ formatearPesos(total) }}</p>
-      <button class="w-full bg-blue-500 text-white py-2 rounded mt-2 hover:bg-blue-700" (click)="finalizarCompra()">
+      <button class="w-full font-roboto bg-blue-500 text-white py-2 rounded mt-2 hover:bg-blue-700" (click)="finalizarCompra()">
         Finalizar Compra
       </button>
     </div>

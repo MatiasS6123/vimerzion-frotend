@@ -5,6 +5,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { Servicio } from '../../models/servicios';
 import { Subscription } from 'rxjs';
+import { SeleccionService } from '../../services/seleccion.service';
+import { DetalleServicioService } from '../../services/detalle-servicio.service';
 
 @Component({
   selector: 'app-mostrar-servicios',
@@ -14,52 +16,31 @@ import { Subscription } from 'rxjs';
   styleUrl: './mostrar-servicios.component.css',
 })
 export class MostrarServiciosComponent{
-  constructor(
-    private servicioService: ServiciosService,
-    private route: ActivatedRoute,
-    private router:Router
-  ) {}
-
-    fotos= [
-    { titulo: 'Servicio 2', url: 'assets/servicio-empresa4.png' },
-    { titulo: 'Servicio 3', url: 'assets/servicio-empresa5.png' },
-    { titulo: 'Servicio 4', url: 'assets/servicio-empresa6.png' },
-    ]
+  fotos: { titulo: string; descripcion: string; imagenUrl: string }[] = [];
   currentIndex = 0;
-  titleVisible = true;
-  
-  ngOnInit(): void {
+  userSelection: string | null = null;
+  constructor(private detalleServicioService: DetalleServicioService) {}
 
-    
+  ngOnInit(): void {
+    // Obtener los servicios según la selección
+    this.fotos = this.detalleServicioService.getServiciosPorTipo();
+    this.userSelection=this.getUserSelection();
+    console.log(this.userSelection)
+    if (this.fotos.length === 0) {
+      console.error('No se encontraron servicios para la selección actual.');
+    }
   }
 
-  
+  getUserSelection():string | null{
+    return localStorage.getItem('userSelection')
+  }
 
   nextSlide() {
-    this.titleVisible = false;
-    setTimeout(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.fotos.length;
-      this.titleVisible = true;
-    }, 300);
+    this.currentIndex = (this.currentIndex + 1) % this.fotos.length;
   }
 
   prevSlide() {
-    this.titleVisible = false;
-    setTimeout(() => {
-      this.currentIndex = (this.currentIndex - 1 + this.fotos.length) % this.fotos.length;
-      this.titleVisible = true;
-    }, 300);
-  }
-
-  goToSlide(index: number) {
-    if (index !== this.currentIndex) {
-      this.titleVisible = false;
-      setTimeout(() => {
-        this.currentIndex = index;
-        this.titleVisible = true;
-        console.log('Go to slide:', index);
-      }, 300);
-    }
+    this.currentIndex = (this.currentIndex - 1 + this.fotos.length) % this.fotos.length;
   }
 
   
