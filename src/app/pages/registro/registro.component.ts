@@ -41,6 +41,7 @@ export class RegistroComponent {
       this.userService.registrarUsuario(cliente).subscribe({
         next: (response) => {
           this.presentToast('Registro Exitoso', 'Éxito', 'success');
+          this.clienteForm.reset();
         },
         error: (err) => {
           this.presentToast('Ocurrió un error al registrar el usuario.', 'Error', 'error');
