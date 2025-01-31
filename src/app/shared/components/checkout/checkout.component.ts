@@ -24,7 +24,7 @@ export class CheckoutComponent {
   usuarioId=0
   notas=''
   opcionesEnvio = [
-    { nombre: 'Zona Norte', costo: 7000 },
+    { nombre: 'Zona Norte', costo: 30 },
     { nombre: 'Zona Centro', costo: 10000 },
     { nombre: 'Zona Sur', costo: 15000 },
     { nombre: 'Extremos de santiago', costo: 20000 },
