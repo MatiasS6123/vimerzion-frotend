@@ -22,8 +22,6 @@ export class RegistroComponent {
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      telefono: ['', [Validators.required, Validators.minLength(8)]],
-      direccion: ['', [Validators.required, Validators.minLength(10)]]
     });
   }
 
@@ -34,8 +32,6 @@ export class RegistroComponent {
         username: this.clienteForm.value.username,
         email: this.clienteForm.value.email,
         password: this.clienteForm.value.password,
-        telefono: this.clienteForm.value.telefono,
-        direccion: this.clienteForm.value.direccion,
       };
       
       this.userService.registrarUsuario(cliente).subscribe({

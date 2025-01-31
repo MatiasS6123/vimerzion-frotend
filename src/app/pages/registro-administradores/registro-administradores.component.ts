@@ -50,8 +50,6 @@ export class RegistroAdministradoresComponent {
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       nombreRol: ['CLIENTE', Validators.required], // Valor predeterminado como CLIENTE
-      telefono: [''], // Campos adicionales para CLIENTE
-      direccion: [''],
       newPassword: [''], // Campo para la nueva contraseña
       activo:[true]
     });
@@ -64,8 +62,6 @@ export class RegistroAdministradoresComponent {
           username: user.username,
           email: user.email,
           nombreRol: user.rol, // Cargar el rol del usuario
-          telefono: user.telefono || '',
-          direccion: user.direccion || '',
           activo:user.activo
 
         });

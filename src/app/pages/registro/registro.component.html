@@ -50,36 +50,6 @@
         </p>
       </div>
   
-      <!-- Teléfono -->
-      <div class="mb-4">
-        <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-        <input
-          id="telefono"
-          type="text"
-          formControlName="telefono"
-          class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          placeholder="+56 123 456 789"
-        />
-        <p *ngIf="clienteForm.get('telefono')?.touched && clienteForm.get('telefono')?.invalid" class="text-sm text-red-500">
-          El teléfono es obligatorio y debe tener al menos 8 caracteres.
-        </p>
-      </div>
-  
-      <!-- Dirección -->
-      <div class="mb-4">
-        <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
-        <textarea
-          id="direccion"
-          formControlName="direccion"
-          rows="3"
-          class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Tu dirección completa"
-        ></textarea>
-        <p *ngIf="clienteForm.get('direccion')?.touched && clienteForm.get('direccion')?.invalid" class="text-sm text-red-500">
-          La dirección es obligatoria y debe tener al menos 10 caracteres.
-        </p>
-      </div>
-  
       <!-- Botón de Enviar -->
       <div class="text-center">
         <button
