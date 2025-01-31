@@ -50,7 +50,7 @@ export class RegistroAdministradoresComponent {
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       nombreRol: ['CLIENTE', Validators.required], // Valor predeterminado como CLIENTE
-      newPassword: [''], // Campo para la nueva contraseña
+      password: [''], // Campo para la nueva contraseña
       activo:[true]
     });
   }
@@ -76,7 +76,7 @@ export class RegistroAdministradoresComponent {
   togglePasswordInput(): void {
     this.showPasswordInput = !this.showPasswordInput;
     if (!this.showPasswordInput) {
-      this.userForm.get('newPassword')?.reset(); // Limpiar el campo si se desactiva
+      this.userForm.get('password')?.reset(); // Limpiar el campo si se desactiva
     }
   }
 

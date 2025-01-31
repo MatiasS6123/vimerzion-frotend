@@ -18,7 +18,7 @@ export class TiendaComponent {
   total = 0;
   page = 1;
   pages = 1;
-  limit = 5;
+  limit = 20;
   currentIndex = 0;
   user:string ="";
   isModalOpen: boolean = false;
@@ -39,7 +39,6 @@ export class TiendaComponent {
     this.paqueteService.getAllPaquetesPaginados(this.page, this.limit).subscribe({
       next: (response) => {
         this.paquetes = response.paquetes;
-        console.log(this.paquetes)
         this.total = response.total;
         this.page = response.page;
         this.pages = response.pages;

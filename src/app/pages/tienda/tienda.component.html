@@ -11,7 +11,7 @@
     <ng-container *ngIf="paquetes.length > 0; else noPaquetes">
       <!-- Tarjeta activa del carrusel -->
       <div class=" rounded-lg shadow-md p-6 max-w-[640px] mx-auto">
-        <div class="relative w-full h-[600px] rounded-lg overflow-hidden">
+        <div class="relative w-full h-[550px] rounded-lg overflow-hidden">
           <div *ngFor="let paquete of paquetes; let i = index" [class.opacity-100]="currentIndex === i"
             [class.opacity-0]="currentIndex !== i" class="absolute inset-0 transition-opacity duration-500 ease-in-out">
             <img [src]="paquete.foto" [alt]="paquete.nombre" class="object-cover w-full h-full cursor-pointer" />
