@@ -17,7 +17,7 @@ export class ListaPaquetesComponent {
   currentPage: number = 1;
   totalPages: number = 1;
   totalItems: number = 0;
-  limit: number = 1;
+  limit: number = 10;
 
   constructor(private paqueteService: PaquetesService,private router:Router) {}
 
@@ -33,15 +33,10 @@ export class ListaPaquetesComponent {
         this.totalPages = response.totalPages; // 🔥 Asegurar que coincida con la respuesta del backend
         this.totalItems = response.totalItems; 
   
-        console.log("📌 Datos recibidos del backend:", {
-          paquetes: this.paquetes.length,
-          currentPage: this.currentPage,
-          totalPages: this.totalPages,
-          totalItems: this.totalItems
-        });
+        
       },
       error: (error) => {
-        console.error("❌ Error al cargar paquetes:", error);
+        console.error("❌ Error al cargar paquetes:");
       },
     });
   }
@@ -49,7 +44,6 @@ export class ListaPaquetesComponent {
   
   // Método para manejar el cambio de página
   onPageChange(newPage: number): void {
-    console.log("📌 Cambiando página a:", newPage);
     this.loadPaquetes(newPage, this.limit);
   }
   
