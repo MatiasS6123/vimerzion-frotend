@@ -40,7 +40,7 @@
 
     <!-- Total y botón de finalizar -->
     <div class="mt-4 border-t border-gray-300 pt-4">
-      <p class="text-lg font-bold">Total: ${{ formatearPesos(total) }}</p>
+      <p class="text-lg font-bold">Total: {{ formatearPesos(total) }}</p>
       <button class="w-full font-roboto bg-blue-500 text-white py-2 rounded mt-2 hover:bg-blue-700" (click)="finalizarCompra()">
         Finalizar Compra
       </button>

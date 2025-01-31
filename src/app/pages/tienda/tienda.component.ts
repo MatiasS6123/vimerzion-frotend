@@ -66,6 +66,16 @@ export class TiendaComponent {
     this.isModalOpen = false;
   }
   
+  getDescripcionLista(): string[] {
+  const descripcion = this.paquetes[this.currentIndex]?.descripcion || '';
+
+  return descripcion
+    .split(/[\n.|•|-]+/g) // Divide por saltos de línea, puntos, viñetas y guiones
+    .map(item => item.trim()) // Elimina espacios en cada ítem
+    .filter(item => item.length > 0); // Elimina elementos vacíos
+}
+
+
   nextPage(): void {
     if (this.page < this.pages) {
       this.page++;

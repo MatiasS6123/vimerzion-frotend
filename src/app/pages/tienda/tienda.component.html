@@ -26,9 +26,15 @@
           <p *ngIf="user !== 'Empresas'" class="text-sm text-[#f1f1f1] mb-4">
             {{ formatearPesos(paquetes[currentIndex].precio) }}
           </p>
-          <p class="text-sm text-[#f1f1f1] mb-4">
-            {{ paquetes[currentIndex].descripcion }}
-          </p>
+          <ul *ngIf="getDescripcionLista().length > 0" class="text-sm text-[#f1f1f1] mb-4 list-disc pl-5 space-y-1">
+            <li *ngFor="let item of getDescripcionLista()">
+              {{ item }}
+            </li>
+          </ul>
+          
+          
+          
+          
           <button *ngIf="user !== 'Empresas'"
             class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
             (click)="addToCart(paquetes[currentIndex])">
@@ -47,7 +53,7 @@
       <ng-container *ngIf="paquetes.length > 1">
         <button (click)="prevSlide()"
           class="absolute left-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors hover:text-[#00c5d1]">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
@@ -55,7 +61,7 @@
 
         <button (click)="nextSlide()"
           class="absolute right-4 top-1/2 -translate-y-1/2 text-[#00eefd] p-1 transition-colors hover:text-[#00c5d1]">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
