@@ -17,7 +17,7 @@ export class ListaPaquetesComponent {
   currentPage: number = 1;
   totalPages: number = 1;
   totalItems: number = 0;
-  limit: number = 10;
+  limit: number = 1;
 
   constructor(private paqueteService: PaquetesService,private router:Router) {}
 
@@ -29,19 +29,30 @@ export class ListaPaquetesComponent {
     this.paqueteService.getAllPaquetes(page, limit).subscribe({
       next: (response) => {
         this.paquetes = response.packages;
-        this.currentPage = response.page;
-        this.totalPages = response.pages;
-        this.totalItems = response.total;
+        this.currentPage = response.currentPage;
+        this.totalPages = response.totalPages; // 🔥 Asegurar que coincida con la respuesta del backend
+        this.totalItems = response.totalItems; 
+  
+        console.log("📌 Datos recibidos del backend:", {
+          paquetes: this.paquetes.length,
+          currentPage: this.currentPage,
+          totalPages: this.totalPages,
+          totalItems: this.totalItems
+        });
       },
       error: (error) => {
-        console.error('Error al cargar paquetes:');
+        console.error("❌ Error al cargar paquetes:", error);
       },
     });
   }
-
-  onPageChange(page: number): void {
-    this.loadPaquetes(page, this.limit);
+  
+  
+  // Método para manejar el cambio de página
+  onPageChange(newPage: number): void {
+    console.log("📌 Cambiando página a:", newPage);
+    this.loadPaquetes(newPage, this.limit);
   }
+  
 
   handleAction(id: number): void {
     this.router.navigate(['/gestion-paquetes'], { queryParams: { id: id } });

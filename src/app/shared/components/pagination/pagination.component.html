@@ -1,18 +1,22 @@
 <div class="flex items-center space-x-2">
-    <button
-      [disabled]="currentPage === 1"
-      (click)="changePage(currentPage - 1)"
-      class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
-    >
-      Anterior
-    </button>
-    <span>Página {{ currentPage }} de {{ totalPages }}</span>
-    <button
-      [disabled]="currentPage === totalPages"
-      (click)="changePage(currentPage + 1)"
-      class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
-    >
-      Siguiente
-    </button>
-  </div>
-  
+  <!-- Botón "Anterior" -->
+  <button
+    [disabled]="currentPage <= 1"
+    (click)="changePage(currentPage - 1)"
+    class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
+  >
+    Anterior
+  </button>
+
+  <!-- Indicador de página -->
+  <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+  <!-- Botón "Siguiente" -->
+  <button
+    [disabled]="currentPage >= totalPages"
+    (click)="changePage(currentPage + 1)"
+    class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition duration-200 disabled:opacity-50"
+  >
+    Siguiente
+  </button>
+</div>

@@ -27,9 +27,9 @@ export class PaquetesService {
   }
 
 
-  getAllPaquetes(page: number, limit: number): Observable<{ packages: PaqueteCrud[]; total: number; page: number; pages: number }>{
+  getAllPaquetes(page: number, limit: number): Observable<{ packages: PaqueteCrud[]; totalItems: number; currentPage: number; totalPages: number }> {
     return this.http
-      .get<{ packages: PaqueteCrud[]; total: number; page: number; pages: number }>(
+      .get<{ packages: PaqueteCrud[]; totalItems: number; currentPage: number; totalPages: number }>(
         `${this.API_URL}/?page=${page}&limit=${limit}`
       )
       .pipe(
@@ -38,7 +38,8 @@ export class PaquetesService {
           return throwError(() => new Error('No se pudieron obtener los paquetes.'));
         })
       ); 
-  }
+}
+
 
   createPaquete(paqute:PaqueteCrud, foto:File):Observable<PaqueteCrud>{
     const formData= new FormData();
