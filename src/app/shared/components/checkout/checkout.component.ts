@@ -30,8 +30,8 @@ export class CheckoutComponent {
   notas = ''
    // 📌 Definir los paquetes en promoción con su incremento de precio
    promociones: { [key: string]: number } = {
-    'Paquete 1': 5000,
-    'Paquete 2': 10000,
+    'Mando PS5 adicional': 5000,
+    'Silla Play seat puma': 10000,
   };
   opcionesEnvio = [
     { nombre: 'Zona Norte', costo: 7000 },
