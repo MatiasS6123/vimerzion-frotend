@@ -14,6 +14,10 @@ export interface PaqueteCrud{
     descripcion:string;
     precio:number;
     stock:number;
+    fechaInicio:Date;
+    fechaFin:Date;
+    cuposDiarios:number;
+    diasDisponibles:string[];
     foto:string;
     activo:boolean;
 

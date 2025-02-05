@@ -57,6 +57,56 @@
                     />
                 </div>
 
+                 <!-- Fecha de Inicio -->
+                 <div>
+                    <label for="fechaInicio" class="block text-base font-medium text-gray-700">Fecha de Inicio</label>
+                    <input
+                        id="fechaInicio"
+                        type="date"
+                        formControlName="fechaInicio"
+                        class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
+                    />
+                </div>
+
+                <!-- Fecha de Fin -->
+                <div>
+                    <label for="fechaFin" class="block text-base font-medium text-gray-700">Fecha de Fin</label>
+                    <input
+                        id="fechaFin"
+                        type="date"
+                        formControlName="fechaFin"
+                        class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
+                    />
+                </div>
+
+                <!-- Cupos Diarios -->
+                <div>
+                    <label for="cuposDiarios" class="block text-base font-medium text-gray-700">Cupos Disponibles por Día</label>
+                    <input
+                        id="cuposDiarios"
+                        type="number"
+                        formControlName="cuposDiarios"
+                        min="1"
+                        class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
+                    />
+                </div>
+
+                <!-- Selección de Días Disponibles -->
+                <div class="md:col-span-2">
+                    <label class="block text-base font-medium text-gray-700 mb-2">Días Disponibles</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div *ngFor="let dia of diasSemana; let i = index" class="flex items-center">
+                            <input 
+                                type="checkbox" 
+                                [formControl]="diasDisponibles.at(i) " 
+                                
+                                class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            />
+                            <label class="ml-2 text-base font-medium text-gray-700">{{ dia }}</label> 
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Checkbox Producto Activo -->
                 <div class="md:col-span-2">
                     <div class="flex items-center">

@@ -67,6 +67,7 @@ export class OrdenesComponent implements OnInit {
         
         // Verifica que "response.data" contenga "ordenes" y "pagination"
         if (response && response.data) {
+
           this.orders = response.data.ordenes || [];
           this.pagination = response.data.pagination || { totalItems: 0, currentPage: 1, pageSize: 10 };
         } else {

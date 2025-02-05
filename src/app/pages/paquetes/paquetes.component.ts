@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Paquete, PaqueteCrud } from '../../models/paquete';
 import { CommonModule } from '@angular/common';
 import { PaquetesService } from '../../services/paquetes.service';
@@ -20,6 +20,10 @@ export class PaquetesComponent implements OnInit {
   id:number=0
   existFile: string = '';
   selectedFile: File | null = null;
+
+    // Opciones de días disponibles (Visual: Primera letra en mayúscula)
+    diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
   constructor(private fb:FormBuilder,private paqueteService:PaquetesService,
     private route:ActivatedRoute,private toastr:ToastrService
   ){}
@@ -47,10 +51,30 @@ export class PaquetesComponent implements OnInit {
         precio:[0,Validators.required],
         stock:[0,Validators.required],
         activo: [true],
+        fechaInicio: ['', Validators.required],
+        fechaFin: ['', Validators.required],
+        cuposDiarios: [6, Validators.required],
+        diasDisponibles: this.fb.array([]),
         foto: [], // FormArray para imágenes con títulos
+      });
+      this.inicializarDiasDisponibles();
+    }
+
+
+    private inicializarDiasDisponibles() {
+      this.diasSemana.forEach(() => {
+        this.diasDisponibles.push(this.fb.control(false)); // Falso por defecto
       });
     }
 
+    get diasDisponibles(): FormArray<FormControl> {
+      return this.paqueteForm.get('diasDisponibles') as FormArray<FormControl>;
+    }
+  
+    toggleDia(index: number) {
+      let control = this.diasDisponibles.at(index);
+      control.setValue(!control.value);
+    }
     presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
       this.toastr[tipo](mensaje, titulo, {
         timeOut: 5000,               // Duración del mensaje
@@ -61,19 +85,39 @@ export class PaquetesComponent implements OnInit {
     private loadPackageData(id: number): void {
       this.paqueteService.getPackageById(id).subscribe({
         next: (paquete: PaqueteCrud) => {
-          console.log(paquete)
           this.existFile = paquete.foto; // Mantener como URL de la imagen
           this.paqueteForm.patchValue({
             nombre:paquete.nombre,
             descripcion: paquete.descripcion,
             precio: paquete.precio,
             stock: paquete.stock,
+            cuposDiarios: paquete.cuposDiarios,
+            fechaInicio: this.formatDate(paquete.fechaInicio),
+            fechaFin: this.formatDate(paquete.fechaFin),
             activo:paquete.activo,
           });
+            // Convertir días a formato correcto en la interfaz
+          paquete.diasDisponibles.forEach((dia: string) => {
+          let index = this.diasSemana.findIndex(d => d.toUpperCase() === dia.toUpperCase());
+          if (index !== -1) {
+            this.diasDisponibles.at(index).setValue(true);
+          }
+        });
         },
         error: (error) => this.presentToast(error.message, 'Error', 'error')
       });
     }
+
+    private formatDate(fecha: Date | string | null): string {
+      if (!fecha) return ''; // Si es null o undefined, devolver un string vacío
+    
+      if (fecha instanceof Date) {
+        return fecha.toISOString().split('T')[0]; // Convertir Date a string YYYY-MM-DD
+      }
+    
+      return fecha.split('T')[0]; // Si ya es string, extraer solo la fecha
+    }
+    
 
     onSubmit(): void {
       if (this.paqueteForm.invalid) {
@@ -82,11 +126,17 @@ export class PaquetesComponent implements OnInit {
       }
     
       const paquete: PaqueteCrud = {
-        nombre:this.paqueteForm.get('nombre')?.value,
+        nombre: this.paqueteForm.get('nombre')?.value,
         descripcion: this.paqueteForm.get('descripcion')?.value,
         precio: this.paqueteForm.get('precio')?.value,
         stock: this.paqueteForm.get('stock')?.value,
-        activo:this.paqueteForm.get('activo')?.value,
+        fechaInicio: this.paqueteForm.get('fechaInicio')?.value, // ✅ Ahora se envía la fecha de inicio
+        fechaFin: this.paqueteForm.get('fechaFin')?.value, // ✅ Ahora se envía la fecha de fin
+        cuposDiarios: this.paqueteForm.get('cuposDiarios')?.value, // ✅ Ahora se envían los cupos diarios
+        diasDisponibles: this.diasSemana
+          .filter((_, i) => this.diasDisponibles.at(i).value)
+          .map(dia => dia.toUpperCase()), // ✅ Se convierte a mayúsculas antes de enviar
+        activo: this.paqueteForm.get('activo')?.value,
         foto: this.existFile
       };
     
@@ -146,7 +196,7 @@ export class PaquetesComponent implements OnInit {
           this.selectedFile = null;
         },
         error: (err) => {
-          this.presentToast('Error al actualizar', 'Error', 'error');
+          this.presentToast('Error al crear paquete', 'Error', 'error');
         },
       });
     }

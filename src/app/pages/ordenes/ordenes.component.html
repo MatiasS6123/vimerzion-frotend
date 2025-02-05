@@ -22,8 +22,8 @@
             <span
               class="px-2 py-1 rounded font-roboto text-xs font-semibold"
               [ngClass]="{
-                'bg-yellow-500 font-roboto text-white': order.estado === 'PENDIENTE',
-                'bg-green-500 font-roboto text-white': order.estado === 'COMPLETADO',
+                'bg-yellow-500 font-roboto text-white': order.estado === 'EN_PROCESO',
+                'bg-green-500 font-roboto text-white': order.estado === 'ENTREGADO',
                 'bg-red-500 font-roboto text-white': order.estado === 'CANCELADO'
               }"
             >

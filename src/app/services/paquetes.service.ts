@@ -27,6 +27,10 @@ export class PaquetesService {
   }
 
 
+  getDaysAvailable(id:number):Observable<any>{
+    return this.http.get<any>(`${this.API_URL}/dias-disponibles/${id}`)
+  }
+
   getAllPaquetes(page: number, limit: number): Observable<{ packages: PaqueteCrud[]; totalItems: number; currentPage: number; totalPages: number }> {
     return this.http
       .get<{ packages: PaqueteCrud[]; totalItems: number; currentPage: number; totalPages: number }>(
@@ -48,6 +52,19 @@ export class PaquetesService {
     formData.append('descripcion',paqute.descripcion);
     formData.append('precio',paqute.precio.toString());
     formData.append('stock',paqute.stock.toString());
+
+    // ✅ Agregar fechas formateadas en YYYY-MM-DD
+    formData.append('fechaInicio', this.formatDateForAPI(paqute.fechaInicio));
+    formData.append('fechaFin', this.formatDateForAPI(paqute.fechaFin));
+
+    // ✅ Convertir días seleccionados a formato JSON y en mayúsculas
+    const diasDisponiblesFormatted = JSON.stringify(
+      paqute.diasDisponibles.map(dia => dia.toUpperCase()) // Convierte a mayúsculas
+    );
+    formData.append('diasDisponibles', diasDisponiblesFormatted);
+
+    // ✅ Agregar cupos diarios
+    formData.append('cuposDiarios', paqute.cuposDiarios.toString());
     if(foto){
       formData.append('foto',foto);  
     }
@@ -67,6 +84,21 @@ export class PaquetesService {
     formData.append('descripcion',paquete.descripcion);
     formData.append('precio',paquete.precio.toString());
     formData.append('stock',paquete.stock.toString());
+
+
+  // ✅ Agregar fechas formateadas en YYYY-MM-DD
+  formData.append('fechaInicio', this.formatDateForAPI(paquete.fechaInicio));
+  formData.append('fechaFin', this.formatDateForAPI(paquete.fechaFin));
+
+  // ✅ Convertir días seleccionados a formato JSON y en mayúsculas
+  const diasDisponiblesFormatted = JSON.stringify(
+    paquete.diasDisponibles.map(dia => dia.toUpperCase()) // Convierte a mayúsculas
+  );
+  formData.append('diasDisponibles', diasDisponiblesFormatted);
+
+  // ✅ Agregar cupos diarios
+  formData.append('cuposDiarios', paquete.cuposDiarios.toString());
+
     if(foto){
       formData.append('foto',foto);  
     }
@@ -79,6 +111,18 @@ export class PaquetesService {
 
   }
 
+
+
+  private formatDateForAPI(fecha: Date | string | null): string {
+    if (!fecha) return ''; // Si es null o undefined, devolver un string vacío
+  
+    if (fecha instanceof Date) {
+      return fecha.toISOString().split('T')[0]; // Convertir Date a string YYYY-MM-DD
+    }
+  
+    return fecha.split('T')[0]; // Si ya es string, extraer solo la fecha
+  }
+  
 
   getPackageById(id:number):Observable<PaqueteCrud>{
     return this.http.get<PaqueteCrud>(`${this.API_URL}/id/${id}`)

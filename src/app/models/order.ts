@@ -22,33 +22,39 @@ export interface Pagination {
 }
 
 export interface Orden {
+  id: number;
+  usuarioId: number;
+  fecha: string;
+  subtotal: string;
+  descuentoTotal: string;
+  total: string;
+  estado: string;
+  direccionEnvio: string;
+  telefonoContacto: string;
+  metodoPago: string;
+  notas: string;
+  paquetes: {
     id: number;
-    usuarioId: number;
-    fecha: string;
-    subtotal: string;
-    descuentoTotal: string;
+    ordenId: number;
+    paqueteId: number;
+    cantidad: number;
+    precioUnitario: string;
     total: string;
-    estado: string;
-    direccionEnvio: string;
-    telefonoContacto: string;
-    metodoPago: string;
-    notas: string;
-    paquetes: {
+    paquete: {
       id: number;
-      ordenId: number;
-      paqueteId: number;
-      cantidad: number;
-      precioUnitario: string;
-      total: string;
-      paquete: {
-        id: number;
-        nombre: string;
-      };
-    }[];
-    usuario: {
-      id: number;
-      username: string;
-      email: string;
+      nombre: string;
     };
-  }
+    reserva?: {    // ✅ Agregamos la reserva al detalle de cada paquete
+      id: number;
+      estado: string;
+      fecha: string;
+    };
+  }[];
+  usuario: {
+    id: number;
+    username: string;
+    email: string;
+  };
+}
+
   

@@ -28,6 +28,7 @@ import { InfoServiciosContactoComponent } from './shared/components/info-servici
 import { PoliticasDevolucionComponent } from './shared/components/politicas-devolucion/politicas-devolucion.component';
 import { TerminosCondicionesComponent } from './shared/components/terminos-condiciones/terminos-condiciones.component';
 import { PagosComponent } from './shared/components/pagos/pagos.component';
+import { CalendarioFechasComponent } from './shared/components/calendario-fechas/calendario-fechas.component';
 
 export const routes: Routes = [
     {
@@ -163,6 +164,13 @@ export const routes: Routes = [
         path:'registro',
         component:RegistroComponent,
         data: { public: true }
+    },
+    {
+        path:'fechas-disponibles',
+        component:CalendarioFechasComponent,
+        canActivate: [authRoleGuard],
+        data: { roles: ['CLIENTE'] },
+        runGuardsAndResolvers: 'pathParamsOrQueryParamsChange',
     },
     {
         path:'checkout',

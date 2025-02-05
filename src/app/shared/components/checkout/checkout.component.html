@@ -9,14 +9,31 @@
       Productos
     </h2>
     <ul class="divide-y divide-gray-200">
-      <li
-        *ngFor="let item of carrito"
-        class="py-2 flex justify-between items-center"
-      >
-        <span class="font-[RobotoFlex] text-gray-700">
-          {{ item.nombre }} (x{{ item.cantidad }})
-        </span>
-        <span class="font-bold text-[#1f1062]">{{ formatearPesos(item.subtotal ?? 0) }}</span>
+      <li *ngFor="let item of carrito" class="py-2 flex flex-col gap-2">
+        <div class="flex justify-between items-center">
+          <span class="font-[RobotoFlex] text-gray-700">
+            {{ item.nombre }} (x{{ item.cantidad }})
+          </span>
+          <span class="font-bold text-[#1f1062]">
+            {{ formatearPesos(item.subtotal ?? 0) }}
+          </span>
+        </div>
+
+        <!-- Checkbox para agregar el segundo mando (o extra del paquete) -->
+        <div *ngIf="promociones[item.nombre.trim()]" class="flex items-center mt-2">
+          <input
+            type="checkbox"
+            [checked]="promocionesDisponibles[item.id]"
+            (change)="activarPromocion(item)"
+            class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+          />
+
+          <label class="ml-2 text-sm font-medium text-gray-700 cursor-pointer">
+            Agregar Adicional.
+          </label>
+          
+        </div>
+        
       </li>
     </ul>
     <p class="text-lg font-bold mt-4 font-[NexaBold] text-[#1f1062]">
@@ -25,107 +42,97 @@
     <p class="text-lg font-bold mt-4 font-[NexaBold] text-[#1f1062]">
       Total con Envío: {{ formatearPesos(totalConEnvio) }}
     </p>
+    
   </div>
+ 
+<!-- 📌 Mostrar Fechas Seleccionadas -->
+<div class="mb-6" *ngIf="getFechasConfirmadasKeys().length > 0">
+  <h2 class="text-lg font-bold text-[#1f1062]">Fechas Confirmadas</h2>
+  <ul class="text-gray-700">
+    <li *ngFor="let paqueteId of getFechasConfirmadasKeys()">
+      📆 Paquete {{ paqueteId }}: <strong>{{ fechasSeleccionadas[paqueteId] | date:'dd/MM/yyyy' }}</strong>
+    </li>
+  </ul>
+</div>
+
 
   <!-- Información de Envío -->
   <div class="mb-6">
     <h2 class="text-xl font-bold font-[NexaRegular] text-[#1f1062] mb-4">
       Información de Envío
     </h2>
-
-    <p class="cursor-pointer text-blue-500 underline"
-    (click)="abrirModal()">Revisa Aqui las opciones de envio</p>
+    <p class="cursor-pointer text-blue-500 underline" (click)="abrirModalFechas()">Selecciona aquí la reserva del servicio</p>
+    <br>
+    <p class="cursor-pointer text-blue-500 underline" (click)="abrirModalEnvio()">Revisa Aquí las opciones de envío</p>
     <br>
 
-   <!-- Modal -->
-<div
-class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-*ngIf="modalVisible"
->
-<div class="bg-white p-8 rounded shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-  <h2 class="text-2xl font-bold mb-6 text-center text-[#1f1062]">
-    Opciones de Envío
-  </h2>
-  <div class="flex justify-center items-center ">
-    <img
-      src="assets/Mapa-STGO.svg"
-      alt="Opciones de Envío"
-      class="w-full h-auto rounded max-h-[90vh] object-contain"
-    />
+  <!-- 📌 Modal de Fechas de Reserva -->
+<div *ngIf="modalFechasVisible" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+    <h2 class="text-2xl font-bold mb-4 text-[#1f1062] text-center">Selecciona  Fechas</h2>
+
+    <!-- 🗓️ Contenedor con scroll para el selector de fechas -->
+    <div class="max-h-[500px] overflow-y-auto pr-4">
+      <app-calendario-fechas (fechaSeleccionada)="actualizarFechasSeleccionadas($event)"></app-calendario-fechas>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="flex justify-end mt-6">
+      <button class="mr-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" (click)="cerrarModalFechas()">
+        Cerrar
+      </button>
+    </div>
+  </div>
 </div>
 
-<!-- Leyenda de zonas -->
-<div class="flex justify-center items-center gap-4 mt-4">
-    <div class="flex items-center gap-2">
-        <span class="w-6 h-6 bg-[#3b04fa] "></span>
-        <span class="text-[#000000] text-sm">Zona Norte</span>
-    </div>
-    <div class="flex items-center gap-2">
-        <span class="w-6 h-6 bg-[#955dff] "></span>
-        <span class="text-[#000000] text-sm">Zona Centro</span>
-    </div>
-    <div class="flex items-center gap-2">
-        <span class="w-6 h-6 bg-[#01effd] "></span>
-        <span class="text-[#000000] text-sm">Zona Sur</span>
-    </div>
-    <div class="flex items-center gap-2">
-        <span class="w-6 h-6 bg-[#ebffff]"></span>
-        <span class="text-[#000000] text-sm">Zona Extremos</span>
-    </div>
-</div>
+<!-- 📌 Modal de Opciones de Envío -->
+    <div *ngIf="modalEnvioVisible" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div class="bg-white p-8 rounded shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <h2 class="text-2xl font-bold mb-6 text-center text-[#1f1062]">Opciones de Envío</h2>
+        <div class="flex justify-center items-center">
+          <img src="assets/Mapa-STGO.svg" alt="Opciones de Envío" class="w-full h-auto rounded max-h-[90vh] object-contain" />
+        </div>
 
-  <button
-    class="mt-6 w-full bg-blue-500 text-white py-3 rounded font-bold hover:bg-blue-600"
-    (click)="cerrarModal()"
-  >
-    Cerrar
-  </button>
-</div>
-</div>
+        <!-- Leyenda de zonas -->
+        <div class="flex justify-center items-center gap-4 mt-4">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 bg-[#3b04fa] "></span>
+            <span class="text-[#000000] text-sm">Zona Norte</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 bg-[#955dff] "></span>
+            <span class="text-[#000000] text-sm">Zona Centro</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 bg-[#01effd] "></span>
+            <span class="text-[#000000] text-sm">Zona Sur</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 bg-[#ebffff]"></span>
+            <span class="text-[#000000] text-sm">Zona Extremos</span>
+          </div>
+        </div>
 
-
+        <button class="mt-6 w-full bg-blue-500 text-white py-3 rounded font-bold hover:bg-blue-600"
+          (click)="cerrarModalEnvio()">
+          Cerrar
+        </button>
+      </div>
+    </div>
 
     <!-- Teléfono -->
     <label class="block mb-2 font-[RobotoFlex] text-[#1f1062]">Teléfono:</label>
-    <input
-      type="text"
-      [(ngModel)]="telefono"
-      [ngClass]="{ 'border-red-500': submitted && !telefono }"
-      class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
-    />
-    <p *ngIf="!telefono" class="text-red-500 text-sm mt-1">El teléfono es obligatorio.</p>
+    <input type="text" [(ngModel)]="telefono" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]" />
 
     <!-- Dirección -->
-    <label
-      class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]"
-      >Dirección:</label
-    >
-    <textarea
-      [(ngModel)]="direccion"
-      [ngClass]="{ 'border-red-500': submitted && !direccion }"
-      rows="3"
-      class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
-    ></textarea>
-    <p *ngIf="!direccion" class="text-red-500 text-sm mt-1">La dirección es obligatoria.</p>
+    <label class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]">Dirección:</label>
+    <textarea [(ngModel)]="direccion" rows="3" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"></textarea>
 
     <!-- Notas -->
-    <label
-      class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]"
-      >Notas:</label
-    >
-    <textarea
-      [(ngModel)]="notas"
-      rows="3"
-      [ngClass]="{ 'border-red-500': submitted && !notas}"
-      class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"
-    ></textarea>
+    <label class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]">Notas:</label>
+    <textarea [(ngModel)]="notas" rows="3" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#00eefd]"></textarea>
 
-    <!-- Opciones de Envío -->
-    <label
-  class="block mb-2 mt-4 font-[RobotoFlex] text-[#1f1062]"
-  >Opciones de Envío:</label
->
-<select
+    <select
   [(ngModel)]="opcionEnvio"
   [ngClass]="{ 'border-red-500': submitted && !opcionEnvio }"
   (change)="actualizarTotal()"
@@ -143,10 +150,8 @@ class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-5
   </div>
 
   <!-- Botón de Confirmar -->
-  <button
-    class="w-full bg-[#00eefd] text-white py-3 rounded font-bold text-lg hover:bg-[#00d8e2] transition-colors"
-    (click)="confirmarCompra()"
-  >
+  <button class="w-full bg-[#00eefd] text-white py-3 rounded font-bold text-lg hover:bg-[#00d8e2] transition-colors"
+    (click)="confirmarCompra()">
     Confirmar Compra
   </button>
 </section>
