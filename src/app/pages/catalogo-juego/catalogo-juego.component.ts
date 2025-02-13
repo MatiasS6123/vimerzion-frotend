@@ -21,6 +21,7 @@ export class CatalogoJuegoComponent {
   limit: number = 10;
   loading: boolean = false;
   selectedJuego: any | null = null; // Juego seleccionado para el modal
+  logoUrl:string='';
   constructor(private gameService: CatalogoService, private route: ActivatedRoute,
     private sanitizer: DomSanitizer
   ) {}
@@ -50,6 +51,8 @@ export class CatalogoJuegoComponent {
             this.total = response.total;
             this.page = response.page;
             this.pages = response.pages;
+            // Asignar logo a cada juego dependiendo de la plataforma (sin modificar la interfaz)
+            this.assignPlatformLogo(platform)
           },
           error: (error) => {
             console.error('Error al cargar el catálogo de juegos:');
@@ -58,7 +61,27 @@ export class CatalogoJuegoComponent {
         });
     });
   }
+  assignPlatformLogo(platformName: string | null): void {
+    if (platformName) {
+      this.logoUrl = this.getLogoUrl(platformName); // Asigna el logo dinámicamente
+    } else {
+      this.logoUrl = 'assets/default-logo.svg';
+    }
+  }
 
+
+  getLogoUrl(platformName: string): string {
+    const logos: { [key: string]: string } = {
+      'PlayStation 5': 'assets/PlayStation_VR2_logo (1).svg',
+      'PlayStation VR': 'assets/logos/playstation_vr_logo.svg',
+      'Nintendo Switch': 'assets/logos/nintendo_switch_logo.svg',
+      'Meta Quest 2': 'assets/logos/meta_quest_2_logo.svg',
+      'Simuladores PSVR 2': 'assets/logos/simuladores_psvr_2_logo.svg'
+    };
+    
+    // Si no hay logo para la plataforma, devuelve un logo predeterminado
+    return logos[platformName] || 'assets/default-logo.svg';
+  }
   
   
   openModal(juego: any): void {

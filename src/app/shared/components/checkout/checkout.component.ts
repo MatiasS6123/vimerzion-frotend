@@ -34,10 +34,7 @@ export class CheckoutComponent {
     'Silla Play seat puma': 10000,
   };
   opcionesEnvio = [
-    { nombre: 'Zona Norte', costo: 7000 },
-    { nombre: 'Zona Centro', costo: 10000 },
-    { nombre: 'Zona Sur', costo: 15000 },
-    { nombre: 'Extremos de santiago', costo: 20000 },
+    { nombre: 'Santiago', costo: 20000 },
   ];
   submitted = false;
 

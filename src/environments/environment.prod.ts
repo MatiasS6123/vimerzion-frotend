@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://backend-vimerzion.onrender.com/api'
+    apiUrl: 'https://backend-vimerzion-gtse.onrender.com/api'
   };

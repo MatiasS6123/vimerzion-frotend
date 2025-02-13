@@ -1,55 +1,49 @@
-<section class=" w-full">
-  <!-- Título principal -->
-   
-  <h2 class="text-4xl font-montserrat uppercase font-bold text-center text-[#f1f1f1] mb-8">
+<section class="w-full">
+  <!-- Título principal - Adjusted for better responsiveness -->
+  <h2 class="text-2xl sm:text-3xl md:text-4xl font-montserrat uppercase font-bold text-center text-[#f1f1f1] mb-4 sm:mb-8">
     Servicios 
     <span 
-      [ngClass]="userSelection === 'Empresas' 
-        ? 'text-[#1d1867] font-montserrat bg-[#00eefd] px-3 py-1 rounded-lg -skew-x-12' 
-        : 'text-[#1d1867] font-montserrat bg-[#00eefd] px-3 py-1 rounded-lg -skew-x-12'">
+      class="bg-[#00eefd] text-black px-2 py-1 -skew-x-12 inline-block">
       {{ userSelection === 'Empresas' ? 'Empresas' : 'Personas' }}
     </span>
   </h2>
-  
 
-  <!-- Contenedor principal del slider -->
-  <div *ngIf="fotos.length > 0; else noFotos" class="max-w-6xl mx-auto relative">
-    <!-- Imagen slider -->
-    <div class="rounded-lg shadow-md p-6 max-w-[680px] mx-auto">
+  <!-- Contenedor principal del slider - Improved responsiveness -->
+  <div *ngIf="fotos.length > 0; else noFotos" class="w-full px-4 md:px-8 max-w-6xl mx-auto relative">
+    <!-- Imagen slider - More flexible layout -->
+    <div class="rounded-lg shadow-md p-4 sm:p-6 w-full max-w-[580px] mx-auto">
       <div class="relative w-full h-auto rounded-lg overflow-hidden">
         <div *ngFor="let foto of fotos; let i = index" 
              [class.hidden]="i !== currentIndex" 
              class="w-full text-center">
-          <!-- Título encima de la imagen -->
-          
-          <!-- Imagen más ancha y separada -->
+          <!-- Imagen with improved responsiveness -->
           <img
             [src]="foto.imagenUrl"
             [alt]="foto.titulo"
-            class="object-cover w-[95%] sm:w-[100%] h-96 sm:h-[620px] mx-auto rounded-md mt-36 mb-6"
+            class="object-cover w-full h-[420px] mx-auto rounded-md mb-4 sm:mb-6"
           />
-          <h3 class="text-[30px] font-montserrat font-bold text-[#f1f1f1] mb-6 uppercase">
+          
+          <!-- Títulos and text with responsive sizing -->
+          <h3 class="text-xl sm:text-2xl md:text-[30px] font-montserrat font-bold text-[#f1f1f1] mb-4 uppercase">
             {{ foto.titulo }}
           </h3>
-          <br>
-          <!-- Descripción debajo de la imagen -->
-          <p class="text-xl text-[#f1f1f1] mt-4 font-roboto mb-10" [innerHTML]="foto.descripcion"></p>
+          
+          <p class="text-base sm:text-lg md:text-xl text-[#f1f1f1] font-roboto mb-6" [innerHTML]="foto.descripcion"></p>
 
-          <!-- Contenedor de logos -->
-          <div class="flex justify-center items-center gap-4 sm:gap-8 lg:gap-12 mb-12 flex-wrap">
-            <img src="assets/PlayStation_VR2_logo (1).svg" alt="PlayStation VR" class="h-6 sm:h-8 lg:h-10 max-w-[120px]">
-            <img src="assets/Oculus_(10).svg" alt="Oculus" class="h-6 sm:h-8 lg:h-10 max-w-[120px]">
-            <img src="assets/Nintendo_Switch_Logo (1).svg" alt="Nintendo Switch" class="h-8 sm:h-10 lg:h-12 max-w-[140px]">
-            <img src="assets/kat-vr.svg" alt="Kat VR" class="h-6 sm:h-8 lg:h-10 max-w-[120px]">
+          <!-- Logos with improved responsiveness -->
+          <div class="flex justify-center items-center gap-6 sm:gap-8 lg:gap-12 mb-12 flex-wrap">
+            <img src="assets/PlayStation_VR2_logo (1).svg" alt="PlayStation VR" class="h-24 sm:h-24 lg:h-24 max-w-[140px]">
+            <img src="assets/Oculus_(10).svg" alt="Oculus" class="h-9 sm:h-16 lg:h-16 max-w-[120px]">
+            <img src="assets/Nintendo_Switch_Logo (1).svg" alt="Nintendo Switch" class="h-12 sm:h-16 lg:h-12 max-w-[120px]">
+            <img src="assets/kat-vr.svg" alt="Kat VR" class="h-5 sm:h-16 lg:h-5 max-w-[120px]">
           </div>
           
-          
-          <!-- Botón -->
+          <!-- Button with improved responsiveness -->
           <a 
             [routerLink]="'/tienda'"
-            class="inline-block w-[90%] sm:w-[50%] bg-gradient-to-r from-[#00eefd] to-[#00cce3] text-center font-bold px-10 py-4 rounded-full hover:from-[#00cce3] hover:to-[#00a3b3] transition-all duration-300 shadow-lg"
+            class="inline-block w-full sm:w-[70%] md:w-[50%] bg-[#00eefd] text-center font-bold px-6 py-3 sm:px-10 sm:py-4 rounded-full hover:from-[#00cce3] hover:to-[#00a3b3] transition-all duration-300 shadow-lg"
           >
-            <span class="text-[#1d1867] font-bold text-[20px] sm:text-[28px] tracking-wide">
+            <span class="text-[#1d1867] font-bold text-lg sm:text-xl md:text-[28px] tracking-wide">
               Cotiza aquí
             </span>
           </a>
@@ -57,30 +51,30 @@
       </div>
     </div>
 
-    <!-- Botones de navegación -->
     <button 
-      (click)="prevSlide()"
-      class="absolute left-4 top-1/3 -translate-y-1/2 text-[#00eefd] p-1 transition-colors"
-      *ngIf="fotos.length > 1">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
+  (click)="prevSlide()"
+  class="absolute left-0 sm:left-4 top-1/4 sm:top-1/4 -translate-y-1/2 text-[#00eefd] p-2 transition-colors z-10"
+  *ngIf="fotos.length > 1">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-16 sm:w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+  </svg>
+</button>
 
-    <button 
-      (click)="nextSlide()"
-      class="absolute right-4 top-1/3 -translate-y-1/2 text-[#00eefd] p-1 transition-colors"
-      *ngIf="fotos.length > 1">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
+<button 
+  (click)="nextSlide()"
+  class="absolute right-0 sm:right-4 top-1/4 sm:top-1/4 -translate-y-1/2 text-[#00eefd] p-2 transition-colors z-10"
+  *ngIf="fotos.length > 1">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-16 sm:w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+  </svg>
+</button>
+
   </div>
 
-  <!-- Bloque alternativo cuando no hay fotos -->
+  <!-- No photos placeholder -->
   <ng-template #noFotos>
-    <div class="text-center text-gray-400">
-      <p class="text-lg">No hay imágenes disponibles para este servicio.</p>
+    <div class="text-center text-gray-400 p-4">
+      <p class="text-base sm:text-lg">No hay imágenes disponibles para este servicio.</p>
     </div>
   </ng-template>
 </section>

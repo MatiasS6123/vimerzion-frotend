@@ -52,8 +52,6 @@ export class MostrarTecnologiasComponent {
     const nombreTecnologia: { [key: string]: string } = {
       tecnologia_haptica: 'Tecnología Haptica',
       hologramas: 'Hologramas',
-      plataforma_360:'Plataforma 360°',
-      simuladores:'Simuladores',
       realidad_virtual:'Realidad Virtual',
       realidad_mixta:'Realidad Mixta',
 

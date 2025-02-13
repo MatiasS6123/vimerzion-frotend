@@ -3,9 +3,18 @@
 </div>
 
 <section *ngIf="!loading && juegos.length > 0" class="w-full p-4">
+  <!-- Logo de la plataforma (solo se muestra una vez) -->
+  <div class="flex justify-center mb-6">
+    <!-- En pantallas pequeñas se usa un tamaño más grande con max-w -->
+    <img [src]="logoUrl" alt="Logo Plataforma" class="w-3/5 h-full sm:max-w-[280px] md:max-w-[320px]  object-contain" />
+  </div>
+  
+  
+
+  <!-- Listado de juegos -->
   <ul class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
     <li *ngFor="let juego of juegos; trackBy: trackById" class="flex flex-col items-center max-w-[150px] mx-auto w-full">
-      <!-- Card con solo la imagen -->
+      <!-- Card con solo la imagen del juego -->
       <div class="game-card w-full bg-gradient-to-b from-violet-700 to-violet-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
         <figure class="relative w-full aspect-square overflow-hidden border-2 border-white rounded-2xl">
           <img
@@ -17,9 +26,9 @@
           />
         </figure>
       </div>
-    
-      <!-- Título separado debajo del card -->
-      <h3 class="text-lg  font-montserrat font-bold mt-3 text-cyan-400">
+
+      <!-- Título debajo del card -->
+      <h3 class="text-lg font-montserrat font-bold mt-3 text-[#00eefd]">
         {{ juego.nombre }}
       </h3>
     </li>
@@ -58,8 +67,8 @@
     </button>
 
     <!-- Contenido del Modal -->
-    <h2 class="text-3xl font-roboto font-bold mb-6 text-violet-800 text-center">
-      {{ selectedJuego.nombre }}
+    <h2 class="text-3xl font-roboto font-bold mb-6 text-violet-800 text-center mx-auto">
+  {{ selectedJuego.nombre }}
     </h2>
 
     <!-- Video Container -->

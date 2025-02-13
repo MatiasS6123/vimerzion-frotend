@@ -21,7 +21,7 @@ export class DetalleServicioService {
 
     <span class='text-[#00eefd]'>¡FORTALECE LOS LAZOS DE TU EQUIPO Y LLEVA SU POTENCIAL AL SIGUIENTE NIVEL EN ESTA EMOCIONANTE AVENTURA VIRTUAL!</span> 
   `,
-  imagenUrl: 'assets/team-building-empresa.jpg',
+  imagenUrl: 'https://storage.googleapis.com/saludya-ad59b.appspot.com/servicios/1738943120883_team-building-empresa.jpg',
     },
     {
       titulo: 'Activaciones Publicitarias',
@@ -31,7 +31,7 @@ export class DetalleServicioService {
       <br><br><br>
       <span class='text-[#00eefd]'>¡CREA UN IMPACTO DURADERO Y DEJA QUE TU MARCA SE DESTAQUE CON NUESTRAS ACTIVACIONES!</span> 
       `,
-      imagenUrl: 'assets/activaciones-publicitarias.jpg',
+      imagenUrl: 'https://storage.googleapis.com/saludya-ad59b.appspot.com/servicios/1738942845596_activaciones-publicitarias.jpg',
     },
     {
       titulo: 'Eventos Corporativos',
@@ -41,7 +41,7 @@ export class DetalleServicioService {
       <br><br><br>
       <span class='text-[#00eefd]'>¡DALE A TU EVENTO UN TOQUE INNOVADOR Y DEJA UNA IMPRESIÓN DURADERA EN TUS CLIENTES Y COLABORADORES!</span> 
       ` ,
-      imagenUrl: 'assets/eventos-corporativos-empresa.jpg',
+      imagenUrl: 'https://storage.googleapis.com/saludya-ad59b.appspot.com/servicios/1738942936094_eventos-corporativos-empresa.jpg',
       },
   ];
 
@@ -54,7 +54,7 @@ export class DetalleServicioService {
                     <br>
                     Desde desafiantes juegos hasta emocionantes aventuras, ofrecemos una variedad de opciones para que todos puedan disfrutar de <span class='text-[#00eefd]'>UNA EXPERIENCIA ÚNICA Y PERSONALIZADA</span>.
         `,  
-      imagenUrl: 'assets/fiesta-cumple.jpg',
+      imagenUrl: 'https://storage.googleapis.com/saludya-ad59b.appspot.com/servicios/1738943427456_fiesta-cumple.jpg',
     },
     {
       titulo: 'Uso Personal',
@@ -63,7 +63,7 @@ export class DetalleServicioService {
                     Nuestro servicio de uso personal de realidad virtual te permite disfrutar <span class='text-[#00eefd]'>de emocionantes aventuras</span> y entretenimiento en la comodidad de <span class='text-[#00eefd]'>tu hogar.</span>
                     <br><br><br>
                     <span class='text-[#00eefd]'>PONEMOS A TU DISPOSICIÓN LOS EQUIPOS Y JUEGOS MÁS INNOVADORES PARA QUE VIVAS UNA EXPERIENCIA ÚNICA Y EMOCIONANTE.</span> `,
-      imagenUrl: 'assets/uso-personal.jpg',
+      imagenUrl: 'https://storage.googleapis.com/saludya-ad59b.appspot.com/servicios/1738943311157_uso-personal.jpg',
     },
     {
       titulo: 'Otras Celebraciones',
@@ -73,7 +73,7 @@ export class DetalleServicioService {
       Con nuestras atracciones de realidad virtual de última generación, <span class='text-[#00eefd]'>tus invitados podrán disfrutar de experiencias inmersivas</span> y divertidas que dejarán una impresión duradera.
 <br><br><br>
     <span class='text-[#00eefd]'>¡HAZ DE TU EVENTO ALGO INOLVIDABLE CON NUESTRAS EMOCIONANTES OPCIONES DE REALIDAD VIRTUAL!</span> `,
-      imagenUrl: 'assets/otras-celebraciones.jpg',
+      imagenUrl: 'https://storage.googleapis.com/saludya-ad59b.appspot.com/servicios/1738943389409_otras-celebraciones.jpg',
     },
   ];
 

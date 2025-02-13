@@ -7,12 +7,13 @@
   <!-- Menú con enlaces activos -->
   <ul class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8">
     <!-- Menú para Personas -->
-    <ng-container *ngIf="(isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' )&& !isAdmin">
+    <ng-container *ngIf="(isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' )&& !isAdmin && !showOptions " >
       <!-- Inicio -->
       <li>
         <a routerLink="/inicio"
           class="text-base font-montserrat sm:text-lg md:text-xl font-bold hover:text-[#00eefd] transition relative"
-          [ngClass]="{'active-link': currentSection === 'inicio'}">
+          [ngClass]="{'active-link': currentSection === 'inicio'}"
+          (click)="navigateToInicio()">
           Inicio
         </a>
       </li>
@@ -57,14 +58,14 @@
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'simuladores_psvr_2' }"
-              class="hover:text-[#00eefd] font-montserrat transition py-1 block">Simuladores PSVR 2</a>
+              class="hover:text-[#00eefd] font-montserrat uppercase transition py-1 block">Simuladores PSVR 2</a>
           </li>
         </ul>
       </li>
       <li class="hidden sm:block mx-2 md:mx-4">|</li>
       <li class="relative">
         <button (click)="toggleSubmenu('tecnologias')"
-          class="text-base sm:text-lg md:text-xl font-montserrat font-bold hover:text-[#00eefd] transition relative"
+          class="text-base sm:text-lg md:text-xl font-roboto uppercase   hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'tecnologias'}">
           Tecnologias
         </button>
@@ -81,12 +82,6 @@
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/tecnologias" [queryParams]="{ nombre: 'realidad_mixta' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Realidad Mixta</a>
-          </li>
-          <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'plataforma_360' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Plataforma 360°</a>
-          </li>
-          <li class="list-disc ml-4">
-            <a routerLink="/tecnologias" [queryParams]="{ nombre: 'simuladores' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Simuladores</a>
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/tecnologias" [queryParams]="{ nombre: 'Hologramas' }" class="hover:text-[#00eefd] font-montserrat transition py-1 block">Hologramas</a>

@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit{
   activeSubmenu: string | null = null;
   isPersonSelected: string | null = null;
   activeCatalogoSubmenu: boolean = false;
+  showOptions: boolean = false;
   hideSubmenuTimeout: any;
   constructor(
     private router: Router,
@@ -127,6 +128,23 @@ export class HeaderComponent implements OnInit{
     });
   }
 
+  navigateToInicio() {
+    // Limpiar el almacenamiento local
+    localStorage.removeItem('userSelection');
+    
+    // Ocultar las opciones del menú
+    this.showOptions = false;
+
+    // Redirigir a la ruta /inicio
+    this.router.navigateByUrl('/inicio').then(()=>{
+      
+      window.location.reload();
+    }
+      
+      
+    );
+  }
+      
   ngOnChanges(): void {
     this.cdr.detectChanges();
   }
