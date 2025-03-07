@@ -192,7 +192,17 @@ export class PaquetesComponent implements OnInit {
       this.paqueteService.createPaquete(paquete, foto).subscribe({
         next: (response) => {
           this.presentToast('Paquete Creado', 'Notificacion', 'success');
-          this.paqueteForm.reset();
+          this.paqueteForm.reset({
+            nombre: '',
+          descripcion:'',
+          precio:0,
+          stock:0,
+          activo: true,
+          fechaInicio: '',
+          fechaFin: '',
+          cuposDiarios: 6
+
+          });
           this.selectedFile = null;
         },
         error: (err) => {

@@ -10,7 +10,10 @@ module.exports = {
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
-        roboto:["Roboto Flex", "sans-serif"]
+        roboto:["Roboto Flex", "sans-serif"],
+        nexaHeavy:["Nexa Heavy","sans-serif"],
+        nexaBold:["Nexa Bold","sans-serif"],
+        nexaRegular:["Nexa Regular","sans-serif"],
       },
       
     },
