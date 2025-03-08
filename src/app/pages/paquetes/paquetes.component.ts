@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { Paquete, PaqueteCrud } from '../../models/paquete';
 import { CommonModule } from '@angular/common';
 import { PaquetesService } from '../../services/paquetes.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -25,7 +25,7 @@ export class PaquetesComponent implements OnInit {
     diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
   constructor(private fb:FormBuilder,private paqueteService:PaquetesService,
-    private route:ActivatedRoute,private toastr:ToastrService
+    private route:ActivatedRoute,private toastr:ToastrService,private router:Router
   ){}
 
   ngOnInit() {
@@ -180,6 +180,7 @@ export class PaquetesComponent implements OnInit {
           next: (response) => {
             this.presentToast('Paquete Actualizado', 'Paquete actualizado', 'success');
             // Opcional: Redirigir a una lista de propiedades
+            this.router.navigate(['lista-paquetes'])
           },
           error: (err) => {
             this.presentToast(err.message, 'Error', 'error');
@@ -193,7 +194,7 @@ export class PaquetesComponent implements OnInit {
         next: (response) => {
           this.presentToast('Paquete Creado', 'Notificacion', 'success');
           this.paqueteForm.reset({
-            nombre: '',
+          nombre: '',
           descripcion:'',
           precio:0,
           stock:0,
@@ -203,6 +204,9 @@ export class PaquetesComponent implements OnInit {
           cuposDiarios: 6
 
           });
+          // 2. Limpia y re-inicializa el FormArray de días
+          this.diasDisponibles.clear();
+          this.inicializarDiasDisponibles();
           this.selectedFile = null;
         },
         error: (err) => {
