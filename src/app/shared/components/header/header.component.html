@@ -10,6 +10,16 @@
     <ng-container *ngIf="(isPersonSelected === 'Personas' || isPersonSelected === 'Empresas' )&& !isAdmin && !showOptions " >
       <!-- Inicio -->
       <li>
+        <a routerLink="/tienda"
+          class="text-base font-nexaHeavy  uppercase sm:text-lg md:text-xl  hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'tienda'}"
+          >
+          Tienda
+        </a>
+      </li>
+      <li class="hidden sm:block mx-2 md:mx-4">|</li>
+      
+      <li>
         <a routerLink="/inicio"
           class="text-base font-nexaHeavy  uppercase sm:text-lg md:text-xl  hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'inicio'}"
