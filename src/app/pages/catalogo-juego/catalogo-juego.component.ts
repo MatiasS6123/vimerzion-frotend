@@ -72,11 +72,11 @@ export class CatalogoJuegoComponent {
 
   getLogoUrl(platformName: string): string {
     const logos: { [key: string]: string } = {
-      'PlayStation 5': 'assets/PlayStation_VR2_logo (1).svg',
-      'PlayStation VR': 'assets/logos/playstation_vr_logo.svg',
-      'Nintendo Switch': 'assets/logos/nintendo_switch_logo.svg',
-      'Meta Quest 2': 'assets/logos/meta_quest_2_logo.svg',
-      'Simuladores PSVR 2': 'assets/logos/simuladores_psvr_2_logo.svg'
+      'PlayStation 5': 'assets/ps5.png',
+      'PlayStation vr': 'assets/PlayStation_VR2_logo (1).svg',
+      'Nintendo Switch': 'assets/Nintendo_Switch_Logo (1).svg',
+      'Meta Quest 2': 'assets/Oculus_(10).svg',
+      'Simuladores PsVr 2': 'assets/PlayStation_VR2_logo (1).svg'
     };
     
     // Si no hay logo para la plataforma, devuelve un logo predeterminado
