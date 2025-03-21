@@ -7,11 +7,12 @@ import { Servicio } from '../../models/servicios';
 import { Subscription } from 'rxjs';
 import { SeleccionService } from '../../services/seleccion.service';
 import { DetalleServicioService } from '../../services/detalle-servicio.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-mostrar-servicios',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink,RouterModule],
   templateUrl: './mostrar-servicios.component.html',
   styleUrl: './mostrar-servicios.component.css',
 })

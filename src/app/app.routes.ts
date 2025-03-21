@@ -1,4 +1,3 @@
-import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -29,6 +28,12 @@ import { PoliticasDevolucionComponent } from './shared/components/politicas-devo
 import { TerminosCondicionesComponent } from './shared/components/terminos-condiciones/terminos-condiciones.component';
 import { PagosComponent } from './shared/components/pagos/pagos.component';
 import { CalendarioFechasComponent } from './shared/components/calendario-fechas/calendario-fechas.component';
+import { NgModule } from '@angular/core';  // Asegúrate de que esta importación esté presente
+import { Routes, RouterModule } from '@angular/router';
+import { TipoServicioComponent } from './pages/tipo-servicio/tipo-servicio.component';
+
+
+
 
 export const routes: Routes = [
     {
@@ -47,6 +52,7 @@ export const routes: Routes = [
         component:ContactComponent,
         data: { public: true },
     },
+ 
     {
         path:'servicios',
         component:MostrarServiciosComponent,
@@ -54,6 +60,8 @@ export const routes: Routes = [
         data: { public: true },
 
     },
+
+    { path: 'tipo-servicio/:tipo', component: TipoServicioComponent },
     {
         path:'detalle-servicio',
         component:DetalleServicioComponent,
@@ -204,3 +212,8 @@ export const routes: Routes = [
 
     
 ];
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule {}
