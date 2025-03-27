@@ -32,7 +32,7 @@ export class TipoServicioComponent implements OnInit {
           descripcion: ` `
         },
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/teamlocal.jpg',
           titulo: 'Team building en local',
           descripcion: ` `
         },
@@ -76,7 +76,7 @@ export class TipoServicioComponent implements OnInit {
           en nuestro salón exclusivo. ¡Consulta nuestras promociones`
         },
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/otroslocal.jpg',
           titulo: 'Otros eventos en local',
           descripcion: `Ya sea una junta con amigos, una graduación u exposición, podrás arrendar nuestro local y
           todos los servicios que incluyen`
@@ -84,19 +84,19 @@ export class TipoServicioComponent implements OnInit {
       ],
       domicilio: [
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/personal.jpg',
           titulo: 'Arriendo a Domicilio',
           descripcion: `¡Lleva la innovación a tu hogar! 
           Arrienda nuestros dispositivos de última generación y accede a una amplia variedad de videojuegos y experiencias inmersivas.`
         },
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/cumpleaños.jpg',
           titulo: 'Fiestas de Cumpleaños a Domicilio',
           descripcion: `¡Celebra tu cumpleaños de manera inolvidable! Nuestro servicio te permite disfrutar de
           increíbles experiencias virtuales en la comodidad de tu hogar.`
         },
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/otras.jpg',
           titulo: 'Otros eventos a Domicilio',
           descripcion: `de emoción y novedad a tus eventos especiales con nuestras experiencias únicas.
           Celebra aniversarios, matrimonios, Kermesses y muchos más.`
