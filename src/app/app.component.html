@@ -4,13 +4,14 @@
 </div>
 
 <ng-template #loadedContent>
-  <div class="bg-page-bg bg-cover sm:bg-cover md:bg-[length:auto] lg:bg-center min-h-screen  flex flex-col">
+  <div class="bg-page-bg bg-cover bg-fixed min-h-screen flex flex-col">
 
     <!-- Encabezado -->
     <app-header [rolUsuario]="rolUsuario" (roleCleared)="updateRole('')" class="w-full"></app-header>
   
     <!-- Contenido Principal -->
-    <main class="flex-1 container mx-auto  sm:py-6 md:py-8">
+    <main class="flex-1 container mx-auto sm:py-6 md:py-8 overflow-auto min-h-0">
+
       <router-outlet></router-outlet>
     </main>
   
