@@ -8,8 +8,6 @@
     <!-- En pantallas pequeñas se usa un tamaño más grande con max-w -->
     <img [src]="logoUrl" alt="Logo Plataforma" class="w-3/5 h-[200px] sm:max-w-[250px] md:max-w-[300px]  object-contain" />
   </div>
-  
-  
 
   <!-- Listado de juegos -->
   <ul class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -68,7 +66,7 @@
 
     <!-- Contenido del Modal -->
     <h2 class="text-3xl font-roboto font-bold mb-6 text-violet-800 text-center mx-auto">
-  {{ selectedJuego.nombre }}
+      {{ selectedJuego.nombre }}
     </h2>
 
     <!-- Video Container -->
@@ -85,10 +83,13 @@
     <p *ngIf="!selectedJuego.plataforma?.videoUrl" class="text-center text-gray-500">
       No hay un video disponible para este juego.
     </p>
+
+    <!-- Descripción del Juego -->
+    <div *ngIf="selectedJuego.descripcion" class="mt-4 text-gray-700">
+      <p>{{ selectedJuego.descripcion }}</p>
+    </div>
   </div>
 </div>
-
-
 
 <div *ngIf="!loading && juegos.length === 0" class="text-center text-white">
   <p>No hay juegos disponibles.</p>

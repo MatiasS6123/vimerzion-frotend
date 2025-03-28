@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'page-bg': "url('/assets/Fondo-Patron.jpg')",
+        'page-bg': "url('/assets/Fondo-Patron.jpg')", 
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],

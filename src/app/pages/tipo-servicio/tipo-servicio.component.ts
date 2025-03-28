@@ -22,12 +22,12 @@ export class TipoServicioComponent implements OnInit {
     Empresas: {
       local: [
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/arriendolocalempresa.jpg',
           titulo: 'Arriendo en local',
           descripcion: ` `
         },
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/reunionlocalempresa.jpg',
           titulo: 'Salon de reuniones en local',
           descripcion: ` `
         },
