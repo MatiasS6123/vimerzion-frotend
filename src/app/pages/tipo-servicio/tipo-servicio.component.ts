@@ -39,20 +39,20 @@ export class TipoServicioComponent implements OnInit {
       ],
       domicilio: [
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/eventosCorporativosVR.jpg',
           titulo: 'Eventos corporativos a Domicilio',
           descripcion: `!Transforma tus eventos con experiencias interactivas y emocionantes. Nuestros
           simuladores envolventes pueden ser disfrutados en cualquier lugar. ¡Innova y deja una
           impresión duradera en tus clientes!`
         },
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/activacionesPublicitariasVR.jpg',
           titulo: 'Activaciones Publicitarias a Domicilio',
           descripcion: `Haz que tu marca cobre vida. Transporta a tu audiencia a un mundo virtual cautivador y
           conecta con ellos de manera envolvente. ¡Destaca tu marca y crea un impacto duradero!`
         },
         {
-          imagenUrl: 'assets/personas_domicilio1.jpg',
+          imagenUrl: 'assets/teamBuildingVrDom.jpg',
           titulo: 'Team Building VR a Domicilio',
           descripcion: `Fortalece los lazos de tu equipo con nuestras actividades colaborativas evirtual. Resuelve
           desafíos y alcanza objetivos comunes en un entorno inmersivo, ¡Potencia el trabajo en
