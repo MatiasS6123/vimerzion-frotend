@@ -11,7 +11,7 @@
     <!-- Contenedor principal del slider -->
     <div *ngIf="fotos.length > 0; else noFotos" class="w-full px-4 md:px-8 max-w-6xl mx-auto relative">
         <div class="rounded-lg shadow-md p-4 sm:p-6 w-full max-w-[580px] mx-auto">
-            <div class="relative w-full h-[1000px] rounded-lg overflow-hidden">
+            <div class="relative w-full h-auto rounded-lg overflow-hidden">
                 <div *ngFor="let foto of fotos; let i = index" [class.hidden]="i !== currentIndex"
                     class="w-full text-center">
                     <img [src]="foto.imagenUrl" [alt]="foto.titulo"
@@ -26,12 +26,46 @@
                         [innerHTML]="foto.descripcion"></p>
                     <br>
 
+                    <!-- Sección de planes (si existen) -->
+                    <div *ngIf="fotos[currentIndex].planes?.length > 0" class="mb-8">
+                        
+                        <h4 class="text-lg sm:text-xl font-bold text-[#f1f1f1] mb-4">Planes y Tarifas Disponibles</h4>
+
+                        <div class="relative w-full max-w-md mx-auto">
+                            <!-- Carrusel de planes -->
+                            <div class="text-center bg-[#1d1867] p-4 rounded-lg shadow-md">
+                            
+                                <h5 class="text-xl font-bold text-[#00eefd]">{{ fotos[currentIndex].planes[currentPlanIndex].nombre }}</h5>
+                                <p class="text-lg text-[#f1f1f1] font-semibold">{{ fotos[currentIndex].planes[currentPlanIndex].valor }}</p>
+                                <p class="text-sm text-[#f1f1f1]" [innerHTML]="fotos[currentIndex].planes[currentPlanIndex].detalles"></p>
+                                
+                            </div>
+
+                            <!-- Botón para ir al slide anterior -->
+                            <button (click)="prevPlanSlide()" 
+                                class="absolute left-0 top-1/2 -translate-y-1/2 p-2 bg-[#00eefd] rounded-full shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                            </button>
+
+                            <!-- Botón para ir al siguiente slide -->
+                            <button (click)="nextPlanSlide()" 
+                                class="absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-[#00eefd] rounded-full shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                    </div>
+
 
                     <!-- Botón "Cotiza aquí" -->
                     <a [routerLink]="'/tienda'"
                         class="inline-block w-full sm:w-[70%] md:w-[50%] bg-[#00eefd] text-center font-bold px-6 py-3 sm:px-10 sm:py-4 rounded-full hover:from-[#00cce3] hover:to-[#00a3b3] transition-all duration-300 shadow-lg mb-4">
                         <span class="text-[#1d1867] font-bold text-lg sm:text-xl md:text-[28px] tracking-wide">
-                            Cotiza aquí
+                            {{ fotos[currentIndex].planes?.length > 0 ? 'Reserva aquí' : 'Cotiza aquí' }}
                         </span>
                     </a>
 
@@ -70,8 +104,7 @@
 
     </div>
 
-
-
+    
     <!-- No photos placeholder -->
     <ng-template #noFotos>
         <div class="text-center text-gray-400 p-4">

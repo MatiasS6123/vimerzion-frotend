@@ -16,9 +16,11 @@ export class TipoServicioComponent implements OnInit {
   userSelection: string | null = '';
   currentIndex: number = 0;
   fotos: any[] = [];
+  currentPlanIndex: number = 0;
+
 
   // Datos de ejemplo
-  datos: { [key: string]: { [key: string]: { imagenUrl: string; titulo: string; descripcion: string; }[] } } = {
+  datos: { [key: string]: { [key: string]: { imagenUrl: string; titulo: string; descripcion: string; planes?: { nombre: string; valor: string; detalles: string; }[];}[] } } = {
     Empresas: {
       local: [
         {
@@ -67,7 +69,19 @@ export class TipoServicioComponent implements OnInit {
           titulo: 'Arriendo en local',
           descripcion: `Visítanos en Av. Nueva Los Leones 030, Local 60
           Descubre nuestra amplia variedad de simuladores de realidad virtual.
-          ¡Todo en un solo lugar! `
+          ¡Todo en un solo lugar! `,
+          planes: [
+            { 
+              nombre: 'TARIFA TEMPORAL', 
+              valor: '',   
+              detalles: '1 a 10 min $2.000.<br>11 a 20 min $4.000.<br>21 a 30 min $5.000.<br>31 a 40 min $7.000.<br>41 a 50 min $9.000.<br>51 a 60 min $10.000.' 
+            },
+            { 
+              nombre: 'PUNTOS DE JUEGO', 
+              valor: '',   
+              detalles: '1 punto $1.000.<br>5 puntos $5.000.<br>12 puntos $10.000.<br>24 puntos $20.000.<br>36 puntos $30.000.<br>50 puntos $40.000.' 
+            }          
+          ]
         },
         {
           imagenUrl: 'assets/e.jpeg',
@@ -93,7 +107,22 @@ export class TipoServicioComponent implements OnInit {
           imagenUrl: 'assets/cumpleaños.jpg',
           titulo: 'Fiestas de Cumpleaños a Domicilio',
           descripcion: `¡Celebra tu cumpleaños de manera inolvidable! Nuestro servicio te permite disfrutar de
-          increíbles experiencias virtuales en la comodidad de tu hogar.`
+          increíbles experiencias virtuales en la comodidad de tu hogar.`,
+          planes: [
+            { nombre: 'PROMO BASIC',
+              valor: '$20.000 c/u ( 3 horas )',
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 20 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>4 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado' },
+            { 
+              nombre: 'PROMO PREMIUM', 
+              valor: '$25.000 c/u (3 horas)',   
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 25 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>5 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
+            },
+            { 
+              nombre: 'PROMO DELUXE', 
+              valor: '$30.000 c/u (4 horas)',   
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 30 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>6 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
+            }            
+            ]
         },
         {
           imagenUrl: 'assets/otras.jpg',
@@ -136,5 +165,13 @@ export class TipoServicioComponent implements OnInit {
 
   nextSlide(): void {
     this.currentIndex = this.currentIndex < this.fotos.length - 1 ? this.currentIndex + 1 : 0;
+  }
+
+  prevPlanSlide(): void {
+    this.currentPlanIndex = this.currentPlanIndex > 0 ? this.currentPlanIndex - 1 : this.fotos[this.currentIndex].planes.length - 1;
+  }
+
+  nextPlanSlide(): void {
+    this.currentPlanIndex = this.currentPlanIndex < this.fotos[this.currentIndex].planes.length - 1 ? this.currentPlanIndex + 1 : 0;
   }
 }
