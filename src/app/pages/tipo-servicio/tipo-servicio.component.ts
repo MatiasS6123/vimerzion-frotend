@@ -90,7 +90,7 @@ export class TipoServicioComponent implements OnInit {
           en nuestro salón exclusivo. ¡Consulta nuestras promociones`,
           planes: [
             { nombre: 'PROMO BASIC',
-              valor: '$20.000 c/u ( 3 horas )',
+              valor: '$20.000 c/u (3 horas)',
               detalles: 'Mínimo: 10 invitados.<br>Máximo: 20 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>4 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado' },
             { 
               nombre: 'PROMO PREMIUM', 
