@@ -87,7 +87,22 @@ export class TipoServicioComponent implements OnInit {
           imagenUrl: 'assets/e.jpeg',
           titulo: 'Salon de cumpleaños en local',
           descripcion: `Celebra tu día especial en nuestro nuevo centro de Realidad Virtual. Diversión garantizada
-          en nuestro salón exclusivo. ¡Consulta nuestras promociones`
+          en nuestro salón exclusivo. ¡Consulta nuestras promociones`,
+          planes: [
+            { nombre: 'PROMO BASIC',
+              valor: '$20.000 c/u ( 3 horas )',
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 20 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>4 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado' },
+            { 
+              nombre: 'PROMO PREMIUM', 
+              valor: '$25.000 c/u (3 horas)',   
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 25 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>5 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
+            },
+            { 
+              nombre: 'PROMO DELUXE', 
+              valor: '$30.000 c/u (4 horas)',   
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 30 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>6 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
+            }            
+            ]
         },
         {
           imagenUrl: 'assets/otroslocal.jpg',
@@ -107,22 +122,7 @@ export class TipoServicioComponent implements OnInit {
           imagenUrl: 'assets/cumpleaños.jpg',
           titulo: 'Fiestas de Cumpleaños a Domicilio',
           descripcion: `¡Celebra tu cumpleaños de manera inolvidable! Nuestro servicio te permite disfrutar de
-          increíbles experiencias virtuales en la comodidad de tu hogar.`,
-          planes: [
-            { nombre: 'PROMO BASIC',
-              valor: '$20.000 c/u ( 3 horas )',
-              detalles: 'Mínimo: 10 invitados.<br>Máximo: 20 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>4 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado' },
-            { 
-              nombre: 'PROMO PREMIUM', 
-              valor: '$25.000 c/u (3 horas)',   
-              detalles: 'Mínimo: 10 invitados.<br>Máximo: 25 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>5 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
-            },
-            { 
-              nombre: 'PROMO DELUXE', 
-              valor: '$30.000 c/u (4 horas)',   
-              detalles: 'Mínimo: 10 invitados.<br>Máximo: 30 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>6 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
-            }            
-            ]
+          increíbles experiencias virtuales en la comodidad de tu hogar.`
         },
         {
           imagenUrl: 'assets/otras.jpg',
