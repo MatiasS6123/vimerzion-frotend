@@ -62,13 +62,40 @@
 
 
                     <!-- Botón "Cotiza aquí" -->
-                    <a [routerLink]="'/tienda'"
-                        class="inline-block w-full sm:w-[70%] md:w-[50%] bg-[#00eefd] text-center font-bold px-6 py-3 sm:px-10 sm:py-4 rounded-full hover:from-[#00cce3] hover:to-[#00a3b3] transition-all duration-300 shadow-lg mb-4">
+                    <a class="inline-block w-full sm:w-[70%] md:w-[50%] bg-[#00eefd] text-center font-bold px-6 py-3 sm:px-10 sm:py-4 rounded-full hover:from-[#00cce3] hover:to-[#00a3b3] transition-all duration-300 shadow-lg mb-4">
                         <span class="text-[#1d1867] font-bold text-lg sm:text-xl md:text-[28px] tracking-wide">
-                            {{ fotos[currentIndex].planes?.length > 0 ? 'Reserva aquí' : 'Cotiza aquí' }}
+                            <button (click)="onBotonClick()" class="...">
+                                {{ getTextoBoton() }}
+                              </button>
                         </span>
                     </a>
+                      
 
+
+<!-- Enlaces adicionales: en columna -->
+<div class="flex flex-col items-center gap-4 mb-8">
+           <!-- Botón para Preguntas Frecuentes -->
+    <!-- Preguntas frecuentes adaptado con routerLink -->
+<a [routerLink]="['/preguntas-frecuentes']"
+class="flex flex-col items-center text-[#00eefd] font-bold underline hover:text-[#00cce3] transition-colors duration-300 text-base sm:text-lg gap-2">
+Preguntas Frecuentes
+<svg class="w-6 h-6" fill="#00eefd" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+        <g data-name="Layer 2">
+            <g data-name="menu-arrow-circle">
+                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+                <path d="M12 6a3.5 3.5 0 0 0-3.5 3.5 1 1 0 0 0 2 0A1.5 1.5 0 1 1 12 11a1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.16A3.49 3.49 0 0 0 12 6z"></path>
+                <circle cx="12" cy="17" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
+</a>
+
+</div>
 
                     <!-- Logos -->
                     <div class="flex justify-center items-center gap-6 sm:gap-8 lg:gap-12 mb-12 flex-wrap">

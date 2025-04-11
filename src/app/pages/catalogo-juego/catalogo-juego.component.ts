@@ -76,6 +76,7 @@ export class CatalogoJuegoComponent {
       'PlayStation vr': 'assets/PlayStation_VR2_logo (1).svg',
       'Nintendo Switch': 'assets/Nintendo_Switch_Logo (1).svg',
       'Meta Quest 2': 'assets/Oculus_(10).svg',
+      'Meta Quest 3': 'assets/meta2.svg',
       'Simuladores PsVr 2': 'assets/PlayStation_VR2_logo (1).svg'
     };
     
@@ -119,6 +120,7 @@ export class CatalogoJuegoComponent {
       playstation_vr: 'PlayStation vr',
       nintendo_switch: 'Nintendo Switch',
       meta_quest_2:'Meta Quest 2',
+      meta_quest_3: 'Meta Quest 3',
       simuladores_psvr_2:'Simuladores PsVr 2',
     };
     return platformMap[platform] || platform; // Devolver el valor original si no está en el mapa

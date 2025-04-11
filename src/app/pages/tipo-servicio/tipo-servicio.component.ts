@@ -25,18 +25,21 @@ export class TipoServicioComponent implements OnInit {
       local: [
         {
           imagenUrl: 'assets/arriendolocalempresa.jpg',
-          titulo: 'Arriendo en local',
-          descripcion: ` `
+          titulo: 'Arriendo del local',
+          descripcion: `Sorprende a tu equipo con una experiencia inmersiva Nuestro local de realidad virtual es el
+          lugar ideal para una actividad extra programática que combine diversión e innovación`
         },
         {
           imagenUrl: 'assets/reunionlocalempresa.jpg',
           titulo: 'Salon de reuniones en local',
-          descripcion: ` `
+          descripcion: `Utiliza nuestra sala de reuniones equipada con tecnología de realidad virtual para tus
+          reuniones y presentaciones.`
         },
         {
           imagenUrl: 'assets/teamlocal.jpg',
           titulo: 'Team building en local',
-          descripcion: ` `
+          descripcion: `Disfruta de nuestras emocionantes salas de escape, desafíos colaborativos y otras
+          actividades inmersivas, todas diseñadas para unir a tu equipo`
         },
       ],
       domicilio: [
@@ -67,9 +70,9 @@ export class TipoServicioComponent implements OnInit {
         {
           imagenUrl: 'assets/a.jpeg',
           titulo: 'Arriendo en local',
-          descripcion: `Visítanos en Av. Nueva Los Leones 030, Local 60
-          Descubre nuestra amplia variedad de simuladores de realidad virtual.
-          ¡Todo en un solo lugar! `,
+          descripcion: `Visítanos en Av. Nueva Los Leones 030, Local 60. (A pasos del Mall Costanera Center) 
+          <br><strong>Horarios: Martes a sábados, 14:00 - 20:00 horas.</strong> Descubre nuestra amplia variedad de
+          simuladores de realidad virtual.<br>¡Ven y experimenta lo último en tecnología!`,
           planes: [
             { 
               nombre: 'TARIFA TEMPORAL', 
@@ -86,8 +89,8 @@ export class TipoServicioComponent implements OnInit {
         {
           imagenUrl: 'assets/e.jpeg',
           titulo: 'Salon de cumpleaños en local',
-          descripcion: `Celebra tu día especial en nuestro nuevo centro de Realidad Virtual. Diversión garantizada
-          en nuestro salón exclusivo. ¡Consulta nuestras promociones`,
+          descripcion: `Celebra tu día especial en nuestro centro de Realidad Virtual, donde la diversión no tiene
+          límites. ¡Conoce nuestras promociones y haz que tu celebración sea inolvidable!`,
           planes: [
             { nombre: 'PROMO BASIC',
               valor: '$20.000 c/u (3 horas)',
@@ -107,8 +110,9 @@ export class TipoServicioComponent implements OnInit {
         {
           imagenUrl: 'assets/otroslocal.jpg',
           titulo: 'Otros eventos en local',
-          descripcion: `Ya sea una junta con amigos, una graduación u exposición, podrás arrendar nuestro local y
-          todos los servicios que incluyen`
+          descripcion: `Ya sea una junta con amigos, una celebración de graduación o un paseo de curso, nuestro
+          centro de realidad virtual es el lugar ideal para ti. Arrendamos nuestro espacio y ofrecemos
+          una variedad de servicios para hacer que tu evento sea único`
         }
       ],
       domicilio: [
@@ -144,6 +148,15 @@ export class TipoServicioComponent implements OnInit {
       this.cargarDatos();
     });
   }
+  serviciosParaPersonas = ['local', 'domicilio', 'otroTipo']; // ajusta los que correspondan
+
+  esArriendoLocalParaPersonas(): boolean {
+    const tipo = this.tipoServicio?.toLowerCase(); // puede ser undefined, por eso usamos el ?
+    const tituloActual = this.fotos[this.currentIndex]?.titulo?.toLowerCase(); // también puede ser undefined
+
+    return !!tipo && this.serviciosParaPersonas.includes(tipo) &&
+          tituloActual === 'arriendo en local';
+  }
 
   cargarDatos(): void {
     if (this.tipoServicio && this.userSelection) {
@@ -159,12 +172,50 @@ export class TipoServicioComponent implements OnInit {
     }
   }
 
+  botonTexto: string = 'Cotiza aquí';
+
+  getTextoBoton(): string {
+    const servicio = this.fotos[this.currentIndex];
+    
+    if (!servicio) return 'Cotiza aquí';
+  
+    if (servicio.titulo === 'Salon de cumpleaños en local'  || servicio.titulo === 'Otros eventos en local') {
+      return 'RESERVA AQUÍ';
+    }
+  
+    if (servicio.planes?.length > 0) {
+      return 'RECARGA AQUÍ';
+    }
+  
+    return 'Cotiza aquí';
+  }
+  
+  onBotonClick(): void {
+    const servicio = this.fotos[this.currentIndex];
+  
+    if (!servicio) return;
+  
+    if (servicio.titulo === 'Salon de cumpleaños en local' || servicio.titulo === 'Otros eventos en local'  || servicio.titulo === 'Arriendo en local' || servicio.titulo === 'Salon de reuniones en local'  || servicio.titulo === 'Team building en local') {
+      // Redirige a una página específica
+      window.open('https://vimerzion.com/contacto', '_blank');
+    } else if (servicio.planes?.length > 0) {
+      // Lógica para recarga
+      window.open('https://tuweb.com/recarga', '_blank');
+    } else {
+      // Lógica para cotización
+      window.open('https://tuweb.com/cotizacion', '_blank');
+    }
+  }
+  
+
   prevSlide(): void {
     this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.fotos.length - 1;
+    this.getTextoBoton();
   }
 
   nextSlide(): void {
     this.currentIndex = this.currentIndex < this.fotos.length - 1 ? this.currentIndex + 1 : 0;
+    this.getTextoBoton();
   }
 
   prevPlanSlide(): void {

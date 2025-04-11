@@ -23,7 +23,7 @@ interface PlataformaSeleccionada {
 })
 export class GamesComponent implements OnInit {
   juegoForm!: FormGroup;
-  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch',"Meta Quest 2", "Simuladores PsVr 2"];
+  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch',"Meta Quest 2","Meta Quest 3","Simuladores PsVr 2"];
   isEditMode = false;
   juegoId?: string;
   isLoading = false;
@@ -228,9 +228,13 @@ export class GamesComponent implements OnInit {
             this.router.navigate(['/catalogo']);
           },
           error: (error) => {
-            console.error('Error en creación:');
+            console.error('Error en creación:', error);
+
+            // Opcional: extraer mensaje específico si existe
+            const mensajeError = error?.error?.message || error?.message || 'Error desconocido';
+        
             this.presentToast(
-              "Error al crear el juego. Por favor intente nuevamente",
+              `Error al crear el juego: ${mensajeError}`,
               "Error",
               "error"
             );

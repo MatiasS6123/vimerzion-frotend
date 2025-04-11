@@ -68,7 +68,7 @@
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_vr' }"
-              class="hover:text-[#00eefd] font-nexaRegular transition py-1 block">PlayStation VR</a>
+              class="hover:text-[#00eefd] font-nexaRegular transition py-1 block">PlayStation VR2</a>
           </li>
           <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'nintendo_switch' }"
@@ -79,8 +79,12 @@
               class="hover:text-[#00eefd] font-nexaRegular transition py-1 block">Meta Quest 2</a>
           </li>
           <li class="list-disc ml-4">
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'meta_quest_3' }"
+              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">Meta Quest 3</a>
+          </li>
+          <li class="list-disc ml-4">
             <a routerLink="/catalogo" [queryParams]="{ platform: 'simuladores_psvr_2' }"
-              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">Simuladores PSVR 2</a>
+              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">Simuladores PSVR2</a>
           </li>
         </ul>
       </li>
@@ -220,9 +224,11 @@
     </div>
 
     <!-- Botón de cerrar sesión para administrador -->
+    <!-- Botón de cerrar sesión (siempre visible) -->
     <button *ngIf="isAdmin" (click)="logout()" class="text-white font-montserrat hover:text-[#00eefd] text-base sm:text-lg font-bold">
       Cerrar Sesión
     </button>
+
   </div>
 </nav>
 <!-- Carrito deslizante -->

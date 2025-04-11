@@ -31,6 +31,7 @@ import { CalendarioFechasComponent } from './shared/components/calendario-fechas
 import { NgModule } from '@angular/core';  // Asegúrate de que esta importación esté presente
 import { Routes, RouterModule } from '@angular/router';
 import { TipoServicioComponent } from './pages/tipo-servicio/tipo-servicio.component';
+import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
 
 
 
@@ -204,7 +205,10 @@ export const routes: Routes = [
         component:DetalleOrdenComponent,
         canActivate: [authRoleGuard], // Asegúrate de que solo usuarios autenticados puedan acceder
         data: { roles: ['CLIENTE','ADMINISTRADOR'] }, // Opcional: Solo los clientes pueden procesar pagos
-    }, // Tus demás rutas
+    }, 
+    {   path: 'preguntas-frecuentes',
+        component: PreguntasFrecuentesComponent, 
+    },
     {
         path: '**',
         redirectTo: 'inicio', // Redirige a 'inicio' si no coincide con ninguna ruta
