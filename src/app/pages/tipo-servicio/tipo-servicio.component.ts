@@ -203,7 +203,7 @@ export class TipoServicioComponent implements OnInit {
       window.open('https://tuweb.com/recarga', '_blank');
     } else {
       // Lógica para cotización
-      window.open('https://tuweb.com/cotizacion', '_blank');
+      window.open('https://vimerzion.com/tienda', '_blank');
     }
   }
   
