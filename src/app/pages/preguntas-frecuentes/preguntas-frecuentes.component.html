@@ -3,7 +3,7 @@
     PREGUNTAS FRECUENTES
   </h2>
 
-  <div class="space-y-6">
+  <div *ngIf="faqs.length > 0; else noPreguntas" class="space-y-6">
     <div
       *ngFor="let faq of faqs; let i = index"
       class="border border-white/10 rounded-2xl overflow-hidden backdrop-blur bg-white/5 transition-all duration-300"
@@ -34,4 +34,11 @@
       </div>
     </div>
   </div>
+
+  <!-- En caso de que no haya preguntas para el origen actual -->
+  <ng-template #noPreguntas>
+    <div class="text-center text-white/70 text-lg mt-10">
+      No hay preguntas frecuentes para esta sección.
+    </div>
+  </ng-template>
 </div>

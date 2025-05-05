@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError, tap } from 'rxjs';
+
 import { CatalogJuego, FetchCatalogo } from '../models/catalogo';
 import { environment } from '../../environments/environment.prod';
 
@@ -26,23 +27,35 @@ export class CatalogoService {
   }
   
 
-  getCatalogData(
-    page: number,
-    limit: number,
-    platform: string | null
-  ): Observable<{ games: FetchCatalogo[]; total: number; page: number; pages: number }> {
-    const params = platform ? `?page=${page}&limit=${limit}&platform=${platform}` : `?page=${page}&limit=${limit}`;
-    return this.http
-      .get<{ games: FetchCatalogo[]; total: number; page: number; pages: number }>(
-        `${this.API_URL}/catalog-data${params}`
-      )
-      .pipe(
-        catchError((error) => {
-          console.error('Error al obtener el catálogo de juegos:', error);
-          return throwError(() => new Error('No se pudo obtener el catálogo de juegos.'));
-        })
-      );
-  }
+
+getCatalogData(
+  page: number,
+  limit: number,
+  platform: string | null
+): Observable<{ games: FetchCatalogo[]; total: number; page: number; pages: number }> {
+  const params = platform
+    ? `?page=${page}&limit=${limit}&platform=${platform}`
+    : `?page=${page}&limit=${limit}`;
+
+  return this.http
+    .get<{ games: FetchCatalogo[]; total: number; page: number; pages: number }>(
+      `${this.API_URL}/catalog-data${params}`
+    )
+    .pipe(
+      tap((response) => {
+        console.log('✅ Datos recibidos del backend:');
+        console.log('Games:', response.games);
+        console.log('Total:', response.total);
+        console.log('Page:', response.page);
+        console.log('Pages:', response.pages);
+      }),
+      catchError((error) => {
+        console.error('❌ Error al obtener el catálogo de juegos:', error);
+        return throwError(() => new Error('No se pudo obtener el catálogo de juegos.'));
+      })
+    );
+}
+
 
   /**
    * Buscar un juego por nombre.
@@ -65,27 +78,39 @@ export class CatalogoService {
    * @returns Observable<CatalogJuego>
    */
 // catalogo.service.ts
-createCatalogoJuego(juego: Omit<CatalogJuego, 'id'>,
-  plataformas: { nombre: string; imagen: File; videoUrl: string }[]): Observable<CatalogJuego> {
+createCatalogoJuego(
+  juego: Omit<CatalogJuego, 'id'>,
+  plataformas: { nombre: string; imagen: File; videoUrl: string }[]
+): Observable<CatalogJuego> {
   const formData = new FormData();
-  
-  // Agregar datos básicos del juego
+
+  // Agregar datos básicos
   formData.append('nombre', juego.nombre);
   formData.append('descripcion', juego.descripcion);
   formData.append('categoria', juego.categoria);
   formData.append('activo', juego.activo?.toString() || 'true');
 
-  // Agregar las plataformas como un array JSON
+  // Agregar hashtags como JSON string
+  if (Array.isArray(juego.hashtags)) {
+    juego.hashtags.forEach(tag => formData.append('hashtags[]', tag));
+  }
+
+  // Agregar valoracion si viene definida
+  if (typeof juego.valoracion === 'number') {
+    formData.append('valoracion', juego.valoracion.toString());
+  }
+
+  // Agregar plataformas sin la imagen (se incluye aparte)
   const plataformasData = plataformas.map(p => ({
     nombre: p.nombre,
-    videoUrl:p.videoUrl
+    videoUrl: p.videoUrl
   }));
   formData.append('plataformas', JSON.stringify(plataformasData));
 
-  // Agregar los archivos de imagen
+  // Agregar los archivos de imagen por plataforma
   plataformas.forEach((plataforma) => {
     const nombreFormateado = `imagen_${plataforma.nombre.toLowerCase().replace(/\s+/g, '_')}`;
-    formData.append(nombreFormateado, plataforma.imagen as File);
+    formData.append(nombreFormateado, plataforma.imagen);
   });
 
   return this.http.post<CatalogJuego>(`${this.API_URL}`, formData).pipe(
@@ -95,6 +120,7 @@ createCatalogoJuego(juego: Omit<CatalogJuego, 'id'>,
     })
   );
 }
+
   /**
    * Actualizar un juego existente en el catálogo.
    * @param id ID del juego.
@@ -137,7 +163,7 @@ createCatalogoJuego(juego: Omit<CatalogJuego, 'id'>,
       })
     );
   }
-  
+  /*faltaacutalizar ahora estan los campos hastagas y valoracion*/
   
   
   /**

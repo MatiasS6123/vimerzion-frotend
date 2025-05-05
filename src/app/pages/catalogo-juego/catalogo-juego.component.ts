@@ -77,15 +77,19 @@ export class CatalogoJuegoComponent {
       'Nintendo Switch': 'assets/Nintendo_Switch_Logo (1).svg',
       'Meta Quest 2': 'assets/Oculus_(10).svg',
       'Meta Quest 3': 'assets/meta2.svg',
-      'Simuladores PsVr 2': 'assets/PlayStation_VR2_logo (1).svg'
+      'Simuladores PsVr 2': 'assets/PlayStation_VR2_logo (1).svg',
+      '1 Jugador': 'assets/Oculus_(10).svg',
+      '2 Jugador': 'assets/Oculus_(10).svg',
+      '3 Jugador': 'assets/Oculus_(10).svg',
+      '4 Jugador': 'assets/Oculus_(10).svg'
     };
     
     // Si no hay logo para la plataforma, devuelve un logo predeterminado
     return logos[platformName] || 'assets/default-logo.svg';
   }
   
-  
   openModal(juego: any): void {
+    console.log('Juego seleccionado:', juego);
     if (!juego.plataforma || typeof juego.plataforma !== 'object') {
       console.error('Plataforma no definida o no es un objeto:');
       return;
@@ -99,10 +103,16 @@ export class CatalogoJuegoComponent {
         ...juego.plataforma,
         videoUrl: sanitizedVideoUrl, // SafeResourceUrl
       },
+      hashtags: juego.hashtags || [],  // Asegurándonos de asignar hashtags
+      valoracion: juego.valoracion || 0 // Asegurándonos de asignar valoracion (valor por defecto 0 si es undefined)
     };
+  
+    // Depuración: Verificar los valores de hashtags y valoración
+    console.log('selectedJuego', this.selectedJuego);
+    console.log('Hashtags:', this.selectedJuego.hashtags);
+    console.log('Valoración:', this.selectedJuego.valoracion);
   }
   
-
   
   sanitizeVideoUrl(videoUrl: string): SafeResourceUrl {
     if (videoUrl?.includes('youtube.com/watch')) {
@@ -111,9 +121,7 @@ export class CatalogoJuegoComponent {
     }
     return this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
-  
-  
-  
+
   mapPlatform(platform: string): string {
     const platformMap: { [key: string]: string } = {
       playstation_5: 'PlayStation 5',
@@ -122,6 +130,10 @@ export class CatalogoJuegoComponent {
       meta_quest_2:'Meta Quest 2',
       meta_quest_3: 'Meta Quest 3',
       simuladores_psvr_2:'Simuladores PsVr 2',
+      jugador_1 : '1 Jugador',
+      jugador_2 : '2 Jugador',
+      jugador_3 : '3 Jugador',
+      jugador_4 : '4 Jugador'
     };
     return platformMap[platform] || platform; // Devolver el valor original si no está en el mapa
   }

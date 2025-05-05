@@ -23,7 +23,7 @@ interface PlataformaSeleccionada {
 })
 export class GamesComponent implements OnInit {
   juegoForm!: FormGroup;
-  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch',"Meta Quest 2","Meta Quest 3","Simuladores PsVr 2"];
+  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch',"Meta Quest 2","Meta Quest 3","Simuladores PsVr 2","1 Jugador","2 Jugador","3 Jugador","4 Jugador"];
   isEditMode = false;
   juegoId?: string;
   isLoading = false;
@@ -45,7 +45,9 @@ export class GamesComponent implements OnInit {
       descripcion: ['', Validators.required],
       categoria: ['Aventura', Validators.required],
       activo: [true],
-      plataformas: this.fb.array([])
+      plataformas: this.fb.array([]),
+      hashtags: [''], // <-- nuevo campo
+      valoracion: [0, [Validators.min(0), Validators.max(5)]] // <-- nuevo campo con validación
     });
   }
 
@@ -83,6 +85,8 @@ export class GamesComponent implements OnInit {
       descripcion: juego.descripcion,
       categoria: juego.categoria,
       activo: juego.activo,
+      hashtags: juego.hashtags?.join(', ') || '', // Se muestra como string separado por comas
+      valoracion: juego.valoracion || 0
     });
 
     // Limpiar plataformas existentes
@@ -191,11 +195,17 @@ export class GamesComponent implements OnInit {
       this.presentToast("Por favor complete todos los campos requeridos", "Error", "error");
       return;
     }
-
+  
     this.isLoading = true;
     const formData = this.juegoForm.value;
     const todasLasPlataformas = this.plataformas.value;
-
+  
+    // ✅ Transformar hashtags string -> string[]
+    formData.hashtags = (formData.hashtags || '')
+      .split(',')
+      .map((tag: string) => tag.trim())
+      .filter((tag: string) => tag.length > 0);
+  
     if (this.isEditMode && this.juegoId) {
       this.catalogoService.updateCatalogoJuego(this.juegoId, formData, todasLasPlataformas)
         .pipe(
@@ -229,10 +239,7 @@ export class GamesComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error en creación:', error);
-
-            // Opcional: extraer mensaje específico si existe
             const mensajeError = error?.error?.message || error?.message || 'Error desconocido';
-        
             this.presentToast(
               `Error al crear el juego: ${mensajeError}`,
               "Error",
@@ -242,6 +249,7 @@ export class GamesComponent implements OnInit {
         });
     }
   }
+  
 
   presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info'): void {
     this.toastr[tipo](mensaje, titulo, {

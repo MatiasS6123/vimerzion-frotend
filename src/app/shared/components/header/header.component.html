@@ -62,29 +62,22 @@
         (mouseout)="onSubmenuInteraction()"
         (click)="onSubmenuInteraction()"
           class="absolute left-0 top-full w-48 bg-white text-gray-800 shadow-lg rounded-lg mt-2 p-4 z-10 text-sm">
+          
           <li class="list-disc ml-4">
-            <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_5' }"
-              class="hover:text-[#00eefd] font-nexaRegular transition py-1 block">PlayStation 5</a>
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'jugador_1' }"
+              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">1 Jugador</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/catalogo" [queryParams]="{ platform: 'playstation_vr' }"
-              class="hover:text-[#00eefd] font-nexaRegular transition py-1 block">PlayStation VR2</a>
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'jugador_2' }"
+              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">1 a 2 Jugadores</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/catalogo" [queryParams]="{ platform: 'nintendo_switch' }"
-              class="hover:text-[#00eefd] font-nexaRegular transition py-1 block">Nintendo Switch</a>
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'jugador_3' }"
+              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">1 a 3 Jugadores</a>
           </li>
           <li class="list-disc ml-4">
-            <a routerLink="/catalogo" [queryParams]="{ platform: 'meta_quest_2' }"
-              class="hover:text-[#00eefd] font-nexaRegular transition py-1 block">Meta Quest 2</a>
-          </li>
-          <li class="list-disc ml-4">
-            <a routerLink="/catalogo" [queryParams]="{ platform: 'meta_quest_3' }"
-              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">Meta Quest 3</a>
-          </li>
-          <li class="list-disc ml-4">
-            <a routerLink="/catalogo" [queryParams]="{ platform: 'simuladores_psvr_2' }"
-              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">Simuladores PSVR2</a>
+            <a routerLink="/catalogo" [queryParams]="{ platform: 'jugador_4' }"
+              class="hover:text-[#00eefd] font-nexaRegular  transition py-1 block">1 a 4 Jugadores</a>
           </li>
         </ul>
       </li>
@@ -180,6 +173,15 @@
           class="text-base font-nexaHeavy sm:text-lg md:text-xl uppercase hover:text-[#00eefd] transition relative"
           [ngClass]="{'active-link': currentSection === 'lista-paquetes'}">
           Paquetes
+        </a>
+      </li>
+      <li class="hidden sm:block mx-2 md:mx-4">|</li>
+
+      <li>
+        <a routerLink="/desafios"
+          class="text-base font-nexaHeavy uppercase sm:text-lg md:text-xl  hover:text-[#00eefd] transition relative"
+          [ngClass]="{'active-link': currentSection === 'ordenes'}">
+          Desafios
         </a>
       </li>
     </ng-container>

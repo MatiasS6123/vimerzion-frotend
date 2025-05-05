@@ -32,6 +32,9 @@ import { NgModule } from '@angular/core';  // Asegúrate de que esta importació
 import { Routes, RouterModule } from '@angular/router';
 import { TipoServicioComponent } from './pages/tipo-servicio/tipo-servicio.component';
 import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
+import { PuntosYGemasComponent } from './pages/puntos-y-gemas/puntos-y-gemas.component';
+import { DesafiosComponent } from './pages/desafios/desafios.component';
+import { TorneosComponent } from './pages/torneos/torneos.component';
 
 
 
@@ -207,7 +210,24 @@ export const routes: Routes = [
         data: { roles: ['CLIENTE','ADMINISTRADOR'] }, // Opcional: Solo los clientes pueden procesar pagos
     }, 
     {   path: 'preguntas-frecuentes',
-        component: PreguntasFrecuentesComponent, 
+        component: PreguntasFrecuentesComponent,
+        canActivate: [authRoleGuard],
+        data: { public: true },
+    },
+    {   path: 'puntos-y-gemas',
+        component: PuntosYGemasComponent,
+        canActivate: [authRoleGuard],
+        data: { public: true },
+    },
+    {   path: 'desafios',
+        component: DesafiosComponent,
+        canActivate: [authRoleGuard],
+        data: { public: true },
+    },
+    {   path: 'torneos',
+        component: TorneosComponent,
+        canActivate: [authRoleGuard],
+        data: { public: true },
     },
     {
         path: '**',

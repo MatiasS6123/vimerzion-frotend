@@ -1,0 +1,94 @@
+:root {
+    --desafio-slides-visible: 1; /* Por defecto 1 slide visible */
+    --desafio-card-width: 90%;   /* Ancho de cada card */
+    --desafio-gap: 1rem;         /* Espacio entre cards */
+  }
+  
+  @media (min-width: 768px) {
+    :root {
+      --desafio-slides-visible: 2; /* 2 slides en pantallas medianas */
+      --desafio-card-width: 45%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    :root {
+      --desafio-slides-visible: 3; /* 3 slides en pantallas grandes */
+      --desafio-card-width: 30%;
+    }
+  }
+/* Contenedor principal */
+.desafios-container {
+    width: 100%;
+    overflow: hidden; /* Oculta las tarjetas que salgan del área visible */
+    position: relative;
+  }
+  
+  /* Slider contenedor */
+  .desafios-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * var(--desafio-slides-visible));
+    gap: var(--desafio-gap);
+  }
+ 
+  /* Cards individuales */
+  .desafio-card {
+    flex: 0 0 var(--desafio-card-width);
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+  
+  .desafio-card h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1d1867;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #00eefd;
+    padding-bottom: 0.5rem;
+  }
+  
+  .desafio-details p {
+    margin: 0.5rem 0;
+    color: #4a5568;
+  }
+  
+  .detail-label {
+    font-weight: 600;
+    color: #1d1867;
+  }
+  
+  /* Botones de navegación */
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1d1867;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nav-button:hover {
+    background: #00eefd;
+    color: #1d1867;
+  }
+  
+  .nav-button.prev {
+    left: 0;
+  }
+  
+  .nav-button.next {
+    right: 0;
+  }

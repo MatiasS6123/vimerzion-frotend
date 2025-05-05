@@ -70,7 +70,7 @@ export class TipoServicioComponent implements OnInit {
         {
           imagenUrl: 'assets/a.jpeg',
           titulo: 'Arriendo en local',
-          descripcion: `Visítanos en Av. Nueva Los Leones 030, Local 60. (A pasos del Mall Costanera Center) 
+          descripcion: `Visítanos en Av. Nueva Los Leones 030, Local 60. Providencia. Santiago de Chile. (A pasos del Mall Costanera Center) 
           <br><strong>Horarios: Martes a sábados, 14:00 - 20:00 horas.</strong> Descubre nuestra amplia variedad de
           simuladores de realidad virtual.<br>¡Ven y experimenta lo último en tecnología!`,
           planes: [
@@ -94,16 +94,16 @@ export class TipoServicioComponent implements OnInit {
           planes: [
             { nombre: 'PROMO BASIC',
               valor: '$20.000 c/u (3 horas)',
-              detalles: 'Mínimo: 10 invitados.<br>Máximo: 20 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>4 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado' },
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 20 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>4 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.' },
             { 
               nombre: 'PROMO PREMIUM', 
               valor: '$25.000 c/u (3 horas)',   
-              detalles: 'Mínimo: 10 invitados.<br>Máximo: 25 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>5 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 25 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>5 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.' 
             },
             { 
               nombre: 'PROMO DELUXE', 
               valor: '$30.000 c/u (4 horas)',   
-              detalles: 'Mínimo: 10 invitados.<br>Máximo: 30 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>6 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.<br>Regalo para cada invitado.' 
+              detalles: 'Mínimo: 10 invitados.<br>Máximo: 30 invitados.<br>Salón cumpleaños exclusivo.<br>Sala virtual exclusiva.<br>6 simuladores virtuales.<br>Snack para cada invitado.<br>Distintivo festejado.<br>Regalo festejado.' 
             }            
             ]
         },
@@ -192,19 +192,41 @@ export class TipoServicioComponent implements OnInit {
   
   onBotonClick(): void {
     const servicio = this.fotos[this.currentIndex];
-  
+
     if (!servicio) return;
   
-    if (servicio.titulo === 'Salon de cumpleaños en local' || servicio.titulo === 'Otros eventos en local'  || servicio.titulo === 'Arriendo en local' || servicio.titulo === 'Salon de reuniones en local'  || servicio.titulo === 'Team building en local') {
-      // Redirige a una página específica
-      window.open('https://vimerzion.com/contacto', '_blank');
+    if (
+      servicio.titulo === 'Salon de cumpleaños en local' ||
+      servicio.titulo === 'Otros eventos en local' ||
+      servicio.titulo === 'Arriendo en local' ||
+      servicio.titulo === 'Salon de reuniones en local' ||
+      servicio.titulo === 'Team building en local'
+    ) {
+      // Redirige con parámetros
+      const params = new URLSearchParams({
+        servicio: servicio.titulo
+      }).toString();
+  
+     /* window.open(`https://localhost:4200/contacto?${params}`, '_blank');*/
+      window.open(`https://vimerzion.com/contacto?${params}`, '_blank'); 
     } else if (servicio.planes?.length > 0) {
-      // Lógica para recarga
       window.open('https://tuweb.com/recarga', '_blank');
     } else {
-      // Lógica para cotización
       window.open('https://vimerzion.com/tienda', '_blank');
     }
+  }
+  irAPreguntasFrecuentes(): void {
+    const servicio = this.fotos[this.currentIndex];
+    if (!servicio?.titulo) return;
+  
+    // Normaliza el título para usarlo como "origen"
+    const origen = servicio.titulo
+      .toLowerCase()
+      .replace(/\s+/g, '-')  // Reemplaza espacios por guiones
+      .replace(/[^\w\-]+/g, ''); // Elimina caracteres especiales
+  
+    // Redirige con el origen como query param
+    window.open(`/preguntas-frecuentes?origen=${origen}`, '_blank');
   }
   
 

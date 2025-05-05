@@ -50,11 +50,7 @@
     </button>
   </nav>
 </section>
-
-<div
-  *ngIf="selectedJuego"
-  class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4"
->
+<div *ngIf="selectedJuego" class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4">
   <div class="bg-white p-8 rounded-2xl shadow-xl relative max-w-lg w-full transition-transform transform scale-100">
     <!-- Botón de Cerrar -->
     <button
@@ -78,7 +74,6 @@
         class="w-full h-64 rounded-lg shadow-md"
       ></iframe>
     </div>
-
     <!-- Mensaje si no hay video -->
     <p *ngIf="!selectedJuego.plataforma?.videoUrl" class="text-center text-gray-500">
       No hay un video disponible para este juego.
@@ -88,8 +83,35 @@
     <div *ngIf="selectedJuego.descripcion" class="mt-4 text-gray-700">
       <p>{{ selectedJuego.descripcion }}</p>
     </div>
+
+    <!-- Hashtags -->
+    <div *ngIf="selectedJuego.hashtags && selectedJuego.hashtags.length > 0" class="mt-4">
+      <h3 class="text-lg font-bold text-violet-800">Hashtags</h3>
+      <ul class="flex flex-wrap gap-2 mt-2">
+        <li *ngFor="let hashtag of selectedJuego.hashtags" class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full text-sm">
+          #{{ hashtag }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Valoración -->
+    <div *ngIf="selectedJuego.valoracion !== undefined" class="mt-4">
+      <h3 class="text-lg font-bold text-violet-800">Valoración</h3>
+      <div class="flex items-center">
+        <!-- Aquí puede ser una simple barra de valoración con estrellas -->
+        <span class="text-yellow-500 font-bold">{{ selectedJuego.valoracion }}</span>
+        <div class="flex ml-2">
+          <!-- Mostrar estrellas de 0 a 5 -->
+          <span *ngFor="let star of [].constructor(5); let i = index" class="text-yellow-500">
+            <i class="fa" [ngClass]="i < selectedJuego.valoracion ? 'fa-star' : 'fa-star-o'"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+
 
 <div *ngIf="!loading && juegos.length === 0" class="text-center text-white">
   <p>No hay juegos disponibles.</p>

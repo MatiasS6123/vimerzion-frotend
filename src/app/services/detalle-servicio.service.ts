@@ -60,7 +60,7 @@ export class DetalleServicioService {
       titulo: 'Uso Personal',
       descripcion: ` Sumérgete en un mundo virtual y <span class='text-[#00eefd]'>experimenta una realidad alternativa como nunca antes</span>.
                     <br>
-                    Nuestro servicio de uso personal de realidad virtual te permite disfrutar <span class='text-[#00eefd]'>de emocionantes aventuras</span> y entretenimiento en la comodidad de <span class='text-[#00eefd]'>tu hogar.</span>
+                    Nuestro servicio de uso personal de realidad virtual te permite disfrutar <span class='text-[#00eefd]'>Lleva la emocionantes aventuras</span> y entretenimiento en la comodidad de <span class='text-[#00eefd]'>tu hogar.</span>
                     <br><br><br>
                     <span class='text-[#00eefd]'>PONEMOS A TU DISPOSICIÓN LOS EQUIPOS Y JUEGOS MÁS INNOVADORES PARA QUE VIVAS UNA EXPERIENCIA ÚNICA Y EMOCIONANTE.</span> `,
       imagenUrl: 'https://storage.googleapis.com/saludya-ad59b.appspot.com/servicios/1738943311157_uso-personal.jpg',
