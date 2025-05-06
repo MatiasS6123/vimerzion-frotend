@@ -77,6 +77,22 @@
               placeholder="Ejemplo: 4.5"
               class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
+            <!-- Estrellas visuales -->
+  <div class="flex mt-2">
+    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+      <svg
+        [ngClass]="{
+          'text-yellow-400': juegoForm.get('valoracion')?.value >= star,
+          'text-gray-300': juegoForm.get('valoracion')?.value < star
+        }"
+        class="w-6 h-6 fill-current"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 0l2.943 5.955 6.567.955-4.755 4.635 1.123 6.545z" />
+      </svg>
+    </ng-container>
+  </div>
             <p class="text-sm text-gray-500 mt-1">Debe estar entre 0 y 5.</p>
           </div>
                     

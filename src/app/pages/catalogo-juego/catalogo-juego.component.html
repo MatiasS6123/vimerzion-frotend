@@ -98,16 +98,27 @@
     <div *ngIf="selectedJuego.valoracion !== undefined" class="mt-4">
       <h3 class="text-lg font-bold text-violet-800">Valoración</h3>
       <div class="flex items-center">
-        <!-- Aquí puede ser una simple barra de valoración con estrellas -->
-        <span class="text-yellow-500 font-bold">{{ selectedJuego.valoracion }}</span>
-        <div class="flex ml-2">
-          <!-- Mostrar estrellas de 0 a 5 -->
-          <span *ngFor="let star of [].constructor(5); let i = index" class="text-yellow-500">
-            <i class="fa" [ngClass]="i < selectedJuego.valoracion ? 'fa-star' : 'fa-star-o'"></i>
-          </span>
+        <!-- Estrellas -->
+        <div class="flex">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <svg
+              [ngClass]="{
+                'text-yellow-400': selectedJuego.valoracion >= star,
+                'text-gray-300': selectedJuego.valoracion < star
+              }"
+              class="w-6 h-6 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 0l2.943 5.955 6.567.955-4.755 4.635 1.123 6.545z" />
+            </svg>
+          </ng-container>
         </div>
+        <!-- Valor numérico -->
+        <span class="ml-2 text-gray-700 font-bold">{{ selectedJuego.valoracion }}/5</span>
       </div>
     </div>
+    
 
   </div>
 </div>

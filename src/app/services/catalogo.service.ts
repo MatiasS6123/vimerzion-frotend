@@ -135,20 +135,30 @@ createCatalogoJuego(
   ): Observable<CatalogJuego> {
     const formData = new FormData();
   
-    // Agregar datos básicos del juego si existen
+    // Agregar datos básicos si existen
     if (juego.nombre) formData.append('nombre', juego.nombre);
     if (juego.descripcion) formData.append('descripcion', juego.descripcion);
     if (juego.categoria) formData.append('categoria', juego.categoria);
     if (juego.activo !== undefined) formData.append('activo', String(juego.activo));
   
-    // Enviar TODAS las plataformas, incluyendo `videoUrl`
+    // Agregar hashtags si existen
+    if (Array.isArray(juego.hashtags)) {
+      juego.hashtags.forEach(tag => formData.append('hashtags[]', tag));
+    }
+  
+    // Agregar valoración si está definida
+    if (typeof juego.valoracion === 'number') {
+      formData.append('valoracion', juego.valoracion.toString());
+    }
+  
+    // Agregar plataformas (sin imagen aquí)
     const plataformasData = plataformas.map(p => ({
       nombre: p.nombre,
-      videoUrl: p.videoUrl, // Incluir videoUrl en el JSON
+      videoUrl: p.videoUrl
     }));
     formData.append('plataformas', JSON.stringify(plataformasData));
   
-    // Solo agregar archivos para las plataformas que tienen nuevas imágenes
+    // Agregar imágenes si existen
     plataformas.forEach((plataforma) => {
       if (plataforma.imagen) {
         const nombreFormateado = `imagen_${plataforma.nombre.toLowerCase().replace(/\s+/g, "_")}`;
@@ -163,6 +173,7 @@ createCatalogoJuego(
       })
     );
   }
+  
   /*faltaacutalizar ahora estan los campos hastagas y valoracion*/
   
   
