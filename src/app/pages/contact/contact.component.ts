@@ -1,166 +1,166 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ContactService } from '../../services/contact.service';
 import { RouterLink } from '@angular/router';
-import { ModalPaqueteComponent } from '../../shared/components/modal-paquete/modal-paquete.component';
-import { Paquete } from '../../models/paquete';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,RouterLink,ModalPaqueteComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })
-export class ContactComponent {
-  modalPaquetesVisible = false; // Controla la visibilidad del modal
-  paquetes: Paquete[] = []; // Lista de paquetes
-  paquetesSeleccionados: Paquete[] = []; // Lista de paquetes seleccionados
+export class ContactComponent implements OnInit {
   contactForm: FormGroup;
   formSubmitted = false;
-  @ViewChild(ModalPaqueteComponent) modalPaquete!: ModalPaqueteComponent; // Referencia al modal
-  serviciosDisponibles = [
-    { nombre: 'Activacion Publicitaria VR', valor: 'Activacion Publicitaria VR' },
-    { nombre: 'Eventos Corporativos VR', valor: 'Eventos Corporativos VR' },
-    { nombre: 'Team Building VR', valor: 'Team Building VR' },
-  ];
-  
-  zonasDisponibles = [
-    { nombre: 'Zona Norte' , valor:'Zona Norte'},
-    { nombre: 'Zona Centro',valor:'Zona Centro'},
-    { nombre: 'Zona Sur', valor:'Zona Sur'},
-    { nombre: 'Extremos de santiago',valor:'Extremos de santiago' },
+
+  // Configuración general
+  titulosCampos: any = {};
+  visibilidadCampos: any = {};
+
+  // Definición de configuraciones por tipo
+  private static readonly CONFIGURACION_FORMULARIO: any = {
+  Personas: {
+    titulos: {
+      nombre_solicitante: 'Nombre del Solicitante',
+      empresa: 'Empresa (Opcional)',
+      cargo: '',  // No se muestra, pero es bueno dejarlo definido
+    },
+    visibilidad: {
+      nombre_solicitante: true,
+      empresa: false,
+      cargo: false,  // Oculto para clientes
+    },
+  },
+  Empresas: {
+    titulos: {
+      nombre_solicitante: 'Nombre del Solicitante',
+      empresa: 'Nombre de la Empresa',
+      cargo: 'Cargo',
+    },
+    visibilidad: {
+      nombre_solicitante: true,
+      empresa: true,
+      cargo: true,
+    },
+  },
+};
+
+  // Listas de servicios
+  private static readonly SERVICIOS_PERSONAS = [
+    'Arriendo en local',
+    'Salon de cumpleaños en local',
+    'Otros eventos en local',
+    'Otros eventos a Domicilio',
+    'Arriendo a Domicilio',
+    'Fiestas de Cumpleaños a Domicilio'
   ];
 
+  private static readonly SERVICIOS_EMPRESAS = [
+    'Arriendo del local',
+    'Salon de reuniones en local',
+    'Team building en local',
+    'Eventos corporativos a Domicilio',
+    'Activaciones Publicitarias a Domicilio',
+    'Team Building VR a Domicilio'
+  ];
 
-  
-  constructor(private fb: FormBuilder, private toastr:ToastrService,private contactoService:ContactService) {
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private contactoService: ContactService,
+    private route: ActivatedRoute
+  ) {
+    // Inicialización del formulario
     this.contactForm = this.fb.group({
       nombre_solicitante: ['', Validators.required],
       empresa: ['', [Validators.required]],
       cargo: ['', Validators.required],
-      servicios:[[],Validators.required],
-      zona_envio:[this.zonasDisponibles[0].valor,Validators.required],
-      mensaje:['',Validators.required],
-      paquetes: [[]], 
+      mensaje: ['', Validators.required],
+      servicios: [[], Validators.required]  // ⬅️ AÑADIR ESTA LÍNEA
+
+
     });
   }
 
-  presentToast(mensaje: string, titulo: string = 'Notificación', tipo: 'success' | 'error' | 'warning' | 'info') {
-    this.toastr[tipo](mensaje, titulo, {
-      timeOut: 5000,               // Duración del mensaje
-      positionClass: 'toast-top-center', // Posición: arriba en el centro
-      
-    });
-  }
-
-  
-
-
-  abrirModal(): void {
-    this.modalPaquetesVisible = true;
-    
-  }
-  
-  cerrarModal(): void {
-    this.modalPaquetesVisible = false;
-  }
-  
-  guardarPaquetesSeleccionados(paquetes: Paquete[]): void {
-    this.paquetesSeleccionados = paquetes;
-  
-    // Extraer solo los nombres de los paquetes seleccionados
-    const nombresPaquetes = paquetes.map(paquete => paquete.nombre);
-  
-    // Actualizar el formulario con los nombres
-    this.contactForm.patchValue({ paquetes: nombresPaquetes });
-  
-    this.cerrarModal();
-  }
-  
-  
-  limpiarEstadoModal(): void {
-    this.paquetesSeleccionados = []; // Limpia los paquetes seleccionados
-    this.cerrarModal(); // Cierra el modal
-  }
-  
-
-  submit() {
-    
-  if (this.contactForm.invalid) {
-    this.formSubmitted = true;
-    this.presentToast('Complete todos los campos', 'Error', 'error');
-    console.log(this.contactForm.value)
-    return;
-  }
-
-  const zonaSeleccionada = this.zonasDisponibles.find(
-    (zona) => zona.valor === this.contactForm.get('zona_envio')?.value
-  );
-
-  const contactData = {
-    nombre_solicitante: this.contactForm.get('nombre_solicitante')?.value,
-    empresa: this.contactForm.get('empresa')?.value,
-    cargo: this.contactForm.get('cargo')?.value,
-    servicios: this.contactForm.get('servicios')?.value,
-    zona_envio: zonaSeleccionada ? zonaSeleccionada.nombre : '',
-    mensaje: this.contactForm.get('mensaje')?.value,
-    paquetes: this.contactForm.get('paquetes')?.value, // Incluir paquetes seleccionados
-  };
-
-  this.contactoService.contacto(contactData).subscribe(
-    () => {
-      this.presentToast(
-        'Mensaje enviado con éxito, serás contactado en breve',
-        'Éxito',
-        'success'
-      );
-      this.contactForm.reset({
-        nombre_solicitante: '',
-        empresa: '',
-        cargo: '',
-        servicios: [],
-        zona_envio: this.zonasDisponibles[0].valor,
-        mensaje: '',
-        paquetes: [], // Resetear los paquetes seleccionados
-      });
-      // Limpiar el estado del modal y cerrarlo
-      this.modalPaquete.limpiarEstado();
-      this.cerrarModal();
-
-    },
-    (error) => {
-      console.error('Error al enviar el mensaje:', error);
-      this.presentToast(
-        'Ha ocurrido un error al enviar el correo, inténtalo nuevamente',
-        'Error',
-        'error'
-      );
-    }
-  );
-}
-
-  
-  
-
-  onCheckboxChange(event: Event, controlName: string): void {
-    const checkbox = event.target as HTMLInputElement;
-    const valueArray = this.contactForm.get(controlName)?.value || [];
-  
-    if (checkbox.checked) {
-      // Añadir el valor si está marcado
-      valueArray.push(checkbox.value);
-    } else {
-      // Eliminar el valor si está desmarcado
-      const index = valueArray.indexOf(checkbox.value);
-      if (index > -1) {
-        valueArray.splice(index, 1);
+  ngOnInit() {
+    const servicio = this.route.snapshot.queryParamMap.get('servicio');
+    if (servicio) {
+      if (ContactComponent.SERVICIOS_PERSONAS.includes(servicio)) {
+        this.aplicarConfiguracion('Personas');
+      } else if (ContactComponent.SERVICIOS_EMPRESAS.includes(servicio)) {
+        this.aplicarConfiguracion('Empresas');
       }
     }
-  
-    // Actualizar el campo con el nuevo array
-    this.contactForm.get(controlName)?.setValue(valueArray);
   }
+  serviciosDisponibles: string[] = [];
   
+  aplicarConfiguracion(tipo: 'Personas' | 'Empresas') {
+  const configuracion = ContactComponent.CONFIGURACION_FORMULARIO[tipo];
+  this.titulosCampos = configuracion.titulos;
+  this.visibilidadCampos = configuracion.visibilidad;
+
+  if (tipo === 'Personas') {
+    this.serviciosDisponibles = ContactComponent.SERVICIOS_PERSONAS;
+    this.contactForm.get('servicios')?.setValue([]);
+
+    // 🟢 Valores por defecto para campos ocultos
+    this.contactForm.get('empresa')?.setValue('N/A');
+    this.contactForm.get('cargo')?.setValue('N/A');
+  } else if (tipo === 'Empresas') {
+    this.serviciosDisponibles = ContactComponent.SERVICIOS_EMPRESAS;
+    this.contactForm.get('servicios')?.setValue([]);
+
+    // 🧹 Limpiar por si venía de tipo Persona
+    this.contactForm.get('empresa')?.setValue('');
+    this.contactForm.get('cargo')?.setValue('');
+  }
+}
+
+onCheckboxChange(event: Event): void {
+  const checkbox = event.target as HTMLInputElement;
+  const serviciosSeleccionados = this.contactForm.get('servicios')?.value || [];
+
+  if (checkbox.checked) {
+    serviciosSeleccionados.push(checkbox.value);
+  } else {
+    const index = serviciosSeleccionados.indexOf(checkbox.value);
+    if (index > -1) {
+      serviciosSeleccionados.splice(index, 1);
+    }
+  }
+  this.contactForm.get('servicios')?.setValue(serviciosSeleccionados);
+}
+
+
+  submit() {
+    if (this.contactForm.invalid) {
+      this.formSubmitted = true;
+      this.presentToast('Complete todos los campos', 'Error', 'error');
+      return;
+    }
+
+    const contactData = this.contactForm.value;
+
+    this.contactoService.contacto(contactData).subscribe(
+      () => {
+        this.presentToast('Mensaje enviado con éxito, serás contactado en breve', 'Éxito', 'success');
+        this.contactForm.reset();
+      },
+      (error) => {
+        console.error('Error al enviar el mensaje:', error);
+        this.presentToast('Ha ocurrido un error al enviar el correo, inténtalo nuevamente', 'Error', 'error');
+      }
+    );
+  }
+
+  presentToast(mensaje: string, titulo: string, tipo: 'success' | 'error' | 'warning' | 'info') {
+    this.toastr[tipo](mensaje, titulo, {
+      timeOut: 5000,
+      positionClass: 'toast-top-center',
+    });
+  }
 }

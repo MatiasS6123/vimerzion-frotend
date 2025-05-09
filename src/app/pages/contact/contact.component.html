@@ -1,71 +1,46 @@
 <div class="contact-form bg-gray-100 p-8 rounded-lg shadow-md">
   <form [formGroup]="contactForm">
+    
     <!-- Nombre Solicitante -->
-    <div class="mb-4">
-      <label for="nombre_solicitante" class="block text-sm font-medium text-gray-700">Nombre Solicitante</label>
+    <div class="mb-4" *ngIf="visibilidadCampos?.nombre_solicitante">
+      <label for="nombre_solicitante" class="block text-sm font-medium text-gray-700">
+        {{ titulosCampos?.nombre_solicitante }}
+      </label>
       <input type="text" id="nombre_solicitante" formControlName="nombre_solicitante"
         class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
     </div>
 
-    <!-- Nombre Empresa -->
-    <div class="mb-4">
-      <label for="empresa" class="block text-sm font-medium text-gray-700">Nombre Empresa</label>
+    <!-- Empresa -->
+    <div class="mb-4" *ngIf="visibilidadCampos?.empresa">
+      <label for="empresa" class="block text-sm font-medium text-gray-700">
+        {{ titulosCampos?.empresa }}
+      </label>
       <input type="text" id="empresa" formControlName="empresa"
         class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
     </div>
 
     <!-- Cargo -->
-    <div class="mb-4">
-      <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo</label>
+    <div class="mb-4" *ngIf="visibilidadCampos?.cargo">
+      <label for="cargo" class="block text-sm font-medium text-gray-700">
+        {{ titulosCampos?.cargo }}
+      </label>
       <input type="text" id="cargo" formControlName="cargo"
         class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
     </div>
-
     <!-- Servicios a Arrendar -->
-    <div class="mb-4">
-      <label class="block mb-2 text-gray-700 font-medium">Servicios a Arrendar</label>
-      <div *ngFor="let servicio of serviciosDisponibles" class="flex items-center space-x-2">
-        <input type="checkbox" [value]="servicio.valor" (change)="onCheckboxChange($event, 'servicios')"
-          [checked]="contactForm.get('servicios')?.value.includes(servicio.valor)"
-          class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label class="text-sm font-medium text-gray-700">{{ servicio.nombre }}</label>
-      </div>
-    </div>
-
-    <!-- Botón para abrir modal -->
-    <p class="text-blue-500 underline font-roboto cursor-pointer" (click)="abrirModal()">Presione aquí para agregar los
-      paquetes</p>
-
-    <!-- Mostrar paquetes seleccionados -->
-    <div class="mb-4">
-      <label class="block mb-2 text-gray-700 font-medium">Paquetes Seleccionados</label>
-      <ul>
-        <li *ngFor="let nombre of contactForm.get('paquetes')?.value"
-          class="text-sm text-gray-700 list-disc list-inside">{{ nombre }}</li>
-      </ul>
-      <p *ngIf="contactForm.get('paquetes')?.value?.length === 0" class="text-sm text-gray-500">
-        No se han seleccionado paquetes.
-      </p>
-    </div>
-
-     <!-- Mostrar paquetes seleccionados -->
-     
-
-    <div class="my-5">
-      <app-modal-paquete #modalPaquete [isVisible]="modalPaquetesVisible" (closeModal)="cerrarModal()"
-        (paquetesSeleccionados)="guardarPaquetesSeleccionados($event)"></app-modal-paquete>
+<div class="mb-4" *ngIf="visibilidadCampos?.servicios !== false">
+  <label class="block text-sm font-medium text-gray-700">Servicios a Arrendar</label>
+  <div *ngFor="let servicio of serviciosDisponibles" class="flex items-center space-x-2">
+    <input type="checkbox"
+           [value]="servicio"
+           (change)="onCheckboxChange($event)"
+           [checked]="contactForm.get('servicios')?.value.includes(servicio)"
+           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500">
+    <label class="text-sm font-medium text-gray-700">{{ servicio }}</label>
+  </div>
+</div>
 
 
-    </div>
-
-    <!-- Zona de Envío -->
-    <div class="mb-4">
-      <label for="zona_envio" class="block text-sm font-medium text-gray-700">Zona de Envío</label>
-      <select formControlName="zona_envio" id="zona_envio"
-        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-        <option *ngFor="let zona of zonasDisponibles" [value]="zona.valor">{{ zona.nombre }}</option>
-      </select>
-    </div>
 
     <!-- Mensaje -->
     <div class="mb-4">
