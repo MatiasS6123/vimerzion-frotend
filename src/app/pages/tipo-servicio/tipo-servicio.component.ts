@@ -207,16 +207,16 @@ export class TipoServicioComponent implements OnInit {
         servicio: servicio.titulo
       }).toString();
   
-      window.open(`http://localhost:4200/contacto?${params}`, '_blank');
-      /* window.open(`https://vimerzion.com/contacto?${params}`, '_blank'); */
+      /*window.open(`http://localhost:4200/contacto?${params}`, '_blank');*/
+      window.open(`https://vimerzion.com/contacto?${params}`, '_blank'); 
     } else if (servicio.planes?.length > 0) {
       window.open('https://tuweb.com/recarga', '_blank');
     } else {
        const params = new URLSearchParams({
         servicio: servicio.titulo
       }).toString();
-      window.open(`http://localhost:4200/contacto?${params}`, '_blank');
-
+      /* window.open(`http://localhost:4200/contacto?${params}`, '_blank');*/
+      window.open(`https://vimerzion.com/contacto?${params}`, '_blank');
       /* window.open('https://vimerzion.com/tienda', '_blank');*/
     }
   }
