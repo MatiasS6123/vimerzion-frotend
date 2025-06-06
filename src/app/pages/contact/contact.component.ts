@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ContactService } from '../../services/contact.service';
 import { RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import {AuthService} from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-contact',
@@ -72,30 +74,42 @@ export class ContactComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private contactoService: ContactService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
     // Inicialización del formulario
     this.contactForm = this.fb.group({
       nombre_solicitante: ['', Validators.required],
       empresa: ['', [Validators.required]],
       cargo: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]], // ⬅️ NUEVO CAMPO
       mensaje: ['', Validators.required],
       servicios: [[], Validators.required]  // ⬅️ AÑADIR ESTA LÍNEA
 
 
     });
   }
-
+  
   ngOnInit() {
-    const servicio = this.route.snapshot.queryParamMap.get('servicio');
-    if (servicio) {
-      if (ContactComponent.SERVICIOS_PERSONAS.includes(servicio)) {
-        this.aplicarConfiguracion('Personas');
-      } else if (ContactComponent.SERVICIOS_EMPRESAS.includes(servicio)) {
-        this.aplicarConfiguracion('Empresas');
-      }
+  const servicio = this.route.snapshot.queryParamMap.get('servicio');
+
+  if (servicio) {
+    if (ContactComponent.SERVICIOS_PERSONAS.includes(servicio)) {
+      this.aplicarConfiguracion('Personas');
+    } else if (ContactComponent.SERVICIOS_EMPRESAS.includes(servicio)) {
+      this.aplicarConfiguracion('Empresas');
     }
   }
+
+  // 🟢 Aquí usamos el correo del usuario logueado (si está disponible)
+  const user = this.authService.getUserData();
+  if (user?.email) {
+    this.contactForm.get('correo')?.setValue(user.email);
+  }
+  console.log('cargando contacto');
+  console.log('user', user);
+}
+
   serviciosDisponibles: string[] = [];
   
   aplicarConfiguracion(tipo: 'Personas' | 'Empresas') {

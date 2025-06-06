@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { RoleResponse, userLogin } from '../models/user';
 import { environment } from '../../environments/environment.prod';
+import { LoginResponse } from '../models/user'; // asegúrate de importar la nueva interfaz
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ import { environment } from '../../environments/environment.prod';
 export class AuthService {
 
   private API_URL = `${environment.apiUrl}/auth`
-  
+  private userData?: LoginResponse['user'];
+
   constructor(private http: HttpClient) {}
 
   /**
@@ -18,26 +21,46 @@ export class AuthService {
    * @param user Objeto con las credenciales del usuario.
    * @returns Observable con la respuesta del servidor.
    */
-  login(user: userLogin): Observable<any> {
-    
-    return this.http.post(`${this.API_URL}/login`, user).pipe(
-      tap((response) => {
-        console.log(response)
-      }),
-      catchError((error) => {
-        return throwError(() => error); // Propaga el error para que el componente lo maneje
-      })
-    );
+login(user: userLogin): Observable<LoginResponse> {
+  return this.http.post<LoginResponse>(`${this.API_URL}/login`, user).pipe(
+    tap((response) => {
+      this.setUserData(response.user);
+    }),
+    catchError((error) => {
+      return throwError(() => error);
+    })
+  );
+}
+
+setUserData(user: LoginResponse['user']) {
+  this.userData = user;
+  localStorage.setItem('userData', JSON.stringify(user)); // AGREGAR ESTO
+}
+
+getUserData(): LoginResponse['user'] | undefined {
+  if (!this.userData) {
+    const stored = localStorage.getItem('userData');
+    if (stored) {
+      this.userData = JSON.parse(stored); // CARGAR DESDE LOCALSTORAGE
+    }
   }
-  
+  return this.userData;
+}
+
+clearUserData() {
+  this.userData = undefined;
+  localStorage.removeItem('userData');
+}
 
   /**
    * Cerrar sesión del usuario eliminando la cookie del token.
    * @returns Observable con la respuesta del servidor.
    */
-  logout(): Observable<any> {
-    return this.http.post(`${this.API_URL}/logout`, {}, { withCredentials: true });
-  }
+ logout(): Observable<any> {
+  return this.http.post(`${this.API_URL}/logout`, {}, { withCredentials: true }).pipe(
+    tap(() => this.clearUserData())
+  );
+}
 
   /**
    * Verificar si el usuario está autenticado.

@@ -19,5 +19,13 @@ export interface RoleResponse {
     password:string;
     nombreRol:string
   }
+  export interface LoginResponse {
+  message: string;
+  user: {
+    id: number;
+    email: string;
+    role: string;
+  };
+}
 
   export type RegistroUsuario = Cliente | UserAdminRegiter; // Unión discriminada

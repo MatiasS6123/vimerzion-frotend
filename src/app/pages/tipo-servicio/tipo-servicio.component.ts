@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tipo-servicio',
@@ -17,6 +18,8 @@ export class TipoServicioComponent implements OnInit {
   currentIndex: number = 0;
   fotos: any[] = [];
   currentPlanIndex: number = 0;
+  currentUrl: string = '';
+
 
 
   // Datos de ejemplo
@@ -72,7 +75,7 @@ export class TipoServicioComponent implements OnInit {
           titulo: 'Arriendo en local',
           descripcion: `Visítanos en Av. Nueva Los Leones 030, Local 60. Providencia. Santiago de Chile. (A pasos del Mall Costanera Center) 
           <br><strong>Horarios: Martes a sábados, 14:00 - 20:00 horas.</strong> Descubre nuestra amplia variedad de
-          simuladores de realidad virtual.<br>¡Ven y experimenta lo último en tecnología!`,
+          simuladores de realidad virtual.<br>`,
           planes: [
             { 
               nombre: 'TARIFA TEMPORAL', 
@@ -131,7 +134,7 @@ export class TipoServicioComponent implements OnInit {
         {
           imagenUrl: 'assets/otras.jpg',
           titulo: 'Otros eventos a Domicilio',
-          descripcion: `de emoción y novedad a tus eventos especiales con nuestras experiencias únicas.
+          descripcion: `LLena de emoción y novedad a tus eventos especiales con nuestras experiencias únicas.
           Celebra aniversarios, matrimonios, Kermesses y muchos más.`
         }
       ]
@@ -139,7 +142,10 @@ export class TipoServicioComponent implements OnInit {
     },
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -147,9 +153,19 @@ export class TipoServicioComponent implements OnInit {
       this.userSelection = localStorage.getItem('userSelection') || 'Personas';
       this.cargarDatos();
     });
+     this.currentUrl = this.router.url;
+
+    // Suscribirse a los cambios de ruta en caso de navegación dentro del SPA
+    this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url;
+    });
   }
   serviciosParaPersonas = ['local', 'domicilio', 'otroTipo']; // ajusta los que correspondan
 
+  shouldShowOptions(): boolean {
+    // Oculta si incluye exactamente "/tipo-servicio/domicilio"
+    return !this.currentUrl.includes('/tipo-servicio/domicilio');
+  }
   esArriendoLocalParaPersonas(): boolean {
     const tipo = this.tipoServicio?.toLowerCase(); // puede ser undefined, por eso usamos el ?
     const tituloActual = this.fotos[this.currentIndex]?.titulo?.toLowerCase(); // también puede ser undefined
@@ -184,42 +200,46 @@ export class TipoServicioComponent implements OnInit {
     }
   
     if (servicio.planes?.length > 0) {
-      return 'RECARGA AQUÍ';
+      return 'RESERVA AQUÍ';
     }
   
     return 'Cotiza aquí';
   }
   
   onBotonClick(): void {
-    const servicio = this.fotos[this.currentIndex];
+  const servicio = this.fotos[this.currentIndex];
 
-    if (!servicio) return;
-  
-    if (
-      servicio.titulo === 'Salon de cumpleaños en local' ||
-      servicio.titulo === 'Otros eventos en local' ||
-      servicio.titulo === 'Arriendo en local' ||
-      servicio.titulo === 'Salon de reuniones en local' ||
-      servicio.titulo === 'Team building en local'
-    ) {
-      // Redirige con parámetros
-      const params = new URLSearchParams({
-        servicio: servicio.titulo
-      }).toString();
-  
-      /*window.open(`http://localhost:4200/contacto?${params}`, '_blank');*/
-      window.open(`https://vimerzion.com/contacto?${params}`, '_blank'); 
-    } else if (servicio.planes?.length > 0) {
-      window.open('https://tuweb.com/recarga', '_blank');
-    } else {
-       const params = new URLSearchParams({
-        servicio: servicio.titulo
-      }).toString();
-      /* window.open(`http://localhost:4200/contacto?${params}`, '_blank');*/
-      window.open(`https://vimerzion.com/contacto?${params}`, '_blank');
-      /* window.open('https://vimerzion.com/tienda', '_blank');*/
-    }
+  // ✅ Si es domicilio, redirige a una página específica
+  if (this.tipoServicio === 'domicilio') {
+    window.open('https://vimerzion.com/tienda', '_blank');
+    return;
   }
+
+  if (!servicio) return;
+
+  if (
+    servicio.titulo === 'Salon de cumpleaños en local' ||
+    servicio.titulo === 'Otros eventos en local' ||
+    servicio.titulo === 'Arriendo en local' ||
+    servicio.titulo === 'Salon de reuniones en local' ||
+    servicio.titulo === 'Team building en local'
+  ) {
+    const params = new URLSearchParams({
+      servicio: servicio.titulo
+    }).toString();
+      window.open(`http://localhost:4200/contacto?${params}`, '_blank');
+    //window.open(`https://vimerzion.com/contacto?${params}`, '_blank');
+  } else if (servicio.planes?.length > 0) {
+    window.open('https://tuweb.com/recarga', '_blank');
+  } else {
+    const params = new URLSearchParams({
+      servicio: servicio.titulo
+    }).toString();
+     window.open(`http://localhost:4200/contacto?${params}`, '_blank');
+    //window.open(`https://vimerzion.com/contacto?${params}`, '_blank');
+  }
+}
+
   irAPreguntasFrecuentes(): void {
     const servicio = this.fotos[this.currentIndex];
     if (!servicio?.titulo) return;

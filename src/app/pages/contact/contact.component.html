@@ -9,7 +9,11 @@
       <input type="text" id="nombre_solicitante" formControlName="nombre_solicitante"
         class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
     </div>
-
+    <div class="mb-4">
+  <label for="correo" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+  <input type="email" id="correo" formControlName="correo"
+    class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+</div>
     <!-- Empresa -->
     <div class="mb-4" *ngIf="visibilidadCampos?.empresa">
       <label for="empresa" class="block text-sm font-medium text-gray-700">

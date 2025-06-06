@@ -23,7 +23,7 @@ interface PlataformaSeleccionada {
 })
 export class GamesComponent implements OnInit {
   juegoForm!: FormGroup;
-  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch',"Meta Quest 2","Meta Quest 3","Simuladores PsVr 2","1 Jugador","2 Jugador","3 Jugador","4 Jugador"];
+  opcionesPlataformas = ['PlayStation 5', 'PlayStation vr', 'Nintendo Switch',"Meta Quest 2","Meta Quest 3","Simuladores PsVr 2","1 Jugador","2 Jugador","3 Jugador","4 Jugador","Simuladores"];
   isEditMode = false;
   juegoId?: string;
   isLoading = false;

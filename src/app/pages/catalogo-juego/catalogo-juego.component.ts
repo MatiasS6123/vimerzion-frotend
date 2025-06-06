@@ -81,7 +81,8 @@ export class CatalogoJuegoComponent {
       '1 Jugador': 'assets/Oculus_(10).svg',
       '2 Jugador': 'assets/Oculus_(10).svg',
       '3 Jugador': 'assets/Oculus_(10).svg',
-      '4 Jugador': 'assets/Oculus_(10).svg'
+      '4 Jugador': 'assets/Oculus_(10).svg',
+      'Simuladores': 'assets/PlayStation_VR2_logo (1).svg',
     };
     
     // Si no hay logo para la plataforma, devuelve un logo predeterminado
@@ -133,7 +134,8 @@ export class CatalogoJuegoComponent {
       jugador_1 : '1 Jugador',
       jugador_2 : '2 Jugador',
       jugador_3 : '3 Jugador',
-      jugador_4 : '4 Jugador'
+      jugador_4 : '4 Jugador',
+      simuladores : 'Simuladores'
     };
     return platformMap[platform] || platform; // Devolver el valor original si no está en el mapa
   }
