@@ -80,6 +80,25 @@
             <option value="ADMINISTRADOR">Administrador</option>
           </select>
         </div>
+        <!-- Puntos -->
+<div>
+  <label for="puntos" class="block text-sm font-medium text-gray-700 mb-2">
+    Puntos
+  </label>
+  <input
+    id="puntos"
+    type="number"
+    formControlName="puntos"
+    min="0"
+    class="w-full border border-gray-300 rounded-lg shadow-sm px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300 transition"
+  />
+  <small
+    *ngIf="userForm.get('puntos')?.invalid && userForm.get('puntos')?.touched"
+    class="text-red-500 mt-1"
+  >
+    El valor de puntos debe ser igual o mayor a 0.
+  </small>
+</div>
 
         
       </div>

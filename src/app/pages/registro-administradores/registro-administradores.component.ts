@@ -51,7 +51,8 @@ export class RegistroAdministradoresComponent {
       email: ['', [Validators.required, Validators.email]],
       nombreRol: ['CLIENTE', Validators.required], // Valor predeterminado como CLIENTE
       password: [''], // Campo para la nueva contraseña
-      activo:[true]
+      activo:[true],
+      puntos: [0, [Validators.min(0)]] // 👈 nuevo campo
     });
   }
 
@@ -62,8 +63,8 @@ export class RegistroAdministradoresComponent {
           username: user.username,
           email: user.email,
           nombreRol: user.rol, // Cargar el rol del usuario
-          activo:user.activo
-
+          activo:user.activo,
+          puntos: user.puntos ?? 0 // 👈 cargar puntos si existen
         });
       },
       error: (error) => {
