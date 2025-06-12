@@ -26,6 +26,7 @@ import { ListaUsuarioComponent } from './shared/components/lista-usuario/lista-u
 import { InfoServiciosContactoComponent } from './shared/components/info-servicios-contacto/info-servicios-contacto.component';
 import { PoliticasDevolucionComponent } from './shared/components/politicas-devolucion/politicas-devolucion.component';
 import { TerminosCondicionesComponent } from './shared/components/terminos-condiciones/terminos-condiciones.component';
+import {MiPerfilComponent} from './shared/components/mi-perfil/mi-perfil.component';
 import { PagosComponent } from './shared/components/pagos/pagos.component';
 import { CalendarioFechasComponent } from './shared/components/calendario-fechas/calendario-fechas.component';
 import { NgModule } from '@angular/core';  // Asegúrate de que esta importación esté presente
@@ -228,6 +229,13 @@ export const routes: Routes = [
         component: TorneosComponent,
         canActivate: [authRoleGuard],
         data: { public: true },
+    },
+    {
+        path: 'mi-perfil',
+        component: MiPerfilComponent,
+        canActivate: [authRoleGuard],
+        data: { public: true },
+
     },
     {
         path: '**',

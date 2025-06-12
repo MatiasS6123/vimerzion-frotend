@@ -1,0 +1,67 @@
+<section class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg mt-8">
+  <header class="text-center mb-8">
+    <h1 class="text-3xl font-bold text-blue-700">Mi Perfil</h1>
+  </header>
+
+  <form [formGroup]="perfilForm">
+    <!-- username -->
+    <div class="mb-6">
+      <label for="username" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3" /></svg>
+        Username
+      </label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        class="w-full mt-1 p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-300"
+        readonly
+      />
+    </div>
+    <!-- Email -->
+    <div class="mb-6">
+      <label for="email" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 12H8m0 0l-4 4m4-4l-4-4" /></svg>
+        Correo electrónico
+      </label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        readonly
+      />
+    </div>
+
+    <!-- Rol -->
+    <div class="mb-6">
+      <label for="role" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>
+        Rol
+      </label>
+      <input
+        id="role"
+        type="text"
+        formControlName="role"
+        class="w-full mt-1 p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-300"
+        readonly
+      />
+    </div>
+
+    <!-- Puntos -->
+    <div class="mb-6">
+      <label for="puntos" class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3" /></svg>
+        Puntos
+      </label>
+      <input
+        id="puntos"
+        type="text"
+        formControlName="puntos"
+        class="w-full mt-1 p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-300"
+        readonly
+      />
+    </div>
+    
+  </form>
+</section>

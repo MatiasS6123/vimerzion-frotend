@@ -25,6 +25,8 @@ export interface RoleResponse {
     id: number;
     email: string;
     role: string;
+    puntos: number;
+    username: string;
   };
 }
 
