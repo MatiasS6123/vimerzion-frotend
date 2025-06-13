@@ -90,7 +90,7 @@ export class CatalogoJuegoComponent {
   }
   
   openModal(juego: any): void {
-    console.log('Juego seleccionado:', juego);
+  //  console.log('Juego seleccionado:', juego);
     if (!juego.plataforma || typeof juego.plataforma !== 'object') {
       console.error('Plataforma no definida o no es un objeto:');
       return;
@@ -109,9 +109,9 @@ export class CatalogoJuegoComponent {
     };
   
     // Depuración: Verificar los valores de hashtags y valoración
-    console.log('selectedJuego', this.selectedJuego);
-    console.log('Hashtags:', this.selectedJuego.hashtags);
-    console.log('Valoración:', this.selectedJuego.valoracion);
+  //  console.log('selectedJuego', this.selectedJuego);
+    //console.log('Hashtags:', this.selectedJuego.hashtags);
+    //console.log('Valoración:', this.selectedJuego.valoracion);
   }
   
   

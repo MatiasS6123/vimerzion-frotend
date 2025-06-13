@@ -1,31 +1,4 @@
-<div *ngIf="userRole !== 'ADMINISTRADOR'" class="w-full max-w-2xl mx-auto p-4 sm:p-6 bg-[#1d1867] text-[#f1f1f1] rounded-lg shadow-lg">
-    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 tracking-widest font-nexaHeavy">
-      ¡DESAFÍA TUS HABILIDADES Y GANA!
-    </h2>
-  
-    <img 
-      src="assets/foto-desfios.png" 
-      alt="Desafíos" 
-      class="w-full h-auto mb-6 rounded-md"
-    />
-  
-    <h2 class="text-2xl sm:text-3xl font-bold text-left mb-6 tracking-wide font-nexaBold">
-      Cómo Funciona:
-    </h2>
-  
-    <ul class="list-disc list-inside space-y-2 pl-4 text-sm sm:text-base leading-relaxed font-nexaRegular">
-      <li>
-        Cada desafío requiere una cantidad específica de <span class="text-[#00eefd] font-bold">puntos</span> para participar.
-      </li>
-      <li>
-        Cada desafío ofrece recompensas en forma de <span class="text-[#9450e0] font-bold">GEMAS</span>.
-      </li>
-      <li>
-        Elige los desafíos que mejor se adapten a tus habilidades para maximizar tus oportunidades de ganar.
-      </li>
-    </ul>
-  </div>
- 
+<app-vista-cliente *ngIf="userRole !== 'ADMINISTRADOR'"></app-vista-cliente>
 
   <div class="mt-10">
     <h2 class="text-2xl font-bold text-center mb-6 text-white">Lista de Desafíos</h2>

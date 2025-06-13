@@ -128,18 +128,18 @@ export class PreguntasFrecuentesComponent {
   }
 
   filtrarPreguntas(origen: string): void {
-    console.log('🔍 Origen recibido:', origen);
+ //   console.log('🔍 Origen recibido:', origen);
   
     this.faqs = this.faqsOriginal.filter(p => {
-      console.log('👉 Comparando con:', p.origen);
+    //  console.log('👉 Comparando con:', p.origen);
   
       const coincide = p.origen.includes(origen) || p.origen.includes('todos');
-      console.log('✅ ¿Coincide?', coincide);
+      //console.log('✅ ¿Coincide?', coincide);
   
       return coincide;
     });
   
-    console.log('📋 Preguntas filtradas:', this.faqs);
+   // console.log('📋 Preguntas filtradas:', this.faqs);
   }
   
 

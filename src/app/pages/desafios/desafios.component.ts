@@ -1,16 +1,16 @@
 import { AuthService } from '../../services/auth.service'; // Asegúrate de importar correctamente
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DesafiosService } from '../../services/desafios.service'; // Tu servicio de Desafíos
 import { ToastrService } from 'ngx-toastr';
 import { Desafio } from '../../models/desafios'; // Tu modelo de Desafío
-
+import { VistaClienteComponent } from './vista-cliente/vista-cliente.component';
 @Component({
   selector: 'app-desafio',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, VistaClienteComponent  ],
   templateUrl: './desafios.component.html',
   styleUrl: './desafios.component.css'
 })
@@ -21,9 +21,13 @@ export class DesafiosComponent {
   desafioId: string = '';
   desafios: Desafio[] = [];
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 50;
   currentSlideIndex: number = 0;
   mostrarFormulario: boolean = false;
+  paginaActual: number = 1;
+elementosPorPagina: number = 5;
+totalPaginas: number = 1;
+pagedDesafios: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +45,14 @@ export class DesafiosComponent {
       intentos: [1, [Validators.required, Validators.min(1)]],
     });
   }
+  formFields = [
+  { name: 'desafio', label: 'Desafío', type: 'text', placeholder: 'Nombre del desafío' },
+  { name: 'experiencia', label: 'Experiencia', type: 'text', placeholder: 'Experiencia del desafío' },
+  { name: 'valor', label: 'Valor (puntos)', type: 'text', placeholder: 'Valor en puntos' },
+  { name: 'premio', label: 'Premio (gemas)', type: 'text', placeholder: 'Premio en gemas' },
+  { name: 'tiempoMaximo', label: 'Tiempo Máximo (minutos)', type: 'number', placeholder: 'Tiempo máximo permitido' },
+  { name: 'intentos', label: 'Intentos', type: 'number', placeholder: 'Cantidad de intentos permitidos' },
+];
 
   ngOnInit(): void {
     this.authService.getRole().subscribe({
@@ -71,7 +83,42 @@ export class DesafiosComponent {
       }
     });
   }
-    
+  desafiosFiltrados: any[] = [];
+filtro: string = '';
+
+filtrarDesafios(): void {
+  if (!this.filtro.trim()) {
+    this.desafiosFiltrados = [...this.desafios];
+  } else {
+    this.desafiosFiltrados = this.desafios.filter(d =>
+      d.desafio.toLowerCase().includes(this.filtro.toLowerCase())
+    );
+  }
+  this.paginaActual = 1;
+  this.actualizarPaginacion();
+}
+
+    actualizarPaginacion(): void {
+  const inicio = (this.paginaActual - 1) * this.elementosPorPagina;
+  const fin = inicio + this.elementosPorPagina;
+  this.totalPaginas = Math.ceil(this.desafiosFiltrados.length / this.elementosPorPagina);
+  this.pagedDesafios = this.desafiosFiltrados.slice(inicio, fin);
+}
+
+  paginaAnterior(): void {
+  if (this.paginaActual > 1) {
+    this.paginaActual--;
+    this.actualizarPaginacion();
+  }
+}
+
+paginaSiguiente(): void {
+  if (this.paginaActual < this.totalPaginas) {
+    this.paginaActual++;
+    this.actualizarPaginacion();
+  }
+}
+
   private loadDesafio(id: string): void {
     this.desafiosService.getDesafioById(+id).subscribe({
       next: (desafio) => {
@@ -122,6 +169,7 @@ export class DesafiosComponent {
   private loadDesafios(): void {
     this.desafiosService.getAllDesafios(this.currentPage, this.itemsPerPage).subscribe({
       next: (response) => {
+      //  console.log(response);
         this.desafios = response.desafios.filter(d => d.activo === true);
 
       },

@@ -61,8 +61,8 @@ export class HeaderComponent implements OnInit{
     this.selectionService.getSelection().subscribe((selection) => {
       this.isPersonSelected = selection;
     });
-    console.log(this.isAuthenticated);
-    console.log("Rol del usuario:", this.rolUsuario);
+  //  console.log(this.isAuthenticated);
+    //console.log("Rol del usuario:", this.rolUsuario);
   }
 
   

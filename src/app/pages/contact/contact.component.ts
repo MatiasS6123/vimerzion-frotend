@@ -106,8 +106,8 @@ export class ContactComponent implements OnInit {
   if (user?.email) {
     this.contactForm.get('correo')?.setValue(user.email);
   }
-  console.log('cargando contacto');
-  console.log('user', user);
+  //console.log('cargando contacto');
+  //console.log('user', user);
 }
 
   serviciosDisponibles: string[] = [];

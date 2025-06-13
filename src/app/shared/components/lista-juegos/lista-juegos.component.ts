@@ -30,14 +30,14 @@ export class ListaJuegosComponent {
   }
 
   loadGames(page: number, limit: number) {
-    console.log('🔄 Solicitando juegos - Página:', page, ' Límite:', limit);
+  //  console.log('🔄 Solicitando juegos - Página:', page, ' Límite:', limit);
     
     this.gameService.getAllPaginated(page, limit).subscribe({
       next: (response) => {
-        console.log('✅ Respuesta recibida:', response);
+    //    console.log('✅ Respuesta recibida:', response);
   
         this.games = response.games.map((game, index) => {
-          console.log(`🎮 Juego ${index + 1}:`, game);
+      //    console.log(`🎮 Juego ${index + 1}:`, game);
   
           return {
             id: game.id,
@@ -51,7 +51,7 @@ export class ListaJuegosComponent {
   
         this.totalGames = response.total;
         this.totalPages = Math.ceil(this.totalGames / this.itemsPerPage);
-        console.log('📄 Total juegos:', this.totalGames, ' Total páginas:', this.totalPages);
+        //console.log('📄 Total juegos:', this.totalGames, ' Total páginas:', this.totalPages);
       },
       error: (err) => console.error('❌ Error al cargar los juegos:', err),
     });

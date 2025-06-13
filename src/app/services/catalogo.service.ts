@@ -43,11 +43,11 @@ getCatalogData(
     )
     .pipe(
       tap((response) => {
-        console.log('✅ Datos recibidos del backend:');
+       /* console.log('✅ Datos recibidos del backend:');
         console.log('Games:', response.games);
         console.log('Total:', response.total);
         console.log('Page:', response.page);
-        console.log('Pages:', response.pages);
+        console.log('Pages:', response.pages);*/
       }),
       catchError((error) => {
         console.error('❌ Error al obtener el catálogo de juegos:', error);

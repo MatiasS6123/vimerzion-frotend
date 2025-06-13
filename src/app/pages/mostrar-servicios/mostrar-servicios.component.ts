@@ -26,7 +26,7 @@ export class MostrarServiciosComponent{
     // Obtener los servicios según la selección
     this.fotos = this.detalleServicioService.getServiciosPorTipo();
     this.userSelection=this.getUserSelection();
-    console.log(this.userSelection)
+   // console.log(this.userSelection)
     if (this.fotos.length === 0) {
       console.error('No se encontraron servicios para la selección actual.');
     }

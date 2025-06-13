@@ -46,7 +46,7 @@ export class ListaTecnologiaComponent {
   }
 
   handleAction(_id: string): void {
-    console.log(_id)
+    //console.log(_id)
     this.router.navigate(['/gestion-tecnologias'], { queryParams: { _id: _id } });
 
   }
