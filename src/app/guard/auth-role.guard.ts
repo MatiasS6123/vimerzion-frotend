@@ -11,23 +11,34 @@ export const authRoleGuard: CanActivateFn = async (route, state) => {
   const isPublic = route.data['public'] ?? false;
   const currentUrl = state.url;
 
+  //console.log('authRoleGuard running - isPublic:', isPublic, 'url:', currentUrl);
+
+
   try {
     if (isPublic) {
+      //console.log('Public route, access granted');
+
       return true; // Permitir acceso a rutas públicas
     }
 
     const isAuthenticated = await firstValueFrom(authService.isAuthenticated());
     if (!isAuthenticated) {
+    //  console.log('Not authenticated, redirecting');
+
       sessionStorage.setItem('redirectUrl', currentUrl);
       await router.navigate(['/login']);
       return false;
     }
 
     if (requiredRoles && requiredRoles.length > 0) {
+    //  console.log('Unauthorized role, redirecting');
+
       const response = await firstValueFrom(authService.getRole());
       const userRole = response.role;
 
       if (!requiredRoles.includes(userRole)) {
+     //   console.log('Guard error, redirecting to login', Error);
+
         const redirectPath = userRole === 'CLIENTE' ? '/catalogo' : '/inicio';
         await router.navigate([redirectPath]);
         return false;

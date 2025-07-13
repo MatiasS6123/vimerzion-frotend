@@ -1,0 +1,125 @@
+<h2 class="text-2xl font-bold text-center mb-6 text-white">Lista de Desafíos</h2>
+
+<button 
+  (click)="mostrarFormulario = !mostrarFormulario"
+  class="mb-6 bg-[#00eefd] hover:bg-[#00cfe2] text-white font-bold py-2 px-4 rounded transition"
+>
+  {{ mostrarFormulario ? 'Ocultar Formulario' : 'Mostrar Formulario' }}
+</button>
+
+<!-- FORMULARIO -->
+<div *ngIf="mostrarFormulario" class="container mx-auto px-4 py-8">
+  <h1 class="text-4xl font-extrabold text-center text-white mb-8">
+    {{ isEditMode ? 'Actualizar Desafío' : 'Agregar Desafío' }}
+  </h1>
+  
+  <form [formGroup]="desafioForm" (ngSubmit)="onSubmit()" class="bg-white rounded-lg shadow-lg p-8">
+    <div class="mb-6">
+      <label for="desafio" class="block text-lg font-medium text-gray-700">Desafío</label>
+      <input
+        id="desafio"
+        type="text"
+        formControlName="desafio"
+        placeholder="Nombre del desafío"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div class="mb-6">
+      <label for="experiencia" class="block text-lg font-medium text-gray-700">Experiencia</label>
+      <input
+        id="experiencia"
+        type="text"
+        formControlName="experiencia"
+        placeholder="Experiencia del desafío"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div class="mb-6">
+      <label for="valor" class="block text-lg font-medium text-gray-700">Valor (puntos)</label>
+      <input
+        id="valor"
+        type="text"
+        formControlName="valor"
+        placeholder="Valor en puntos"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div class="mb-6">
+      <label for="premio" class="block text-lg font-medium text-gray-700">Premio (gemas)</label>
+      <input
+        id="premio"
+        type="text"
+        formControlName="premio"
+        placeholder="Premio en gemas"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div class="mb-6">
+      <label for="tiempoMaximo" class="block text-lg font-medium text-gray-700">Tiempo Máximo (minutos)</label>
+      <input
+        id="tiempoMaximo"
+        type="number"
+        formControlName="tiempoMaximo"
+        placeholder="Tiempo máximo permitido"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div class="mb-6">
+      <label for="intentos" class="block text-lg font-medium text-gray-700">Intentos</label>
+      <input
+        id="intentos"
+        type="number"
+        formControlName="intentos"
+        placeholder="Cantidad de intentos permitidos"
+        class="mt-2 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div class="mt-8 flex justify-between">
+      <button
+        type="submit"
+        [disabled]="!desafioForm.valid"
+        class="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring focus:ring-indigo-300 w-1/2 mr-2"
+      >
+        {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+      </button>
+
+      <button
+        type="button"
+        (click)="onCancel()"
+        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring focus:ring-red-300 w-1/2 ml-2"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- LISTA DE DESAFÍOS -->
+<div *ngIf="desafios.length > 0; else noDesafios">
+  <div *ngFor="let desafio of desafios" class="bg-white rounded-lg shadow p-4 mb-4">
+    <h3 class="text-xl font-bold text-gray-800">{{ desafio.desafio }}</h3>
+    <p class="text-gray-600">Experiencia: {{ desafio.experiencia }}</p>
+    <p class="text-gray-600">Valor: {{ desafio.valor }} puntos</p>
+    <p class="text-gray-600">Premio: {{ desafio.premio }} gemas</p>
+    <p class="text-gray-600">Tiempo Máximo: {{ desafio.tiempoMaximo }} min</p>
+    <p class="text-gray-600">Intentos: {{ desafio.intentos }}</p>
+
+    <div class="mt-4 flex space-x-2">
+      <button
+        (click)="onDelete(desafio._id!)"
+        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-red-300">
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noDesafios>
+  <p class="text-white text-center mt-6">No hay desafíos disponibles.</p>
+</ng-template>
