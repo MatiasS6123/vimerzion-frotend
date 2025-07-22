@@ -25,6 +25,7 @@ login(user: userLogin): Observable<LoginResponse> {
   return this.http.post<LoginResponse>(`${this.API_URL}/login`, user).pipe(
     tap((response) => {
       this.setUserData(response.user);
+      
     }),
     catchError((error) => {
       return throwError(() => error);
@@ -38,8 +39,10 @@ setUserData(user: LoginResponse['user']) {
 }
 
 getUserData(): LoginResponse['user'] | undefined {
+  
   if (!this.userData) {
     const stored = localStorage.getItem('userData');
+  //  console.log('getUserData called',stored);
     if (stored) {
       this.userData = JSON.parse(stored); // CARGAR DESDE LOCALSTORAGE
     }
